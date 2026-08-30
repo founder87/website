@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import { projects } from "../../data/projects";
+---
+
+<BaseLayout
+  title="Projects"
+  description="Games and interactive projects currently in development at Solivant Studios."
+>
+  <header class="page-header section">
+    <div class="container narrow">
+      <p class="eyebrow">Our work</p>
+      <h1>Projects</h1>
+      <p class="lede">A home for current and future releases from Solivant Studios.</p>
+    </div>
+  </header>
+
+  <section class="section section--bordered" aria-label="Projects in development">
+    <div class="container project-grid">
+      {projects.map((project) => <ProjectCard project={project} />)}
+    </div>
+  </section>
+</BaseLayout>

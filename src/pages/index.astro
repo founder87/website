@@ -1,0 +1,50 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import StudioLogo from "../components/StudioLogo.astro";
+import { projects } from "../data/projects";
+---
+
+<BaseLayout>
+  <section class="hero section">
+    <div class="container hero__inner">
+      <div class="hero__copy">
+        <p class="eyebrow">Independent game studio</p>
+        <h1>Games in development.</h1>
+        <p class="lede">
+          Solivant Studios is building original interactive projects. More will be revealed as development continues.
+        </p>
+        <a class="button" href="/projects/">View projects</a>
+      </div>
+      <div class="hero__mark" aria-hidden="true">
+        <StudioLogo animated />
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="projects-heading">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Current work</p>
+          <h2 id="projects-heading">Projects</h2>
+        </div>
+        <a class="text-link" href="/projects/">All projects <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="project-grid">
+        {projects.map((project) => <ProjectCard project={project} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--bordered" aria-labelledby="studio-heading">
+    <div class="container narrow">
+      <p class="eyebrow">The studio</p>
+      <h2 id="studio-heading">About Solivant</h2>
+      <p class="lede">
+        Studio background, creative principles, and team information will live here once the final copy is ready.
+      </p>
+      <a class="text-link" href="/studio/">Visit the studio page <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+</BaseLayout>

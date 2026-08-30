@@ -1,0 +1,63 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { projects, type Project } from "../../data/projects";
+
+export function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+---
+
+<BaseLayout title={project.publicTitle} description={project.description} image={project.heroImage}>
+  <article>
+    <header class="page-header section">
+      <div class="container narrow">
+        <a class="back-link" href="/projects/"><span aria-hidden="true">←</span> Projects</a>
+        <p class="eyebrow">{project.status} · Working title</p>
+        <h1>{project.publicTitle}</h1>
+        <p class="lede">{project.description}</p>
+      </div>
+    </header>
+
+    <section class="section section--bordered" aria-label={`${project.publicTitle} media`}>
+      <div class="container">
+        <div class="project-hero-placeholder">
+          {project.heroImage ? (
+            <img src={project.heroImage} alt={`${project.publicTitle} key art`} />
+          ) : (
+            <p>Project artwork and gameplay media will be added here.</p>
+          )}
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="project-details-heading">
+      <div class="container narrow">
+        <p class="eyebrow">Project information</p>
+        <h2 id="project-details-heading">Details</h2>
+        <dl class="project-facts">
+          <div>
+            <dt>Status</dt>
+            <dd>{project.status}</dd>
+          </div>
+          <div>
+            <dt>Title</dt>
+            <dd>Working title; final name not announced</dd>
+          </div>
+          <div>
+            <dt>Platforms</dt>
+            <dd>{project.platforms.length ? project.platforms.join(", ") : "To be announced"}</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+  </article>
+</BaseLayout>

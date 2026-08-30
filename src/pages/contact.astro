@@ -1,0 +1,53 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Contact" description="Contact Solivant Studios.">
+  <header class="page-header section">
+    <div class="container narrow">
+      <p class="eyebrow">Get in touch</p>
+      <h1>Contact</h1>
+      <p class="lede">Use the form for general studio inquiries.</p>
+    </div>
+  </header>
+
+  <section class="section section--bordered">
+    <div class="container narrow">
+      <form
+        class="contact-form"
+        name="contact"
+        method="POST"
+        action="/contact/success/"
+        data-netlify="true"
+        netlify-honeypot="company"
+      >
+        <input type="hidden" name="form-name" value="contact" />
+        <p class="form-honeypot" aria-hidden="true">
+          <label>Do not fill this out if you are human: <input name="company" tabindex="-1" autocomplete="off" /></label>
+        </p>
+
+        <label>
+          Name
+          <input type="text" name="name" autocomplete="name" required />
+        </label>
+
+        <label>
+          Email
+          <input type="email" name="email" autocomplete="email" required />
+        </label>
+
+        <label>
+          Subject
+          <input type="text" name="subject" required />
+        </label>
+
+        <label>
+          Message
+          <textarea name="message" rows="7" required></textarea>
+        </label>
+
+        <button class="button" type="submit">Send inquiry</button>
+      </form>
+    </div>
+  </section>
+</BaseLayout>

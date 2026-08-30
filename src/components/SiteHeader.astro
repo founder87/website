@@ -1,0 +1,31 @@
+---
+import StudioLogo from "./StudioLogo.astro";
+import { site } from "../data/site";
+
+const currentPath = Astro.url.pathname;
+
+function isCurrent(href: string) {
+  if (href === "/") return currentPath === href;
+  return currentPath.startsWith(href);
+}
+---
+
+<header class="site-header">
+  <div class="site-header__inner container">
+    <a class="site-header__brand" href="/" aria-label={`${site.name} home`}>
+      <StudioLogo compact />
+    </a>
+
+    <nav aria-label="Primary navigation">
+      <ul class="site-header__nav">
+        {site.navigation.map((item) => (
+          <li>
+            <a href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
