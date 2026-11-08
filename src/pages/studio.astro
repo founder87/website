@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import BrandMoment from "../components/BrandMoment.astro";
 import { projects } from "../data/projects";
 ---
 <BaseLayout title="Studio" description="Solivant Studios — Mundi sine fine. Engineering hyperoptimized game engines for physical realism and wider hardware access.">
@@ -12,7 +11,7 @@ import { projects } from "../data/projects";
 
   <section class="container section-bottom" aria-labelledby="engineering-title">
     <div class="chapter-header">
-      <p class="eyebrow">I · Engineering &amp; Craft</p>
+      <p class="eyebrow">I · Engineering</p>
       <span class="chapter-header__rule" aria-hidden="true"></span>
     </div>
     <div class="editorial-grid">
@@ -20,8 +19,7 @@ import { projects } from "../data/projects";
         <h2 id="engineering-title">Performance and realism</h2>
       </div>
       <div>
-        <p class="body-copy">At Solivant Studios, engine optimization is foundational. By building low-level systems designed to extract the full capability of modern hardware, we can simulate dense, physically grounded worlds without restricting them to top-tier machines.</p>
-        <p class="body-copy">Our current focus is our initial release, <strong>Byzantium</strong>. Alongside it, BoomTown, The Grid, and Horizon are upcoming codenamed projects in early stages with limited public information.</p>
+        <p class="body-copy">At Solivant Studios, engine optimization is foundational. By building low-level systems designed to extract the full capability of modern hardware, we simulate dense, physically grounded worlds without restricting them to top-tier machines.</p>
       </div>
     </div>
     <dl class="architecture-ledger">
@@ -42,19 +40,10 @@ import { projects } from "../data/projects";
 
   <section class="section studio-band" aria-labelledby="studio-projects">
     <div class="container editorial-grid">
-      <div><p class="eyebrow">II · Slate</p><h2 id="studio-projects">Development slate</h2></div>
+      <div><p class="eyebrow">II · Slate</p><h2 id="studio-projects">In development</h2></div>
       <div class="studio-project-list">
-        {projects.map(project => <a href={"/projects/" + project.slug + "/"}><span class="eyebrow">{project.workingTitle ? "Codename" : "Release 01"}</span><span>{project.title}<small>{project.workingTitle ? "Upcoming · Limited information" : "Initial release · In development"}</small></span><span aria-hidden="true">→</span></a>)}
+        {projects.map(project => <a href={"/projects/" + project.slug + "/"}><span class="eyebrow">{project.workingTitle ? "Codename" : "Release 01"}</span><span>{project.title}<small>{project.workingTitle ? "Upcoming" : "Initial release"}</small></span><span aria-hidden="true">→</span></a>)}
       </div>
     </div>
-  </section>
-
-  <section class="container section studio-signature" aria-labelledby="signature-title">
-    <div>
-      <p class="eyebrow">III · Emblem</p>
-      <h2 id="signature-title">The Sun Moth</h2>
-      <p class="body-copy"><em>Mundi sine fine</em> — worlds without end. The emblem of Solivant Studios.</p>
-    </div>
-    <BrandMoment tone="mono" />
   </section>
 </BaseLayout>

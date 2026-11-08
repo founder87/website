@@ -6,11 +6,10 @@ import { projects } from "../../data/projects";
 <BaseLayout title="Projects" description="Games in development at Solivant Studios, led by our initial release Byzantium alongside upcoming codenamed projects BoomTown, The Grid, and Horizon.">
   <header class="container page-header">
     <p class="eyebrow">Projects</p>
-    <h1>Games in development</h1>
-    <p class="lede">Led by our initial release, Byzantium. BoomTown, The Grid, and Horizon are upcoming codenamed projects with limited public information.</p>
+    <h1>In development</h1>
+    <p class="lede">Led by our initial release, Byzantium, alongside upcoming codenamed projects.</p>
   </header>
   <section class="container section-bottom" aria-label="All projects">
     <div class="project-grid">{projects.map((project, index) => <ProjectCard project={project} index={index} />)}</div>
-    <p class="project-index-note">Byzantium is our initial release in active development. BoomTown, The Grid, and Horizon are codenames for upcoming projects. Target platforms and release dates will be shared when announced.</p>
   </section>
 </BaseLayout>

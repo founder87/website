@@ -8,41 +8,31 @@ const upcoming = projects.slice(1);
 <BaseLayout>
   <section class="hero" aria-labelledby="home-title">
     <div class="container hero__masthead">
-      <div class="hero__meta">
-        <p class="eyebrow">Solivant Studios</p>
-        <span class="hero__divider" aria-hidden="true"></span>
-        <p class="eyebrow">Independent Game Studio</p>
-      </div>
+      <p class="eyebrow">Solivant Studios</p>
       <h1 id="home-title"><em>Mundi sine fine</em></h1>
       <div class="hero__subgrid">
         <p class="lede">We engineer hyperoptimized game engines that push hardware to its limits—uniting grounded physical realism with wider access across devices.</p>
-        <div class="actions hero__actions">
-          <a href="/projects/byzantium/" class="button" data-track="hero_byzantium">Enter Byzantium</a>
-          <a href="/studio/" class="button button--outline" data-track="hero_studio">Studio &amp; engineering</a>
-        </div>
       </div>
     </div>
 
     <div class="container">
       <article class="project-card flagship-stage" data-tone={flagship.tone}>
         <div class="flagship-stage__bar" aria-hidden="true">
-          <span>Release I · Initial Release</span>
+          <span>Initial Release</span>
           <span>Constantinople · Circa 1000 AD</span>
-          <span>In Active Development</span>
+          <span>In Development</span>
         </div>
         <a class="flagship-stage__canvas" href="/projects/byzantium/" aria-label="Explore Byzantium">
           <div class="flagship-stage__horizon" aria-hidden="true"></div>
-          <p class="flagship-stage__kicker" aria-hidden="true">Anno Domini M · The Eastern Roman Empire</p>
           <span class="flagship-stage__display" aria-hidden="true">Byzantium</span>
         </a>
         <div class="flagship-stage__deck">
           <div class="flagship-stage__narrative">
-            <p class="eyebrow">I · Flagship Release</p>
+            <p class="eyebrow">I · Initial Release</p>
             <h2 id="flagship-title">For Byzantium</h2>
             <p class="body-copy">Around the year 1000, Constantinople is the greatest city in the Christian world, but the Roman Empire is a shadow of its former self. Engulfed in internal struggle and looming threats from outside, the emperor himself has called upon you to serve. For Byzantium.</p>
             <div class="actions">
               <a class="button button--gold" href="/projects/byzantium/" data-track="spotlight_byzantium">Explore Byzantium</a>
-              <a class="text-link" href="/contact/">Press &amp; inquiries</a>
             </div>
           </div>
           <dl class="flagship-stage__pillars" aria-label="Byzantium core pillars">
@@ -77,8 +67,8 @@ const upcoming = projects.slice(1);
         <div>
           <p class="lede">Most modern games trade hardware accessibility for visual ambition. At Solivant Studios, we engineer low-level systems from the ground up to push devices to their true limits—delivering large-scale simulation and physical realism across a broader spectrum of hardware.</p>
           <div class="actions">
-            <a class="button button--outline" href="/studio/">About our engineering</a>
-            <a class="text-link" href="/contact/">Contact the studio</a>
+            <a class="button button--outline" href="/studio/">Studio &amp; engineering</a>
+            <a class="text-link" href="/contact/">Contact</a>
           </div>
         </div>
       </div>
@@ -102,14 +92,13 @@ const upcoming = projects.slice(1);
   <section id="projects" class="section" aria-labelledby="upcoming-title">
     <div class="container">
       <div class="chapter-header">
-        <p class="eyebrow">III · Future Worlds</p>
+        <p class="eyebrow">III · Upcoming</p>
         <span class="chapter-header__rule" aria-hidden="true"></span>
       </div>
       <div class="section-heading">
         <div>
-          <h2 id="upcoming-title">Upcoming codenames</h2>
+          <h2 id="upcoming-title">Codenamed projects</h2>
         </div>
-        <p>Early-stage worlds in development alongside Byzantium. Public details remain limited until official reveal.</p>
       </div>
       <div class="project-grid project-grid--upcoming">
         {upcoming.map((project, index) => <ProjectCard project={project} index={index + 1} heading="h3" />)}

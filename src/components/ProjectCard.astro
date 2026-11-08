@@ -22,9 +22,9 @@ const { project, heading: Heading = "h2" } = Astro.props;
     </div>
     <div class="project-card__body">
       <div>
-        <p class="eyebrow">{project.workingTitle ? "Upcoming · Codename" : "Initial release · In development"}</p>
+        <p class="eyebrow">{project.workingTitle ? "Upcoming · Codename" : "Initial release"}</p>
         <Heading>{project.title}</Heading>
-        <p class="project-card__summary">{project.summary}</p>
+        {!project.workingTitle && <p class="project-card__summary">{project.summary}</p>}
       </div>
     </div>
     <span class="sr-only">View project. {project.summary}</span>
