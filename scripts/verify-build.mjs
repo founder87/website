@@ -13,7 +13,7 @@ const htmlFiles = files.filter(file => extname(file) === ".html");
 const inlineScripts = new Set();
 const decode = text => text.replaceAll("&quot;", '"').replaceAll("&#39;", "'").replaceAll("&amp;", "&");
 const attributes = tag => Object.fromEntries([...tag.matchAll(/([\w:-]+)\s*=\s*"([^"]*)"/g)].map(match => [match[1].toLowerCase(), decode(match[2])]));
-const required = ["index.html", "projects/index.html", "projects/byzantium/index.html", "projects/boomtown/index.html", "projects/the-grid/index.html", "projects/horizon/index.html", "studio/index.html", "contact/index.html", "privacy/index.html", "contact/success/index.html", "404.html", "robots.txt", "sitemap.xml", "_headers"];
+const required = ["index.html", "projects/index.html", "projects/byzantium/index.html", "projects/boomtown/index.html", "projects/the-grid/index.html", "projects/horizon/index.html", "studio/index.html", "contact/index.html", "privacy/index.html", "contact/success/index.html", "404.html", "robots.txt", "sitemap.xml", "_headers", ".well-known/security.txt"];
 for (const file of required) assert.ok(files.includes(resolve(root, file)), "Missing route: " + file);
 
 for (const file of files) {

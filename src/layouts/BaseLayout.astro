@@ -15,6 +15,7 @@ const socialImage = new URL(image, settings.origin);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#142b26" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="description" content={description} />
     <meta name="robots" content={noindex || !settings.indexable ? "noindex, nofollow" : "index, follow"} />
     <link rel="canonical" href={canonical} />
