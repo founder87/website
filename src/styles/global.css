@@ -172,10 +172,10 @@ h1 em, h2 em { font-weight: 400; }
   --project-ink: #cce0f0;
 }
 [data-tone="silver"] {
-  --project-bg: #11151c;
-  --project-glow: rgba(182, 198, 220, 0.2);
-  --project-ember: rgba(52, 68, 92, 0.2);
-  --project-ink: #dae3ee;
+  --project-bg: #081510;
+  --project-glow: rgba(82, 196, 138, 0.25);
+  --project-ember: rgba(18, 88, 56, 0.24);
+  --project-ink: #c6ebd7;
 }
 [data-tone="clay"] {
   --project-bg: #19100c;
