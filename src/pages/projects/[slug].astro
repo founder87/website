@@ -39,46 +39,25 @@ const isByzantium = project.slug === "byzantium";
     )}
   </div>
   {isByzantium ? (
-    <>
-      <section class="container section project-overview" aria-labelledby="about-project">
-        <div>
-          <p class="eyebrow">Circa 1000 AD · Eastern Roman Empire</p>
-          <h2 id="about-project">For Byzantium</h2>
-          {project.description.map(paragraph => <p class="body-copy">{paragraph}</p>)}
-          <div class="actions">
-            {project.trailer && <a class="button button--gold" href={project.trailer.href} rel="noopener noreferrer">{project.trailer.label}</a>}
-            {project.links?.map(link => <a class="button button--outline" href={link.href} rel="noopener noreferrer">{link.label}</a>)}
-            <a class="text-link" href="/contact/">Inquire about {project.title}</a>
-          </div>
+    <section class="container section project-overview" aria-labelledby="about-project">
+      <div>
+        <p class="eyebrow">Circa 1000 AD · Eastern Roman Empire</p>
+        <h2 id="about-project">For Byzantium</h2>
+        {project.description.map(paragraph => <p class="body-copy">{paragraph}</p>)}
+        <div class="actions">
+          {project.trailer && <a class="button button--gold" href={project.trailer.href} rel="noopener noreferrer">{project.trailer.label}</a>}
+          {project.links?.map(link => <a class="button button--outline" href={link.href} rel="noopener noreferrer">{link.label}</a>)}
+          <a class="text-link" href="/contact/">Inquire about {project.title}</a>
         </div>
-        <dl class="project-facts">
-          <div><dt>Studio</dt><dd>Solivant Studios</dd></div>
-          <div><dt>Status</dt><dd>{project.status}</dd></div>
-          <div><dt>Release</dt><dd>Initial release</dd></div>
-          <div><dt>Setting</dt><dd>Constantinople &amp; the Byzantine World (c. 1000 AD)</dd></div>
-        </dl>
-      </section>
-      <section class="container section-bottom" aria-labelledby="pillars-title">
-        <div class="chapter-header">
-          <p class="eyebrow" id="pillars-title">Core Pillars</p>
-          <span class="chapter-header__rule" aria-hidden="true"></span>
-        </div>
-        <dl class="architecture-ledger">
-          <div>
-            <dt><span>I</span> The Imperial Call</dt>
-            <dd>Serve the throne of Constantinople at the turn of the first millennium amidst internal struggle and gathering frontier threats.</dd>
-          </div>
-          <div>
-            <dt><span>II</span> Fortification &amp; Siegecraft</dt>
-            <dd>Design timber and stone defenses, construct counter-siege artillery, and hold key strongpoints across the empire.</dd>
-          </div>
-          <div>
-            <dt><span>III</span> Disciplined Formations</dt>
-            <dd>Lead large-scale troop formations powered by Solivant’s custom low-level simulation and hardware optimization.</dd>
-          </div>
-        </dl>
-      </section>
-    </>
+      </div>
+      <dl class="project-facts">
+        <div><dt>Studio</dt><dd>Solivant Studios</dd></div>
+        <div><dt>Status</dt><dd>{project.status}</dd></div>
+        <div><dt>Release</dt><dd>Initial release</dd></div>
+        <div><dt>Setting</dt><dd>Constantinople &amp; the Byzantine World (c. 1000 AD)</dd></div>
+        <div><dt>Technology</dt><dd>Hyperoptimized custom engine built for physical realism and broad device reach</dd></div>
+      </dl>
+    </section>
   ) : (
     <section class="container section" aria-labelledby="about-project">
       <h2 id="about-project" class="sr-only">{project.title}</h2>

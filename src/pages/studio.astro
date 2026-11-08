@@ -2,45 +2,19 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { projects } from "../data/projects";
 ---
-<BaseLayout title="Studio" description="Solivant Studios — Mundi sine fine. Engineering hyperoptimized game engines for physical realism and wider hardware access.">
+<BaseLayout title="Studio" description="Solivant Studios. Mundi sine fine. Developing Byzantium alongside upcoming codenamed projects.">
   <header class="container page-header">
     <p class="eyebrow">Solivant Studios</p>
     <h1><em>Mundi sine fine</em></h1>
-    <p class="lede">We engineer hyperoptimized game engines that push hardware to its limits—expanding access to demanding games while delivering grounded physical realism.</p>
+    <p class="lede">Developing our initial release, <strong>Byzantium</strong>, alongside upcoming codenamed projects.</p>
   </header>
-
-  <section class="container section-bottom" aria-labelledby="engineering-title">
-    <div class="chapter-header">
-      <p class="eyebrow">I · Engineering</p>
-      <span class="chapter-header__rule" aria-hidden="true"></span>
-    </div>
-    <div class="editorial-grid">
-      <div>
-        <h2 id="engineering-title">Performance and realism</h2>
-      </div>
-      <div>
-        <p class="body-copy">At Solivant Studios, engine optimization is foundational. By building low-level systems designed to extract the full capability of modern hardware, we simulate dense, physically grounded worlds without restricting them to top-tier machines.</p>
-      </div>
-    </div>
-    <dl class="architecture-ledger">
-      <div>
-        <dt><span>01</span> Hardware Efficiency</dt>
-        <dd>Pushing CPU and GPU pipelines to their physical limits so complex worlds maintain responsive frame pacing.</dd>
-      </div>
-      <div>
-        <dt><span>02</span> Simulation Density</dt>
-        <dd>Building systems where fortifications, terrain, and large formations interact through grounded rules rather than scripted shortcuts.</dd>
-      </div>
-      <div>
-        <dt><span>03</span> Broad Accessibility</dt>
-        <dd>Ensuring players across a wide spectrum of devices can experience large-scale strategy and simulation.</dd>
-      </div>
-    </dl>
-  </section>
 
   <section class="section studio-band" aria-labelledby="studio-projects">
     <div class="container editorial-grid">
-      <div><p class="eyebrow">II · Slate</p><h2 id="studio-projects">In development</h2></div>
+      <div>
+        <p class="eyebrow">Projects</p>
+        <h2 id="studio-projects">In development</h2>
+      </div>
       <div class="studio-project-list">
         {projects.map(project => <a href={"/projects/" + project.slug + "/"}><span class="eyebrow">{project.workingTitle ? "Codename" : "Release 01"}</span><span>{project.title}<small>{project.workingTitle ? "Upcoming" : "Initial release"}</small></span><span aria-hidden="true">→</span></a>)}
       </div>

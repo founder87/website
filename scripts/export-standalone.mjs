@@ -121,7 +121,7 @@ function render() {
   lastRoute = route;
   const page = bundle.pages[route];
   frame.srcdoc = page.html.replace(/__SOLIVANT_EMBED_\d+__/g, token => bundle.assets[token]);
-  document.title = page.title + " — offline appearance preview";
+  document.title = page.title + " - offline appearance preview";
 }
 window.addEventListener("hashchange", render);
 window.addEventListener("message", event => {
@@ -134,7 +134,7 @@ window.addEventListener("message", event => {
       render();
     }
   } else if (["solivant-preview:external", "solivant-preview:form"].includes(event.data.type)) {
-    notice.textContent = "Appearance preview only — external links and form submissions are disabled.";
+    notice.textContent = "Appearance preview only. External links and form submissions are disabled.";
     notice.hidden = false;
     clearTimeout(noticeTimer);
     noticeTimer = setTimeout(() => { notice.hidden = true; }, 5000);
@@ -180,7 +180,7 @@ for (const data of Object.values(assets)) {
   assert.equal(Buffer.from(encoded, "base64").toString("base64"), encoded, "Invalid embedded asset");
 }
 
-const output = '<!doctype html>\n<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#142b26"><title>Solivant Studios — offline appearance preview</title><style>html,body{margin:0;width:100%;height:100%;background:#111813}#site-preview{display:block;border:0;width:100%;height:100%;height:100dvh}#preview-notice{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);z-index:10;max-width:calc(100% - 2rem);padding:1rem 1.25rem;background:#cfdfc2;color:#142b26;font:14px/1.5 system-ui,sans-serif;box-shadow:0 6px 24px #0008}[hidden]{display:none!important}</style></head><body><iframe id="site-preview" title="Solivant Studios website appearance preview" sandbox="allow-scripts" srcdoc="' + escapedHome + '"></iframe><p id="preview-notice" role="status" hidden></p><script id="preview-bundle" type="application/json">' + payload + '</script><script>' + shellScript + '</script></body></html>\n';
+const output = '<!doctype html>\n<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#090807"><title>Solivant Studios - offline appearance preview</title><style>html,body{margin:0;width:100%;height:100%;background:#090807}#site-preview{display:block;border:0;width:100%;height:100%;height:100dvh}#preview-notice{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);z-index:10;max-width:calc(100% - 2rem);padding:1rem 1.25rem;background:#ebe4d5;color:#090807;font:14px/1.5 system-ui,sans-serif;box-shadow:0 6px 24px #0008}[hidden]{display:none!important}</style></head><body><iframe id="site-preview" title="Solivant Studios website appearance preview" sandbox="allow-scripts" srcdoc="' + escapedHome + '"></iframe><p id="preview-notice" role="status" hidden></p><script id="preview-bundle" type="application/json">' + payload + '</script><script>' + shellScript + '</script></body></html>\n';
 await writeFile(destination, output);
 console.log("Standalone preview: " + fileURLToPath(destination));
 console.log(Object.keys(pages).length + " pages, " + Object.keys(assets).length + " embedded assets, " + (Buffer.byteLength(output) / 1024 / 1024).toFixed(2) + " MB. No external asset requests.");
