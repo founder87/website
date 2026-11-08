@@ -1,0 +1,41 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { settings } from "../data/site";
+const contactAddress = settings.contactEmail || "contact@solivantstudios.com";
+---
+<BaseLayout title="Player Support" description="Official player support, technical troubleshooting, and bug reporting for Solivant Studios games on iOS and Steam.">
+  <header class="container page-header">
+    <p class="eyebrow">Solivant Studios · Support</p>
+    <h1>Player Support</h1>
+    <p class="lede">Technical assistance, bug reporting, and account help for Solivant Studios games across iOS and Steam.</p>
+  </header>
+  <div class="container prose section-bottom">
+    <section aria-labelledby="support-direct">
+      <h2 id="support-direct">1. Contact Technical Support</h2>
+      <p>For technical issues, bug reports, or gameplay assistance with <strong>Byzantium</strong> or any Solivant Studios title, email our support team directly at <a class="text-link contact-email" href={"mailto:" + encodeURIComponent(contactAddress)}>{contactAddress}</a>.</p>
+      <p>To help us diagnose and resolve your issue quickly, please include:</p>
+      <p><strong>Game Title &amp; Version:</strong> e.g., Byzantium (and the build or version number shown in settings).<br />
+      <strong>Platform:</strong> iOS / iPadOS, macOS, or Windows PC (Steam).<br />
+      <strong>Device &amp; Hardware:</strong> Your iPhone/iPad model or PC CPU, GPU, and RAM specifications, along with your OS version.<br />
+      <strong>Description:</strong> What happened, and the steps that led up to the issue.</p>
+    </section>
+
+    <section aria-labelledby="support-troubleshooting">
+      <h2 id="support-troubleshooting">2. Common Troubleshooting</h2>
+      <p><strong>iOS &amp; iPadOS (Apple App Store):</strong> Ensure your device is updated to the latest version of iOS or iPadOS and that you have installed the latest game update from the App Store. If the game fails to launch after an update, restart your device to clear temporary system memory. Your local saves and iCloud data are preserved when updating.</p>
+      <p><strong>PC &amp; macOS (Steam):</strong> If you experience missing assets or startup crashes on Steam, right-click the game in your Steam Library, select <em>Properties → Installed Files</em>, and click <em>Verify integrity of game files</em>. Ensure your graphics drivers are up to date.</p>
+    </section>
+
+    <section aria-labelledby="support-billing">
+      <h2 id="support-billing">3. Purchases, Billing &amp; Refunds</h2>
+      <p>All transactions are processed directly by the digital storefront where you purchased the game. Solivant Studios does not have access to your billing account or payment method.</p>
+      <p><strong>Apple App Store Purchases:</strong> Manage purchases, subscriptions, or request a refund through Apple at <a href="https://reportaproblem.apple.com/" rel="noopener noreferrer">reportaproblem.apple.com</a>.</p>
+      <p><strong>Steam Purchases:</strong> Manage purchases or request a Steam refund through Valve at <a href="https://help.steampowered.com/" rel="noopener noreferrer">help.steampowered.com</a>.</p>
+    </section>
+
+    <section aria-labelledby="support-privacy">
+      <h2 id="support-privacy">4. Legal &amp; Privacy</h2>
+      <p>For details on how our games handle save data, diagnostics, and licensing, see our <a href="/privacy/">Privacy Policy</a> and <a href="/terms/">Terms &amp; EULA</a>.</p>
+    </section>
+  </div>
+</BaseLayout>

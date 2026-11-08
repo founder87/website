@@ -1,0 +1,51 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { settings } from "../data/site";
+const contactAddress = settings.contactEmail || "contact@solivantstudios.com";
+---
+<BaseLayout title="Terms & EULA" description="Terms of Service and End User License Agreement (EULA) for Solivant Studios games, applications, and website.">
+  <header class="container page-header">
+    <p class="eyebrow">Solivant Studios · Legal</p>
+    <h1>Terms &amp; EULA</h1>
+    <p class="lede">Terms of Service and End User License Agreement for Solivant Studios games (iOS App Store and Steam) and website.</p>
+    <p class="small muted">Effective Date: November 8, 2026</p>
+  </header>
+  <div class="container prose section-bottom">
+    <section aria-labelledby="terms-license">
+      <h2 id="terms-license">1. License Grant</h2>
+      <p>Subject to your compliance with these Terms and End User License Agreement (“Agreement”), Solivant Studios grants you a personal, limited, non-exclusive, non-transferable, revocable license to download, install, and use our video games and software applications (including <strong>Byzantium</strong>) for your personal, non-commercial entertainment on devices that you own or control.</p>
+    </section>
+
+    <section aria-labelledby="terms-platforms">
+      <h2 id="terms-platforms">2. Apple App Store &amp; Steam Storefront Terms</h2>
+      <p><strong>Apple App Store (iOS, iPadOS, and macOS):</strong> If you download our application from the Apple App Store, you acknowledge that this Agreement is concluded between you and Solivant Studios only, and not with Apple Inc. (“Apple”). Solivant Studios, not Apple, is solely responsible for the licensed application and its content. Your use of the application must comply with the Apple Media Services Terms and Conditions and Usage Rules. Apple has no obligation to furnish any maintenance or support services with respect to the application, and to the maximum extent permitted by applicable law, Apple will have no warranty obligation whatsoever with respect to the application. You acknowledge and agree that Apple, and Apple’s subsidiaries, are third-party beneficiaries of this Agreement, and that upon your acceptance of this Agreement, Apple will have the right to enforce this Agreement against you as a third-party beneficiary.</p>
+      <p><strong>Steam (PC and macOS):</strong> If you access our games through Steam, your purchase, download, updates, and use of Steam platform features are additionally subject to the Valve Corporation Steam Subscriber Agreement.</p>
+    </section>
+
+    <section aria-labelledby="terms-ip">
+      <h2 id="terms-ip">3. Ownership &amp; Intellectual Property</h2>
+      <p>All rights, title, and interest in and to Solivant Studios games and this website—including all engine architecture, source and object code, simulation systems, visual art, audio, narrative text, and trademarks (including <strong>Solivant Studios</strong>, the <strong>Sun Moth</strong> emblem, <em>Mundi sine fine</em>, <strong>Byzantium</strong>, <strong>BoomTown</strong>, <strong>The Grid</strong>, and <strong>Horizon</strong>)—are owned by Solivant Studios and protected by copyright, trademark, and international intellectual property laws.</p>
+    </section>
+
+    <section aria-labelledby="terms-restrictions">
+      <h2 id="terms-restrictions">4. License Restrictions</h2>
+      <p>You agree not to: (a) copy, redistribute, sell, rent, lease, or sublicense any Solivant Studios game or its game files; (b) reverse engineer, decompile, disassemble, or attempt to derive the source code or underlying engine architecture of our software except to the extent expressly permitted by mandatory applicable law; or (c) remove, alter, or obscure any copyright, trademark, or proprietary notices.</p>
+    </section>
+
+    <section aria-labelledby="terms-streaming">
+      <h2 id="terms-streaming">5. Gameplay Streaming &amp; Community Content</h2>
+      <p>Solivant Studios encourages players and content creators to share their experience. You may capture, livestream, and publish gameplay footage, screenshots, and reviews of our publicly released games on video and streaming platforms (such as YouTube and Twitch), including monetized channels through standard partner programs, provided you do not imply official endorsement by Solivant Studios or distribute standalone game assets.</p>
+    </section>
+
+    <section aria-labelledby="terms-warranty">
+      <h2 id="terms-warranty">6. Disclaimer of Warranties &amp; Limitation of Liability</h2>
+      <p>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, OUR GAMES AND WEBSITE ARE PROVIDED “AS IS” AND “AS AVAILABLE” WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT.</p>
+      <p>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, SOLIVANT STUDIOS SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF DATA OR PROFITS, ARISING OUT OF OR RELATED TO YOUR USE OF OUR GAMES OR WEBSITE. IN NO EVENT SHALL SOLIVANT STUDIOS’ TOTAL LIABILITY EXCEED THE AMOUNT YOU PAID FOR THE APPLICABLE GAME IN THE TWELVE (12) MONTHS PRECEDING THE CLAIM.</p>
+    </section>
+
+    <section aria-labelledby="terms-contact">
+      <h2 id="terms-contact">7. Contact Information</h2>
+      <p>Questions, complaints, or legal notices regarding our games or this Agreement may be directed to Solivant Studios at <a href={"mailto:" + encodeURIComponent(contactAddress)}>{contactAddress}</a>, or via our <a href="/support/">Player Support</a> page.</p>
+    </section>
+  </div>
+</BaseLayout>

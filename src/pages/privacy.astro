@@ -1,18 +1,63 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { settings } from "../data/site";
+const contactAddress = settings.contactEmail || "contact@solivantstudios.com";
 ---
-<BaseLayout title="Privacy" description="How the Solivant Studios website handles visits and contact inquiries.">
-  <header class="container page-header"><p class="eyebrow">Solivant Studios</p><h1>Privacy</h1><p class="lede">How this website handles visits and correspondence.</p></header>
+<BaseLayout title="Privacy Policy" description="Privacy Policy for Solivant Studios games, mobile and desktop applications (iOS and Steam), and website.">
+  <header class="container page-header">
+    <p class="eyebrow">Solivant Studios · Legal</p>
+    <h1>Privacy Policy</h1>
+    <p class="lede">How Solivant Studios handles information across our games (iOS App Store and Steam) and this website.</p>
+    <p class="small muted">Effective Date: November 8, 2026</p>
+  </header>
   <div class="container prose section-bottom">
-    <section aria-labelledby="privacy-visiting"><h2 id="privacy-visiting">Visiting the site</h2>
-      {settings.gaMeasurementId ? <p>This website uses Google Analytics 4 to measure aggregate page visits, referral sources, and link interactions so we can understand interest in our projects. It does not offer user accounts or run advertising scripts. See <a href="https://policies.google.com/privacy" rel="noopener noreferrer">Google’s privacy policy</a> and the <a href="https://tools.google.com/dlpage/gaoptout" rel="noopener noreferrer">Google Analytics opt-out browser add-on</a>.</p> : <p>This website does not set its own cookies, use analytics or advertising scripts, or offer user accounts. It does not store your browsing activity in local storage.</p>}
-      <p>A hosting provider may process technical request information, such as IP addresses, for delivery and security.</p>
+    <section aria-labelledby="privacy-scope">
+      <h2 id="privacy-scope">1. Scope</h2>
+      <p>This Privacy Policy applies to all video games and software applications published by Solivant Studios—including <strong>Byzantium</strong> and upcoming releases on Apple platforms (iOS, iPadOS, macOS) and PC (Steam)—as well as the Solivant Studios website at <code>solivantstudios.com</code>.</p>
     </section>
-    <section aria-labelledby="privacy-contact"><h2 id="privacy-contact">Contacting the studio</h2>
-      {settings.contactEnabled ? <p>The contact form sends your name, email address, selected subject, and message to Netlify Forms for studio correspondence. Please share only what is needed for your inquiry, and do not submit sensitive or confidential information. Netlify processes submissions as the form service provider; see <a href="https://www.netlify.com/privacy/" rel="noopener noreferrer">Netlify’s privacy policy</a>.</p> : <p>Online form submissions are not enabled on this version of the site. There is no form collecting your details.</p>}
-      {settings.contactEmail && <p>When you email the studio, the message is handled by the email services involved. For questions about a message you sent, contact <a href={"mailto:" + encodeURIComponent(settings.contactEmail)}>{settings.contactEmail}</a>.</p>}
+
+    <section aria-labelledby="privacy-games">
+      <h2 id="privacy-games">2. Information in Our Games (iOS &amp; Steam)</h2>
+      <p><strong>No Personal Data Harvesting or Cross-App Tracking:</strong> Our games do not collect, store, or sell your personal identity, contacts, precise geographic location, photos, microphone or camera input, or advertising identifiers (such as Apple’s IDFA). We do not embed third-party behavioral advertising SDKs or track you across third-party apps and websites.</p>
+      <p><strong>Save Data &amp; Cloud Synchronization:</strong> Gameplay progress, preferences, and world saves are stored locally on your device. Where enabled on your platform, save data may be synchronized through your platform provider’s native cloud service—such as <strong>Apple iCloud / Game Center</strong> on iOS and macOS, or <strong>Steam Cloud</strong> on Steam—under the privacy policy of Apple Inc. or Valve Corporation.</p>
+      <p><strong>Crash Reports &amp; Technical Diagnostics:</strong> If an application crashes or encounters a critical error, anonymized diagnostic logs (such as device model, operating system version, and crash stack traces) may be made available to us through Apple App Store Connect / TestFlight or Steamworks. We use this technical information solely to fix bugs, improve frame pacing, and maintain hardware compatibility.</p>
+      <p><strong>Purchases &amp; Billing:</strong> All game purchases, in-app transactions, and refund requests are processed directly by the storefront provider (<strong>Apple App Store</strong> or <strong>Steam</strong>). Solivant Studios never receives, processes, or stores your credit card number or billing credentials.</p>
     </section>
-    <section aria-labelledby="privacy-links"><h2 id="privacy-links">External links</h2><p>Store pages, trailers, and other external websites have their own privacy practices. Videos are linked rather than automatically embedded, so external services do not load until you choose to visit them.</p></section>
+
+    <section aria-labelledby="privacy-visiting">
+      <h2 id="privacy-visiting">3. Visiting the Website</h2>
+      {settings.gaMeasurementId ? (
+        <p>This website uses Google Tag Manager and Google Analytics 4 to measure aggregate page visits, referral sources, and link interactions so we can understand interest in our projects. It does not offer user accounts or run advertising scripts. See <a href="https://policies.google.com/privacy" rel="noopener noreferrer">Google’s privacy policy</a> and the <a href="https://tools.google.com/dlpage/gaoptout" rel="noopener noreferrer">Google Analytics opt-out browser add-on</a>.</p>
+      ) : (
+        <p>This website does not set its own cookies, use analytics or advertising scripts, or offer user accounts. It does not store your browsing activity in local storage.</p>
+      )}
+      <p>Our website hosting provider processes standard technical request information, such as IP addresses and user-agent headers, as necessary for content delivery and network security.</p>
+    </section>
+
+    <section aria-labelledby="privacy-contact">
+      <h2 id="privacy-contact">4. Player Support &amp; Correspondence</h2>
+      {settings.contactEnabled ? (
+        <p>The contact form sends your name, email address, selected subject, and message to Netlify Forms for studio correspondence. Please share only what is needed for your inquiry, and do not submit sensitive or confidential information. Netlify processes submissions as the form service provider; see <a href="https://www.netlify.com/privacy/" rel="noopener noreferrer">Netlify’s privacy policy</a>.</p>
+      ) : (
+        <p>Online form submissions are not enabled on this version of the site. No web form collects your personal details.</p>
+      )}
+      <p>When you email Solivant Studios for player support, press, or business inquiries at <a href={"mailto:" + encodeURIComponent(contactAddress)}>{contactAddress}</a>, we use your email address and the contents of your message solely to respond to and resolve your inquiry.</p>
+    </section>
+
+    <section aria-labelledby="privacy-children">
+      <h2 id="privacy-children">5. Children’s Privacy</h2>
+      <p>Solivant Studios does not knowingly collect personal information from children under the age of 13 (or the applicable age of digital consent in your jurisdiction). If you believe a child has submitted personal information to us via email, please contact us so we can delete it promptly.</p>
+    </section>
+
+    <section aria-labelledby="privacy-rights">
+      <h2 id="privacy-rights">6. Data Retention, Deletion &amp; Your Rights</h2>
+      <p>You can delete all local game data at any time by uninstalling the game from your device, and you can manage or delete cloud save data directly through your Apple iCloud or Steam account settings.</p>
+      <p>Depending on your jurisdiction (including the EEA, UK, and California), you may have the right to request access to, correction of, or deletion of any personal information you have provided to us (such as support emails). To exercise these rights or ask questions about this Privacy Policy, contact Solivant Studios at <a href={"mailto:" + encodeURIComponent(contactAddress)}>{contactAddress}</a>.</p>
+    </section>
+
+    <section aria-labelledby="privacy-links">
+      <h2 id="privacy-links">7. External Links</h2>
+      <p>Storefront pages (such as the Apple App Store and Steam), trailers, and other external websites are governed by their own privacy policies. External videos are linked rather than automatically embedded, so third-party video platforms do not load until you choose to visit them.</p>
+    </section>
   </div>
 </BaseLayout>
