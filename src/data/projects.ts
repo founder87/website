@@ -34,20 +34,20 @@ export const projects: Project[] = defineProjects([
     platforms: [],
   },
   {
-    slug: "cubes", title: "Cubes", workingTitle: true,
-    status: "Upcoming", tone: "clay",
-    summary: "Upcoming codenamed project at Solivant Studios.",
-    description: [
-      "Cubes is an upcoming codenamed project at Solivant Studios. Details remain limited while production focuses on Byzantium.",
-    ],
-    platforms: [],
-  },
-  {
     slug: "hexagonal", title: "Hexagonal", workingTitle: true,
     status: "Upcoming", tone: "sage",
     summary: "Upcoming codenamed project at Solivant Studios.",
     description: [
       "Hexagonal is an upcoming codenamed project at Solivant Studios. Details remain limited while production focuses on Byzantium.",
+    ],
+    platforms: [],
+  },
+  {
+    slug: "cubes", title: "Cubes", workingTitle: true,
+    status: "Upcoming", tone: "clay",
+    summary: "Upcoming codenamed project at Solivant Studios.",
+    description: [
+      "Cubes is an upcoming codenamed project at Solivant Studios. Details remain limited while production focuses on Byzantium.",
     ],
     platforms: [],
   },
