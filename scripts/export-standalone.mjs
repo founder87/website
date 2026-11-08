@@ -68,6 +68,7 @@ for (const path of (await walk(root)).filter(path => path.endsWith(".html"))) {
   // Metadata used by crawlers/hosts is not relevant to a local review file.
   html = html.replace(/<meta\b[^>]*http-equiv="content-security-policy"[^>]*>/gi, "");
   html = html.replace(/<meta\b[^>]*(?:property="og:[^"]+"|name="twitter:[^"]+")[^>]*>/gi, "");
+  html = html.replace(/<script\b[^>]*type="application\/ld\+json"[^>]*>[\s\S]*?<\/script>/gi, "");
   html = html.replace(/<meta\b[^>]*name="robots"[^>]*>/gi, '<meta name="robots" content="noindex, nofollow">');
   for (const match of [...html.matchAll(/<link\b[^>]*>/g)]) {
     const tag = match[0];

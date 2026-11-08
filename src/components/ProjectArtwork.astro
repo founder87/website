@@ -72,6 +72,20 @@ const cubeCells = [
   { cx: 400, cy: 250, tier: "core" },
 ] as const;
 ---
+{slug === "byzantium" && (
+  <div class="project-art" aria-hidden="true">
+    <svg class="project-art__svg" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="60" y1="250" x2="740" y2="250" stroke="currentColor" stroke-opacity="0.28" stroke-width="1" />
+      <line x1="400" y1="40" x2="400" y2="460" stroke="currentColor" stroke-opacity="0.2" stroke-width="1" />
+      <circle cx="400" cy="250" r="185" stroke="currentColor" stroke-opacity="0.18" stroke-width="1" />
+      <circle cx="400" cy="250" r="135" stroke="currentColor" stroke-opacity="0.32" stroke-width="1.25" />
+      <circle cx="400" cy="250" r="82" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.25" fill="currentColor" fill-opacity="0.05" />
+      <rect x="305" y="155" width="190" height="190" stroke="currentColor" stroke-opacity="0.24" stroke-width="1" />
+      <rect x="305" y="155" width="190" height="190" transform="rotate(45 400 250)" stroke="currentColor" stroke-opacity="0.24" stroke-width="1" />
+      <circle cx="400" cy="250" r="24" stroke="currentColor" stroke-opacity="0.6" stroke-width="1.5" fill="currentColor" fill-opacity="0.1" />
+    </svg>
+  </div>
+)}
 {slug === "hexagonal" && (
   <div class="project-art" aria-hidden="true">
     <svg class="project-art__svg" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">

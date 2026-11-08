@@ -6,6 +6,7 @@ test("all project pages work and no runtime/CSP errors occur", async ({ page }) 
   page.on("console", message => { if (message.type() === "error") errors.push(message.text()); });
   await page.goto("/");
   await expect(page.locator(".project-card")).toHaveCount(4);
+  await expect(page.locator(".project-grid--upcoming .project-card a")).toHaveCount(0);
   for (const [slug, title] of [["byzantium", "Byzantium"]]) {
     await page.goto("/projects/" + slug + "/");
     await expect(page.getByRole("heading", { level: 1 })).toContainText(title);
@@ -53,6 +54,8 @@ test("unconfigured contact never pretends it can send a message", async ({ page 
   await page.goto("/contact/");
   await expect(page.locator("form")).toHaveCount(0);
   await expect(page.getByText("Not open just yet.")).toBeVisible();
+  await expect(page.getByRole("link", { name: "Player Support" }).first()).toHaveAttribute("href", "/support/");
+  await expect(page.getByRole("link", { name: "Explore Byzantium" })).toHaveAttribute("href", "/projects/byzantium/");
   await page.goto("/contact/success/");
   await expect(page.getByText(/No message has been sent/)).toBeVisible();
 });

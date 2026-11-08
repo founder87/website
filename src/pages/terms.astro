@@ -10,7 +10,26 @@ const contactAddress = settings.contactEmail || "contact@solivantstudios.com";
     <p class="lede">Terms of Service and End User License Agreement for Solivant Studios games (iOS App Store and Steam) and website.</p>
     <p class="small muted">Effective Date: November 8, 2026</p>
   </header>
-  <div class="container prose section-bottom">
+  <div class="container legal-layout section-bottom">
+    <aside class="legal-sidebar" aria-label="Terms overview and navigation">
+      <div class="legal-summary">
+        <p class="eyebrow">At a Glance</p>
+        <p class="small">Personal entertainment license for Solivant Studios games across Apple App Store and Steam. Gameplay streaming and community video creation are welcomed.</p>
+      </div>
+      <nav class="legal-toc" aria-label="Sections">
+        <p class="eyebrow">Sections</p>
+        <ul>
+          <li><a href="#terms-license">1. License Grant</a></li>
+          <li><a href="#terms-platforms">2. Apple App Store &amp; Steam</a></li>
+          <li><a href="#terms-ip">3. Intellectual Property</a></li>
+          <li><a href="#terms-restrictions">4. License Restrictions</a></li>
+          <li><a href="#terms-streaming">5. Streaming &amp; Community</a></li>
+          <li><a href="#terms-warranty">6. Warranty &amp; Liability</a></li>
+          <li><a href="#terms-contact">7. Contact Information</a></li>
+        </ul>
+      </nav>
+    </aside>
+    <div class="prose">
     <section aria-labelledby="terms-license">
       <h2 id="terms-license">1. License Grant</h2>
       <p>Subject to your compliance with these Terms and End User License Agreement (“Agreement”), Solivant Studios grants you a personal, limited, non-exclusive, non-transferable, revocable license to download, install, and use our video games and software applications (including <strong>Byzantium</strong>) for your personal, non-commercial entertainment on devices that you own or control.</p>
@@ -47,5 +66,6 @@ const contactAddress = settings.contactEmail || "contact@solivantstudios.com";
       <h2 id="terms-contact">7. Contact Information</h2>
       <p>Questions, complaints, or legal notices regarding our games or this Agreement may be directed to Solivant Studios at <a href={"mailto:" + encodeURIComponent(contactAddress)}>{contactAddress}</a>, or via our <a href="/support/">Player Support</a> page.</p>
     </section>
+    </div>
   </div>
 </BaseLayout>

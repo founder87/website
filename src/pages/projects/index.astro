@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectArtwork from "../../components/ProjectArtwork.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
 import { projects } from "../../data/projects";
 const flagship = projects[0]!;
@@ -13,6 +14,7 @@ const upcoming = projects.slice(1);
   <section class="container section-bottom" aria-label="All projects">
     <article class="project-card flagship-spotlight" data-tone={flagship.tone}>
       <a class="flagship-spotlight__visual" href="/projects/byzantium/" aria-label="Explore Byzantium">
+        <ProjectArtwork slug={flagship.slug} tone={flagship.tone} />
         <div class="flagship-stage__horizon" aria-hidden="true"></div>
         <div class="project-card__hud-top" aria-hidden="true">
           <span class="project-card__edition">Initial release</span>

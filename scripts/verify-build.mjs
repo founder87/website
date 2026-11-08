@@ -13,7 +13,7 @@ const htmlFiles = files.filter(file => extname(file) === ".html");
 const inlineScripts = new Set();
 const decode = text => text.replaceAll("&quot;", '"').replaceAll("&#39;", "'").replaceAll("&amp;", "&");
 const attributes = tag => Object.fromEntries([...tag.matchAll(/([\w:-]+)\s*=\s*"([^"]*)"/g)].map(match => [match[1].toLowerCase(), decode(match[2])]));
-const required = ["index.html", "projects/index.html", "projects/byzantium/index.html", "studio/index.html", "contact/index.html", "privacy/index.html", "terms/index.html", "support/index.html", "contact/success/index.html", "404.html", "robots.txt", "sitemap.xml", "_headers", ".well-known/security.txt"];
+const required = ["index.html", "projects/index.html", "projects/byzantium/index.html", "studio/index.html", "contact/index.html", "privacy/index.html", "terms/index.html", "support/index.html", "contact/success/index.html", "404.html", "robots.txt", "sitemap.xml", "_headers", ".well-known/security.txt", "brand/social.png", "brand/social-byzantium.png"];
 for (const file of required) assert.ok(files.includes(resolve(root, file)), "Missing route: " + file);
 
 for (const file of files) {
@@ -39,12 +39,22 @@ for (const file of htmlFiles) {
   for (const directive of ["default-src 'self'", "base-uri 'none'", "object-src 'none'", "frame-src 'none'", "form-action 'self'", "script-src-attr 'none'", "style-src-attr 'none'"]) assert.ok(csp.includes(directive), label + ": missing " + directive);
   assert.ok(!/unsafe-inline|unsafe-eval/.test(csp), label + ": unsafe CSP");
   assert.ok(!/\s(?:on[a-z]+|style)\s*=/i.test(html), label + ": inline handler or style");
-  for (const [, script] of html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g)) {
+  assert.ok(!/\u2014|&mdash;|&#8212;|&#x2014;/i.test(html), label + ": em dash found in generated HTML");
+  let ldJsonCount = 0;
+  for (const [, rawAttrs, script] of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/g)) {
+    const tagAttrs = attributes("<script" + rawAttrs + ">");
+    if (tagAttrs.type === "application/ld+json") {
+      const parsed = JSON.parse(script);
+      assert.equal(parsed["@context"], "https://schema.org", label + ": invalid JSON-LD @context");
+      ldJsonCount++;
+      continue;
+    }
     if (script.trim()) {
       inlineScripts.add(script);
       assert.ok(csp.includes("sha256-" + createHash("sha256").update(script).digest("base64")), label + ": inline script missing CSP hash");
     }
   }
+  assert.ok(ldJsonCount >= 1, label + ": missing JSON-LD structured data");
   const canonical = tags.find(t => t.attrs.rel === "canonical")?.attrs.href;
   assert.ok(canonical?.startsWith("https://"), label + ": missing HTTPS canonical");
   for (const { tag, attrs } of tags) {

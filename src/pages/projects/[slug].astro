@@ -2,14 +2,26 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ProjectArtwork from "../../components/ProjectArtwork.astro";
 import { projects, type Project } from "../../data/projects";
+import { settings } from "../../data/site";
 export function getStaticPaths() {
   return projects.filter(p => !p.workingTitle).map(project => ({ params: { slug: project.slug }, props: { project } }));
 }
 interface Props { project: Project; }
 const { project } = Astro.props;
 const isByzantium = project.slug === "byzantium";
+const socialImage = project.cover?.src || (isByzantium ? "/brand/social-byzantium.png" : "/brand/social.png");
+const gameSchema = {
+  "@type": "VideoGame",
+  name: project.title,
+  description: project.summary,
+  url: new URL("/projects/" + project.slug + "/", settings.origin).href,
+  image: new URL(socialImage, settings.origin).href,
+  author: { "@type": "Organization", name: "Solivant Studios" },
+  publisher: { "@type": "Organization", name: "Solivant Studios" },
+  applicationCategory: "Game",
+};
 ---
-<BaseLayout title={project.title} description={project.summary} image={project.cover?.src} pageTone={project.tone}>
+<BaseLayout title={project.title} description={project.summary} image={socialImage} pageTone={project.tone} schema={gameSchema}>
   <div class="container project-header">
     <a class="back-link" href="/projects/"><span aria-hidden="true">←</span> All projects</a>
   </div>

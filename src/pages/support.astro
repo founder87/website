@@ -9,7 +9,23 @@ const contactAddress = settings.contactEmail || "contact@solivantstudios.com";
     <h1>Player Support</h1>
     <p class="lede">Technical assistance, bug reporting, and account help for Solivant Studios games across iOS and Steam.</p>
   </header>
-  <div class="container prose section-bottom">
+  <div class="container legal-layout section-bottom">
+    <aside class="legal-sidebar" aria-label="Support overview and navigation">
+      <div class="legal-summary">
+        <p class="eyebrow">Direct Support</p>
+        <p class="small">Email <a href={"mailto:" + encodeURIComponent(contactAddress)}>{contactAddress}</a> with your platform, device specs, and build version.</p>
+      </div>
+      <nav class="legal-toc" aria-label="Sections">
+        <p class="eyebrow">Sections</p>
+        <ul>
+          <li><a href="#support-direct">1. Contact Technical Support</a></li>
+          <li><a href="#support-troubleshooting">2. Common Troubleshooting</a></li>
+          <li><a href="#support-billing">3. Purchases &amp; Refunds</a></li>
+          <li><a href="#support-privacy">4. Legal &amp; Privacy</a></li>
+        </ul>
+      </nav>
+    </aside>
+    <div class="prose">
     <section aria-labelledby="support-direct">
       <h2 id="support-direct">1. Contact Technical Support</h2>
       <p>For technical issues, bug reports, or gameplay assistance with <strong>Byzantium</strong> or any Solivant Studios title, email our support team directly at <a class="text-link contact-email" href={"mailto:" + encodeURIComponent(contactAddress)}>{contactAddress}</a>.</p>
@@ -37,5 +53,6 @@ const contactAddress = settings.contactEmail || "contact@solivantstudios.com";
       <h2 id="support-privacy">4. Legal &amp; Privacy</h2>
       <p>For details on how our games handle save data, diagnostics, and licensing, see our <a href="/privacy/">Privacy Policy</a> and <a href="/terms/">Terms &amp; EULA</a>.</p>
     </section>
+    </div>
   </div>
 </BaseLayout>

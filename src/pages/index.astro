@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import ProjectArtwork from "../components/ProjectArtwork.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import { projects } from "../data/projects";
 const flagship = projects[0]!;
@@ -14,6 +15,7 @@ const upcoming = projects.slice(1);
   <section class="container section-bottom" aria-labelledby="flagship-title">
     <article class="project-card flagship-spotlight" data-tone={flagship.tone}>
       <a class="flagship-spotlight__visual" href="/projects/byzantium/" aria-label="Explore Byzantium">
+        <ProjectArtwork slug={flagship.slug} tone={flagship.tone} />
         <div class="flagship-stage__horizon" aria-hidden="true"></div>
         <div class="project-card__hud-top" aria-hidden="true">
           <span class="project-card__edition">Initial release</span>
@@ -40,6 +42,23 @@ const upcoming = projects.slice(1);
       </div>
       <div class="project-grid project-grid--upcoming">
         {upcoming.map((project, index) => <ProjectCard project={project} index={index + 1} heading="h3" />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="studio-band section" aria-labelledby="studio-home-title">
+    <div class="container editorial-grid">
+      <div>
+        <p class="eyebrow">The Studio</p>
+        <h2 id="studio-home-title">Solivant Studios</h2>
+      </div>
+      <div>
+        <p class="lede">An independent game studio building worlds without end.</p>
+        <p class="body-copy">Active production is centered on our initial release, <strong>Byzantium</strong>, alongside early groundwork on upcoming projects.</p>
+        <div class="actions">
+          <a class="button button--outline" href="/studio/">About the studio</a>
+          <a class="text-link" href="/contact/">Contact</a>
+        </div>
       </div>
     </div>
   </section>

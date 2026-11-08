@@ -12,7 +12,7 @@ const currentPath = Astro.url.pathname;
     <nav id="primary-navigation" aria-label="Main navigation">
       <ul class="site-header__nav">
         {site.navigation.map(link => (
-          <li><a href={link.href} aria-current={currentPath.startsWith(link.href) ? "page" : undefined}>{link.label}</a></li>
+          <li><a href={link.href} aria-current={currentPath === link.href ? "page" : undefined}>{link.label}</a></li>
         ))}
       </ul>
     </nav>
