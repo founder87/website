@@ -8,11 +8,14 @@ test("safe defaults: canonical domain, no indexing, no form, no guessed inbox", 
   assert.equal(settings.indexable, false);
   assert.equal(settings.contactEnabled, false);
   assert.equal(settings.contactEmail, "");
+  assert.equal(settings.gaMeasurementId, "");
 });
 test("production indexing is opt-in and deploy previews remain noindex", () => {
   assert.equal(readSettings({ SITE_INDEXABLE: "true" }).indexable, true);
+  assert.equal(readSettings({ GA_MEASUREMENT_ID: "G-TEST123456" }).gaMeasurementId, "G-TEST123456");
   for (const CONTEXT of ["deploy-preview", "branch-deploy", "dev"]) {
     assert.equal(readSettings({ SITE_INDEXABLE: "true", CONTEXT }).indexable, false);
+    assert.equal(readSettings({ GA_MEASUREMENT_ID: "G-TEST123456", CONTEXT }).gaMeasurementId, "");
   }
 });
 test("reject ambiguous/insecure canonical origins", () => {
@@ -28,6 +31,9 @@ test("fail closed on invalid configuration and address/header injection", () => 
   assert.throws(() => readSettings({ CONTACT_PROVIDER: "other" }));
   assert.throws(() => readSettings({ SITE_INDEXABLE: "yes" }));
   assert.throws(() => readSettings({ CONTACT_PRIVACY_REVIEWED: "yes" }));
+  for (const GA_MEASUREMENT_ID of ["UA-12345-1", "G-bad", "G-123\"onload=alert(1)", "https://example.com"]) {
+    assert.throws(() => readSettings({ GA_MEASUREMENT_ID }));
+  }
 });
 test("form requires Netlify production and explicit privacy review", () => {
   assert.equal(readSettings({ CONTACT_PROVIDER: "netlify" }).contactEnabled, false);

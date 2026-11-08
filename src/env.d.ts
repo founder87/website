@@ -6,4 +6,5 @@ declare const __SITE_SETTINGS__: Readonly<{
   contactEmail: string;
   contactEnabled: boolean;
   contactProvider: string;
+  gaMeasurementId: string;
 }>;

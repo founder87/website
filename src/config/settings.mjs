@@ -14,6 +14,10 @@ export function readSettings(env = {}) {
     throw new Error("CONTACT_EMAIL must be a plain email address (not a mailto URL).");
   }
   if (contactEmail.length > 254) throw new Error("CONTACT_EMAIL is too long.");
+  const gaMeasurementId = env.GA_MEASUREMENT_ID || "";
+  if (gaMeasurementId && !/^G-[A-Z0-9]{4,16}$/.test(gaMeasurementId)) {
+    throw new Error("GA_MEASUREMENT_ID must be a valid GA4 Measurement ID (e.g. G-XXXXXXXXXX).");
+  }
   for (const name of ["SITE_INDEXABLE", "CONTACT_PRIVACY_REVIEWED"]) {
     if (env[name] && !["true", "false"].includes(env[name])) throw new Error(name + " must be true or false.");
   }
@@ -28,5 +32,6 @@ export function readSettings(env = {}) {
     contactEmail,
     contactEnabled: provider === "netlify" && isProductionNetlify,
     contactProvider: provider,
+    gaMeasurementId: !isPreview ? gaMeasurementId : "",
   });
 }

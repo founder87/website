@@ -49,6 +49,7 @@ jobs:
         env:
           SITE_INDEXABLE: "true"
           CONTACT_EMAIL: "contact@solivantstudios.com"
+          GA_MEASUREMENT_ID: ${{ vars.GA_MEASUREMENT_ID }}
         run: npm run build
       - name: Upload Pages artifact
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
