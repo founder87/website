@@ -6,13 +6,24 @@
   "scripts": {
     "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
     "start": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
-    "build": "ASTRO_TELEMETRY_DISABLED=1 astro build",
+    "build": "ASTRO_TELEMETRY_DISABLED=1 astro build && node scripts/verify-build.mjs",
     "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview",
-    "check": "ASTRO_TELEMETRY_DISABLED=1 astro check"
+    "preview:standalone": "npm run build && node scripts/export-standalone.mjs",
+    "check": "ASTRO_TELEMETRY_DISABLED=1 astro check",
+    "test": "node --test tests/*.test.mjs",
+    "test:build-modes": "node scripts/test-build-modes.mjs",
+    "test:browser": "playwright test",
+    "verify": "npm run test && npm run check && npm run build",
+    "audit:dependencies": "npm audit --audit-level=moderate",
+    "brand:export": "node scripts/export-brand.mjs"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
-    "astro": "^7.2.9",
+    "@playwright/test": "^1.64.0",
+    "@types/node": "^22.0.0",
+    "astro": "^7.3.8",
+    "sharp": "^0.35.5",
     "typescript": "^6.0.3"
-  }
+  },
+  "engines": { "node": ">=22.12.0" }
 }

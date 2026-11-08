@@ -1,14 +1,10 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
-
 <BaseLayout title="Page not found" noindex>
-  <section class="page-header section">
-    <div class="container narrow">
-      <p class="eyebrow">Error 404</p>
-      <h1>Page not found.</h1>
-      <p class="lede">The page may have moved or may no longer exist.</p>
-      <a class="button" href="/">Return home</a>
-    </div>
+  <section class="container page-header message-page">
+    <p class="eyebrow">404 / Uncharted territory</p><h1>A little<br /><em>off course.</em></h1>
+    <p class="lede">That page isn’t here. Let’s get you back to familiar ground.</p>
+    <div class="actions"><a class="button" href="/">Back to the studio <span aria-hidden="true">↗</span></a><a class="text-link" href="/projects/">Explore the projects</a></div>
   </section>
 </BaseLayout>

@@ -2,14 +2,8 @@
   "name": "Solivant Studios",
   "short_name": "Solivant",
   "start_url": "/",
-  "display": "standalone",
-  "background_color": "#0b0d10",
-  "theme_color": "#0b0d10",
-  "icons": [
-    {
-      "src": "/favicon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml"
-    }
-  ]
+  "display": "browser",
+  "background_color": "#111813",
+  "theme_color": "#142b26",
+  "icons": [{ "src": "/brand/icon.png", "sizes": "256x256", "type": "image/png", "purpose": "any" }]
 }

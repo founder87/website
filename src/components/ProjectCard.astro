@@ -1,27 +1,28 @@
 ---
 import type { Project } from "../data/projects";
-
-interface Props {
-  project: Project;
-}
-
-const { project } = Astro.props;
+interface Props { project: Project; index: number; heading?: "h2" | "h3"; }
+const { project, index, heading: Heading = "h2" } = Astro.props;
 ---
-
-<article class="project-card">
-  <a class="project-card__link" href={`/projects/${project.slug}/`}>
-    <div class="project-card__media" aria-hidden="true">
-      {project.heroImage ? (
-        <img src={project.heroImage} alt="" loading="lazy" />
+<article class="project-card" data-tone={project.tone}>
+  <a href={"/projects/" + project.slug + "/"} class="project-card__link">
+    <div class="project-card__visual">
+      {project.cover ? (
+        <img src={project.cover.src} alt={project.cover.alt} width={project.cover.width} height={project.cover.height} loading="lazy" decoding="async" />
       ) : (
-        <span>Artwork forthcoming</span>
+        <div class="project-card__type" aria-hidden="true">
+          <span class="project-card__edition">SOLIVANT / {String(index + 1).padStart(2, "0")}</span>
+          <span class="project-card__display">{project.title}</span>
+          <span class="project-card__note">In the making</span>
+        </div>
       )}
     </div>
     <div class="project-card__body">
-      <p class="eyebrow">{project.status} · Working title</p>
-      <h2>{project.publicTitle}</h2>
-      <p>{project.summary}</p>
-      <span class="text-link">View project <span aria-hidden="true">→</span></span>
+      <div>
+        <p class="eyebrow">{project.status}{project.workingTitle && " · Working title"}</p>
+        <Heading>{project.title}</Heading>
+      </div>
+      <span class="project-card__arrow" aria-hidden="true">↗</span>
     </div>
+    <span class="sr-only">View project. {project.summary}</span>
   </a>
 </article>

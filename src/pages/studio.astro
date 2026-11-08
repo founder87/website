@@ -1,22 +1,24 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import BrandMoment from "../components/BrandMoment.astro";
+import { projects } from "../data/projects";
 ---
-
-<BaseLayout title="Studio" description="About Solivant Studios.">
-  <header class="page-header section">
-    <div class="container narrow">
-      <p class="eyebrow">Solivant Studios</p>
-      <h1>Studio</h1>
-      <p class="lede">
-        This page is ready for the studio story, team information, values, and location when that material is finalized.
-      </p>
-    </div>
+<BaseLayout title="The studio" description="Meet Solivant Studios, an independent game studio with four projects in development.">
+  <header class="container page-header">
+    <p class="eyebrow">The studio</p>
+    <h1>We are<br /><em>Solivant.</em></h1>
+    <p class="lede">An independent game studio.<br />Four projects, each with a story still unfolding.</p>
   </header>
-
-  <section class="section section--bordered" aria-labelledby="studio-content-heading">
-    <div class="container narrow prose">
-      <h2 id="studio-content-heading">About the studio</h2>
-      <p>Final studio copy will be added here.</p>
+  <section class="section studio-band" aria-labelledby="studio-projects">
+    <div class="container editorial-grid">
+      <div><p class="eyebrow">Currently in development</p><h2 id="studio-projects">Our next<br />chapter.</h2></div>
+      <div class="studio-project-list">
+        {projects.map((project, index) => <a href={"/projects/" + project.slug + "/"}><span class="eyebrow">{String(index + 1).padStart(2, "0")}</span><span>{project.title}{project.workingTitle && <small>Working title</small>}</span><span aria-hidden="true">↗</span></a>)}
+      </div>
     </div>
+  </section>
+  <section class="container section studio-signature" aria-labelledby="signature-title">
+    <div><p class="eyebrow">Our signature</p><h2 id="signature-title">The Sun Moth.</h2><p class="body-copy">The mark of Solivant Studios.<br />A little light at the beginning of something new.</p></div>
+    <BrandMoment tone="mono" />
   </section>
 </BaseLayout>
