@@ -25,11 +25,11 @@ export const projects: Project[] = defineProjects([
   {
     slug: "byzantium", title: "Byzantium", workingTitle: false,
     status: "In development", tone: "clay",
-    summary: "Fortress architecture, siegecraft, and formation warfare in the Byzantine world. The initial release from Solivant Studios.",
+    summary: "Around the year 1000, Constantinople is the greatest city in the Christian world, but the Roman Empire is a shadow of its former self. The emperor himself has called upon you to serve. For Byzantium.",
     description: [
-      "Byzantium is the flagship initial release in development at Solivant Studios—bringing together grounded fortress construction, siege warfare, and disciplined battlefield formations in the Byzantine world.",
+      "Around the year 1000, Constantinople is the greatest city in the Christian world, but the Roman Empire is a shadow of its former self. Engulfed in internal struggle and looming threats from outside, the emperor himself has called upon you to serve. For Byzantium.",
+      "Byzantium is the flagship initial release in development at Solivant Studios—bringing together grounded fortress construction, siege warfare, and disciplined battlefield formations across the Byzantine frontier.",
       "Powered by hyperoptimized custom engine architecture, Byzantium pushes hardware to its limits to deliver large-scale physical realism, structural destruction, and high-density formation combat while remaining accessible across a wide range of devices.",
-      "Official gameplay captures, technical deep dives, target platforms, and release window details will be published here as we prepare Byzantium for its formal reveal.",
     ],
     platforms: [],
   },

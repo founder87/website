@@ -34,7 +34,7 @@ const next = projects[(index + 1) % projects.length]!;
     )}
   </div>
   <section class="container section project-overview" aria-labelledby="about-project">
-    <div><p class="eyebrow">Project dossier</p><h2 id="about-project">{project.workingTitle ? "Under wraps." : "Taking shape."}</h2>{project.description.map(paragraph => <p class="body-copy">{paragraph}</p>)}
+    <div><p class="eyebrow">Project dossier</p><h2 id="about-project">{project.slug === "byzantium" ? <>For <em>Byzantium.</em></> : project.workingTitle ? "Under wraps." : "Taking shape."}</h2>{project.description.map(paragraph => <p class="body-copy">{paragraph}</p>)}
       <div class="actions">
         {project.trailer && <a class="button" href={project.trailer.href} rel="noopener noreferrer">{project.trailer.label} <span aria-hidden="true">↗</span></a>}
         {project.links?.map(link => <a class="button button--outline" href={link.href} rel="noopener noreferrer">{link.label} <span aria-hidden="true">↗</span></a>)}
