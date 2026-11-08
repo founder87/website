@@ -7,18 +7,18 @@ import { projects } from "../data/projects";
   <header class="container page-header">
     <p class="eyebrow">The studio</p>
     <h1>We are<br /><em>Solivant.</em></h1>
-    <p class="lede">An independent game studio.<br />Four projects, each with a story still unfolding.</p>
+    <p class="lede">An independent game studio building distinct worlds from the ground up.<br />Four projects in development, each shared at its own pace.</p>
   </header>
   <section class="section studio-band" aria-labelledby="studio-projects">
     <div class="container editorial-grid">
-      <div><p class="eyebrow">Currently in development</p><h2 id="studio-projects">Our next<br />chapter.</h2></div>
+      <div><p class="eyebrow">Currently in development</p><h2 id="studio-projects">Our next<br />chapter.</h2><p class="body-copy">Every project in the Solivant slate begins with a clear identity and the space to grow before it is shown. We publish confirmed details, artwork, and milestones here as each game takes shape.</p></div>
       <div class="studio-project-list">
         {projects.map((project, index) => <a href={"/projects/" + project.slug + "/"}><span class="eyebrow">{String(index + 1).padStart(2, "0")}</span><span>{project.title}{project.workingTitle && <small>Working title</small>}</span><span aria-hidden="true">↗</span></a>)}
       </div>
     </div>
   </section>
   <section class="container section studio-signature" aria-labelledby="signature-title">
-    <div><p class="eyebrow">Our signature</p><h2 id="signature-title">The Sun Moth.</h2><p class="body-copy">The mark of Solivant Studios.<br />A little light at the beginning of something new.</p></div>
+    <div><p class="eyebrow">Our signature</p><h2 id="signature-title">The Sun Moth.</h2><p class="body-copy">The mark of Solivant Studios.<br />A quiet light at the beginning of something new.</p></div>
     <BrandMoment tone="mono" />
   </section>
 </BaseLayout>

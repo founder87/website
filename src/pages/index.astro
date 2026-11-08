@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import BrandMoment from "../components/BrandMoment.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import { projects } from "../data/projects";
 ---
@@ -9,12 +8,11 @@ import { projects } from "../data/projects";
     <div class="hero__copy">
       <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> Independent game studio</p>
       <h1 id="home-title">New worlds.<br /><em>Taking shape.</em></h1>
-      <p class="lede">Four projects in the making.<br />This is where their stories begin.</p>
-      <a href="#projects" class="button">Explore our projects <span aria-hidden="true">↓</span></a>
-    </div>
-    <div class="hero__identity">
-      <BrandMoment eager />
-      <p class="hero__aside">Solivant Studios <span>Games in development</span></p>
+      <p class="lede">Four original projects in development at Solivant Studios.<br />Explore BoomTown, The Grid, Horizon, and Bastion as their worlds come into focus.</p>
+      <div class="actions">
+        <a href="#projects" class="button">Explore our projects <span aria-hidden="true">↓</span></a>
+        <a href="/studio/" class="text-link">About the studio <span aria-hidden="true">↗</span></a>
+      </div>
     </div>
   </section>
   <section id="projects" class="section section--bordered" aria-labelledby="projects-title">
