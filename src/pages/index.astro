@@ -6,61 +6,113 @@ const flagship = projects[0]!;
 const upcoming = projects.slice(1);
 ---
 <BaseLayout>
-  <section class="hero container" aria-labelledby="home-title">
-    <div class="hero__copy">
-      <p class="eyebrow">Solivant Studios</p>
+  <section class="hero" aria-labelledby="home-title">
+    <div class="container hero__masthead">
+      <div class="hero__meta">
+        <p class="eyebrow">Solivant Studios</p>
+        <span class="hero__divider" aria-hidden="true"></span>
+        <p class="eyebrow">Independent Game Studio</p>
+      </div>
       <h1 id="home-title"><em>Mundi sine fine</em></h1>
-      <p class="lede">We build hyperoptimized game engines that push hardware to its limits—combining grounded physical realism with wider access across devices. Our initial release in development is <strong>Byzantium</strong>.</p>
-      <div class="actions">
-        <a href="/projects/byzantium/" class="button">Byzantium</a>
-        <a href="/studio/" class="button button--outline">The studio</a>
+      <div class="hero__subgrid">
+        <p class="lede">We engineer hyperoptimized game engines that push hardware to its limits—uniting grounded physical realism with wider access across devices.</p>
+        <div class="actions hero__actions">
+          <a href="/projects/byzantium/" class="button" data-track="hero_byzantium">Enter Byzantium</a>
+          <a href="/studio/" class="button button--outline" data-track="hero_studio">Studio &amp; engineering</a>
+        </div>
       </div>
     </div>
-  </section>
-  <section id="projects" class="section section--bordered" aria-labelledby="flagship-title">
+
     <div class="container">
-      <article class="project-card project-card--flagship flagship-spotlight" data-tone={flagship.tone}>
-        <a class="flagship-spotlight__visual" href="/projects/byzantium/" aria-label="View Byzantium">
-          <div class="project-card__hud-top" aria-hidden="true">
-            <span class="project-card__edition">Initial release</span>
-            <span class="project-card__note">In development</span>
-          </div>
-          <span class="flagship-spotlight__title" aria-hidden="true">Byzantium</span>
+      <article class="project-card flagship-stage" data-tone={flagship.tone}>
+        <div class="flagship-stage__bar" aria-hidden="true">
+          <span>Release I · Initial Release</span>
+          <span>Constantinople · Circa 1000 AD</span>
+          <span>In Active Development</span>
+        </div>
+        <a class="flagship-stage__canvas" href="/projects/byzantium/" aria-label="Explore Byzantium">
+          <div class="flagship-stage__horizon" aria-hidden="true"></div>
+          <p class="flagship-stage__kicker" aria-hidden="true">Anno Domini M · The Eastern Roman Empire</p>
+          <span class="flagship-stage__display" aria-hidden="true">Byzantium</span>
         </a>
-        <div class="flagship-spotlight__copy">
-          <p class="eyebrow">Initial release · Circa 1000 AD</p>
-          <h2 id="flagship-title">For Byzantium</h2>
-          <p class="body-copy">Around the year 1000, Constantinople is the greatest city in the Christian world, but the Roman Empire is a shadow of its former self. Engulfed in internal struggle and looming threats from outside, the emperor himself has called upon you to serve. For Byzantium.</p>
-          <p class="body-copy">Raise timber and stone fortifications, engineer siege weapons, and command disciplined battlefield formations across the Byzantine world.</p>
-          <div class="actions">
-            <a class="button" href="/projects/byzantium/">Explore Byzantium</a>
+        <div class="flagship-stage__deck">
+          <div class="flagship-stage__narrative">
+            <p class="eyebrow">I · Flagship Release</p>
+            <h2 id="flagship-title">For Byzantium</h2>
+            <p class="body-copy">Around the year 1000, Constantinople is the greatest city in the Christian world, but the Roman Empire is a shadow of its former self. Engulfed in internal struggle and looming threats from outside, the emperor himself has called upon you to serve. For Byzantium.</p>
+            <div class="actions">
+              <a class="button button--gold" href="/projects/byzantium/" data-track="spotlight_byzantium">Explore Byzantium</a>
+              <a class="text-link" href="/contact/">Press &amp; inquiries</a>
+            </div>
           </div>
+          <dl class="flagship-stage__pillars" aria-label="Byzantium core pillars">
+            <div>
+              <dt>01 / The Capital &amp; Frontier</dt>
+              <dd>Stand between internal faction intrigue in Constantinople and external empires pressing against Roman borders.</dd>
+            </div>
+            <div>
+              <dt>02 / Siege &amp; Fortification</dt>
+              <dd>Raise timber and stone defenses, construct siege engines, and contest strategic strongholds across the empire.</dd>
+            </div>
+            <div>
+              <dt>03 / Formation Warfare</dt>
+              <dd>Command disciplined battlefield formations built on physically grounded simulation and custom engine optimization.</dd>
+            </div>
+          </dl>
         </div>
       </article>
-      <div class="upcoming-section">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Upcoming</p>
-            <h2>Codenamed projects</h2>
-          </div>
-          <p>Limited information is available while development focuses on Byzantium.</p>
-        </div>
-        <div class="project-grid project-grid--upcoming">
-          {upcoming.map((project, index) => <ProjectCard project={project} index={index + 1} heading="h3" />)}
-        </div>
-      </div>
     </div>
   </section>
+
   <section class="section studio-band" aria-labelledby="studio-title">
-    <div class="container editorial-grid">
-      <p class="eyebrow">Solivant Studios</p>
-      <div>
-        <h2 id="studio-title">Realism through engineering</h2>
-        <p class="lede">We focus on low-level engine optimization to push devices to their limits—making large-scale simulation and physical realism run smoothly across a broader range of hardware.</p>
-        <div class="actions">
-          <a class="button button--outline" href="/studio/">About the studio</a>
-          <a class="text-link" href="/contact/">Contact</a>
+    <div class="container">
+      <div class="chapter-header">
+        <p class="eyebrow">II · Architecture &amp; Engine</p>
+        <span class="chapter-header__rule" aria-hidden="true"></span>
+      </div>
+      <div class="editorial-grid">
+        <div>
+          <h2 id="studio-title">Realism through engineering</h2>
         </div>
+        <div>
+          <p class="lede">Most modern games trade hardware accessibility for visual ambition. At Solivant Studios, we engineer low-level systems from the ground up to push devices to their true limits—delivering large-scale simulation and physical realism across a broader spectrum of hardware.</p>
+          <div class="actions">
+            <a class="button button--outline" href="/studio/">About our engineering</a>
+            <a class="text-link" href="/contact/">Contact the studio</a>
+          </div>
+        </div>
+      </div>
+      <dl class="architecture-ledger">
+        <div>
+          <dt><span>01</span> Close-to-the-Metal Execution</dt>
+          <dd>Custom-tuned memory layout, data-oriented simulation, and rendering pipelines built to eliminate frame-time overhead.</dd>
+        </div>
+        <div>
+          <dt><span>02</span> Grounded Physical Simulation</dt>
+          <dd>Authentic materials, structural fortification mechanics, and dense battlefield formations that behave with physical weight.</dd>
+        </div>
+        <div>
+          <dt><span>03</span> Wider Hardware Reach</dt>
+          <dd>Scaling demanding simulation cleanly across devices so ambitious worlds are not restricted to top-tier rigs.</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section id="projects" class="section" aria-labelledby="upcoming-title">
+    <div class="container">
+      <div class="chapter-header">
+        <p class="eyebrow">III · Future Worlds</p>
+        <span class="chapter-header__rule" aria-hidden="true"></span>
+      </div>
+      <div class="section-heading">
+        <div>
+          <h2 id="upcoming-title">Upcoming codenames</h2>
+        </div>
+        <p>Early-stage worlds in development alongside Byzantium. Public details remain limited until official reveal.</p>
+      </div>
+      <div class="project-grid project-grid--upcoming">
+        {upcoming.map((project, index) => <ProjectCard project={project} index={index + 1} heading="h3" />)}
       </div>
     </div>
   </section>

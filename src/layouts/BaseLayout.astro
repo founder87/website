@@ -3,8 +3,8 @@ import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import { site, settings } from "../data/site";
 import "../styles/global.css";
-interface Props { title?: string; description?: string; image?: string; noindex?: boolean; }
-const { title = site.name, description = site.description, image = "/brand/social.png", noindex = false } = Astro.props;
+interface Props { title?: string; description?: string; image?: string; noindex?: boolean; pageTone?: "ochre" | "sage" | "silver" | "clay"; }
+const { title = site.name, description = site.description, image = "/brand/social.png", noindex = false, pageTone } = Astro.props;
 const pageTitle = title === site.name ? title : title + " | " + site.name;
 const canonical = new URL(Astro.url.pathname, settings.origin);
 const socialImage = new URL(image, settings.origin);
@@ -35,7 +35,7 @@ const socialImage = new URL(image, settings.origin);
     <meta name="twitter:image" content={socialImage} />
     <title>{pageTitle}</title>
   </head>
-  <body>
+  <body data-page-tone={pageTone}>
     <a class="skip-link" href="#main-content">Skip to content</a>
     <SiteHeader />
     <main id="main-content" tabindex="-1"><slot /></main>

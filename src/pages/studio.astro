@@ -9,24 +9,52 @@ import { projects } from "../data/projects";
     <h1><em>Mundi sine fine</em></h1>
     <p class="lede">We engineer hyperoptimized game engines that push hardware to its limits—expanding access to demanding games while delivering grounded physical realism.</p>
   </header>
-  <section class="container section-bottom editorial-grid" aria-labelledby="engineering-title">
-    <p class="eyebrow">Engineering & craft</p>
-    <div>
-      <h2 id="engineering-title">Performance and realism</h2>
-      <p class="body-copy">At Solivant Studios, engine optimization is foundational. By building low-level systems designed to extract the full capability of modern hardware, we can simulate dense, physically grounded worlds without restricting them to top-tier machines.</p>
-      <p class="body-copy">Our current focus is our initial release, <strong>Byzantium</strong>. Alongside it, BoomTown, The Grid, and Horizon are upcoming codenamed projects in early stages with limited public information.</p>
+
+  <section class="container section-bottom" aria-labelledby="engineering-title">
+    <div class="chapter-header">
+      <p class="eyebrow">I · Engineering &amp; Craft</p>
+      <span class="chapter-header__rule" aria-hidden="true"></span>
     </div>
+    <div class="editorial-grid">
+      <div>
+        <h2 id="engineering-title">Performance and realism</h2>
+      </div>
+      <div>
+        <p class="body-copy">At Solivant Studios, engine optimization is foundational. By building low-level systems designed to extract the full capability of modern hardware, we can simulate dense, physically grounded worlds without restricting them to top-tier machines.</p>
+        <p class="body-copy">Our current focus is our initial release, <strong>Byzantium</strong>. Alongside it, BoomTown, The Grid, and Horizon are upcoming codenamed projects in early stages with limited public information.</p>
+      </div>
+    </div>
+    <dl class="architecture-ledger">
+      <div>
+        <dt><span>01</span> Hardware Efficiency</dt>
+        <dd>Pushing CPU and GPU pipelines to their physical limits so complex worlds maintain responsive frame pacing.</dd>
+      </div>
+      <div>
+        <dt><span>02</span> Simulation Density</dt>
+        <dd>Building systems where fortifications, terrain, and large formations interact through grounded rules rather than scripted shortcuts.</dd>
+      </div>
+      <div>
+        <dt><span>03</span> Broad Accessibility</dt>
+        <dd>Ensuring players across a wide spectrum of devices can experience large-scale strategy and simulation.</dd>
+      </div>
+    </dl>
   </section>
+
   <section class="section studio-band" aria-labelledby="studio-projects">
     <div class="container editorial-grid">
-      <div><p class="eyebrow">Projects</p><h2 id="studio-projects">Development slate</h2></div>
+      <div><p class="eyebrow">II · Slate</p><h2 id="studio-projects">Development slate</h2></div>
       <div class="studio-project-list">
         {projects.map(project => <a href={"/projects/" + project.slug + "/"}><span class="eyebrow">{project.workingTitle ? "Codename" : "Release 01"}</span><span>{project.title}<small>{project.workingTitle ? "Upcoming · Limited information" : "Initial release · In development"}</small></span><span aria-hidden="true">→</span></a>)}
       </div>
     </div>
   </section>
+
   <section class="container section studio-signature" aria-labelledby="signature-title">
-    <div><p class="eyebrow">Mark</p><h2 id="signature-title">The Sun Moth</h2><p class="body-copy"><em>Mundi sine fine.</em><br />The emblem of Solivant Studios.</p></div>
+    <div>
+      <p class="eyebrow">III · Emblem</p>
+      <h2 id="signature-title">The Sun Moth</h2>
+      <p class="body-copy"><em>Mundi sine fine</em> — worlds without end. The emblem of Solivant Studios.</p>
+    </div>
     <BrandMoment tone="mono" />
   </section>
 </BaseLayout>

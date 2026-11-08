@@ -6,12 +6,16 @@ export function getStaticPaths() { return projects.map((project, index) => ({ pa
 interface Props { project: Project; index: number; }
 const { project, index } = Astro.props;
 const next = projects[(index + 1) % projects.length]!;
+const isByzantium = project.slug === "byzantium";
 ---
-<BaseLayout title={project.title} description={project.summary} image={project.cover?.src}>
+<BaseLayout title={project.title} description={project.summary} image={project.cover?.src} pageTone={project.tone}>
   <header class="container page-header project-header">
     <a class="back-link" href="/projects/"><span aria-hidden="true">←</span> All projects</a>
     <div class="project-header__title">
-      <div><p class="eyebrow">{project.workingTitle ? "Upcoming · Codename" : "Initial release"}</p><h1>{project.title}</h1></div>
+      <div>
+        <p class="eyebrow">{project.workingTitle ? "Upcoming · Codename" : "Release I · Initial Release"}</p>
+        <h1>{project.title}</h1>
+      </div>
       <span class="working-title">{project.workingTitle ? "Codename" : "In development"}</span>
     </div>
   </header>
@@ -24,19 +28,23 @@ const next = projects[(index + 1) % projects.length]!;
     ) : (
       <div class="project-title-panel" data-tone={project.tone} aria-label="Project artwork has not been revealed">
         <ProjectArtwork slug={project.slug} tone={project.tone} />
+        {isByzantium && <div class="flagship-stage__horizon" aria-hidden="true"></div>}
         <div class="project-title-panel__top" aria-hidden="true">
-          <span class="project-title-panel__index">{project.workingTitle ? "Codename" : "Initial release"}</span>
+          <span class="project-title-panel__index">{isByzantium ? "Anno Domini 1000 · Constantinople" : project.workingTitle ? "Codename" : "Initial release"}</span>
           <span class="project-title-panel__status">{project.status}</span>
         </div>
         <span class="project-title-panel__name" aria-hidden="true">{project.title}</span>
-        <p>Solivant Studios <span>{project.workingTitle ? "Limited information" : "Preview forthcoming"}</span></p>
+        <p>Solivant Studios <span>{project.workingTitle ? "Limited information" : "Official preview forthcoming"}</span></p>
       </div>
     )}
   </div>
   <section class="container section project-overview" aria-labelledby="about-project">
-    <div><p class="eyebrow">{project.slug === "byzantium" ? "Circa 1000 AD" : "Overview"}</p><h2 id="about-project">{project.slug === "byzantium" ? "For Byzantium" : project.title}</h2>{project.description.map(paragraph => <p class="body-copy">{paragraph}</p>)}
+    <div>
+      <p class="eyebrow">{isByzantium ? "Circa 1000 AD · Eastern Roman Empire" : "Project Dossier"}</p>
+      <h2 id="about-project">{isByzantium ? "For Byzantium" : project.title}</h2>
+      {project.description.map(paragraph => <p class="body-copy">{paragraph}</p>)}
       <div class="actions">
-        {project.trailer && <a class="button" href={project.trailer.href} rel="noopener noreferrer">{project.trailer.label}</a>}
+        {project.trailer && <a class="button button--gold" href={project.trailer.href} rel="noopener noreferrer">{project.trailer.label}</a>}
         {project.links?.map(link => <a class="button button--outline" href={link.href} rel="noopener noreferrer">{link.label}</a>)}
         <a class="text-link" href="/contact/">Inquire about {project.title}</a>
       </div>
@@ -45,10 +53,33 @@ const next = projects[(index + 1) % projects.length]!;
       <div><dt>Studio</dt><dd>Solivant Studios</dd></div>
       <div><dt>Status</dt><dd>{project.status}</dd></div>
       <div><dt>Designation</dt><dd>{project.workingTitle ? "Codename" : "Initial release"}</dd></div>
+      {isByzantium && <div><dt>Setting</dt><dd>Constantinople &amp; the Byzantine World (c. 1000 AD)</dd></div>}
       <div><dt>Platforms</dt><dd>{project.platforms.length ? project.platforms.join(", ") : "To be announced"}</dd></div>
       <div><dt>Release</dt><dd>{project.release || "To be announced"}</dd></div>
     </dl>
   </section>
+  {isByzantium && (
+    <section class="container section-bottom" aria-labelledby="pillars-title">
+      <div class="chapter-header">
+        <p class="eyebrow" id="pillars-title">Core Pillars</p>
+        <span class="chapter-header__rule" aria-hidden="true"></span>
+      </div>
+      <dl class="architecture-ledger">
+        <div>
+          <dt><span>I</span> The Imperial Call</dt>
+          <dd>Serve the throne of Constantinople at the turn of the first millennium amidst internal struggle and gathering frontier threats.</dd>
+        </div>
+        <div>
+          <dt><span>II</span> Fortification &amp; Siegecraft</dt>
+          <dd>Design timber and stone defenses, construct counter-siege artillery, and hold key strongpoints across the empire.</dd>
+        </div>
+        <div>
+          <dt><span>III</span> Disciplined Formations</dt>
+          <dd>Lead large-scale troop formations powered by Solivant’s custom low-level simulation and hardware optimization.</dd>
+        </div>
+      </dl>
+    </section>
+  )}
   {project.gallery?.length && (
     <section class="container section-bottom" aria-labelledby="gallery-title">
       <div class="section-heading"><div><p class="eyebrow">Media</p><h2 id="gallery-title">Gallery</h2></div></div>
