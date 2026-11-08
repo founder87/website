@@ -19,10 +19,12 @@ for (let i = 0; i < lockupData.length; i += 4) {
 const remattedLockup = await sharp(lockupData, { raw: lockupInfo }).png().toBuffer();
 await sharp(remattedLockup).resize(688).webp({ quality: 95, alphaQuality: 100 }).toFile(path("lockup-verdant.webp"));
 // This crop stops above the lettering and masks the top of the "l" ascender while retaining the complete moth silhouette.
-const clearAscender = await sharp({ create: { width: 460, height: 25, channels: 4, background: { r: 10, g: 9, b: 8, alpha: 1 } } }).png().toBuffer();
-const mark = await sharp(remattedLockup).extract({ left: 25, top: 0, width: 1085, height: 405 }).flatten({ background: "#0a0908" }).composite([{ input: clearAscender, left: 0, top: 380 }]).png().toBuffer();
-await sharp(mark).resize(256, 256, { fit: "contain", background: "#0a0908" }).png().toFile(path("icon.png"));
-await sharp(mark).resize(180, 180, { fit: "contain", background: "#0a0908" }).png().toFile(path("apple-touch-icon.png"));
+const clearAscender = await sharp({ create: { width: 460, height: 25, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 1 } } }).png().toBuffer();
+const mark = await sharp(remattedLockup).extract({ left: 25, top: 0, width: 1085, height: 405 }).flatten({ background: "#000000" }).composite([{ input: clearAscender, left: 0, top: 380 }]).png().toBuffer();
+await sharp(mark).resize(256, 256, { fit: "contain", background: "#000000" }).png().toFile(path("icon.png"));
+await sharp(mark).resize(256, 256, { fit: "contain", background: "#000000" }).png().toFile(path("favicon-gold.png"));
+await sharp(mark).resize(512, 512, { fit: "contain", background: "#000000" }).png().toFile(path("icon-512.png"));
+await sharp(mark).resize(180, 180, { fit: "contain", background: "#000000" }).png().toFile(path("apple-touch-icon.png"));
 await sharp(remattedLockup).resize(1200, 630, { fit: "contain", background: "#0a0908" }).flatten({ background: "#0a0908" }).png().toFile(path("social.png"));
 
 const byzantiumCardSvg = Buffer.from(`
