@@ -96,6 +96,9 @@ if (contact.includes("<form")) {
   assert.ok(!contact.includes('type="file"'), "File uploads are not supported");
 } else {
   assert.ok(!contact.includes('type="submit"'), "Disabled contact must not offer submission");
+  if (contact.includes("mailto:")) {
+    assert.ok(contact.includes('href="/support/"') && contact.includes('href="/projects/byzantium/"'), "Email contact page must link to support and Byzantium");
+  }
 }
 const bytes = (await Promise.all(files.filter(f => /\.(js|css)$/.test(f)).map(f => stat(f)))).reduce((sum, s) => sum + s.size, 0) + [...inlineScripts].reduce((sum, script) => sum + Buffer.byteLength(script), 0);
 assert.ok(bytes < 100_000, "Static site JS/CSS budget exceeded: " + bytes);

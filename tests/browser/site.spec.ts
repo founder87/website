@@ -54,8 +54,8 @@ test("unconfigured contact never pretends it can send a message", async ({ page 
   await page.goto("/contact/");
   await expect(page.locator("form")).toHaveCount(0);
   await expect(page.getByText("Not open just yet.")).toBeVisible();
-  await expect(page.getByRole("link", { name: "Player Support" }).first()).toHaveAttribute("href", "/support/");
-  await expect(page.getByRole("link", { name: "Explore Byzantium" })).toHaveAttribute("href", "/projects/byzantium/");
+  await expect(page.getByRole("link", { name: "Support" })).toHaveAttribute("href", "/support/");
+  await expect(page.getByRole("link", { name: "Byzantium" }).first()).toHaveAttribute("href", "/projects/byzantium/");
   await page.goto("/contact/success/");
   await expect(page.getByText(/No message has been sent/)).toBeVisible();
 });
