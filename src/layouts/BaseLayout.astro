@@ -49,10 +49,15 @@ const socialImage = new URL(image, settings.origin);
           w.dataLayer!.push(args);
         }
         gtag("js", new Date());
-        gtag("config", gaId);
+        const isGtm = gaId.startsWith("GTM-");
+        if (isGtm) {
+          w.dataLayer.push({ "gtm.start": Date.now(), event: "gtm.js" });
+        } else {
+          gtag("config", gaId);
+        }
         const script = document.createElement("script");
         script.async = true;
-        script.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(gaId);
+        script.src = "https://www.googletagmanager.com/" + (isGtm ? "gtm.js?id=" : "gtag/js?id=") + encodeURIComponent(gaId);
         document.head.appendChild(script);
         document.addEventListener("click", event => {
           const link = event.target instanceof Element ? event.target.closest("a") : null;

@@ -13,6 +13,7 @@ test("safe defaults: canonical domain, no indexing, no form, no guessed inbox", 
 test("production indexing is opt-in and deploy previews remain noindex", () => {
   assert.equal(readSettings({ SITE_INDEXABLE: "true" }).indexable, true);
   assert.equal(readSettings({ GA_MEASUREMENT_ID: "G-TEST123456" }).gaMeasurementId, "G-TEST123456");
+  assert.equal(readSettings({ GA_MEASUREMENT_ID: "GTM-54ZF68NB" }).gaMeasurementId, "GTM-54ZF68NB");
   for (const CONTEXT of ["deploy-preview", "branch-deploy", "dev"]) {
     assert.equal(readSettings({ SITE_INDEXABLE: "true", CONTEXT }).indexable, false);
     assert.equal(readSettings({ GA_MEASUREMENT_ID: "G-TEST123456", CONTEXT }).gaMeasurementId, "");
