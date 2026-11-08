@@ -1,22 +1,23 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { projects } from "../data/projects";
 ---
 <BaseLayout title="Studio" description="Solivant Studios. Mundi sine fine. Developing Byzantium alongside upcoming codenamed projects.">
   <header class="container page-header">
     <p class="eyebrow">Solivant Studios</p>
     <h1><em>Mundi sine fine</em></h1>
-    <p class="lede">Developing our initial release, <strong>Byzantium</strong>, alongside upcoming codenamed projects.</p>
   </header>
 
-  <section class="section studio-band" aria-labelledby="studio-projects">
-    <div class="container editorial-grid">
-      <div>
-        <p class="eyebrow">Projects</p>
-        <h2 id="studio-projects">In development</h2>
-      </div>
-      <div class="studio-project-list">
-        {projects.map(project => <a href={"/projects/" + project.slug + "/"}><span class="eyebrow">{project.workingTitle ? "Codename" : "Release 01"}</span><span>{project.title}<small>{project.workingTitle ? "Upcoming" : "Initial release"}</small></span><span aria-hidden="true">→</span></a>)}
+  <section class="container section-bottom editorial-grid" aria-labelledby="studio-overview">
+    <div>
+      <p class="eyebrow">Overview</p>
+      <h2 id="studio-overview">The studio</h2>
+    </div>
+    <div>
+      <p class="lede">Solivant Studios builds strategy and simulation games designed for depth, historical weight, and physical realism.</p>
+      <p class="body-copy">Our current production focus is our initial release, <strong>Byzantium</strong>, set in the Eastern Roman Empire around the year 1000. Alongside Byzantium, the studio is developing upcoming projects under the codenames <strong>Cubes</strong>, <strong>Hexagonal</strong>, and <strong>Horizon</strong>.</p>
+      <div class="actions">
+        <a class="button button--gold" href="/projects/byzantium/">Explore Byzantium</a>
+        <a class="button button--outline" href="/contact/">Contact</a>
       </div>
     </div>
   </section>

@@ -11,8 +11,7 @@ import { settings } from "../data/site";
   <section class="container section-bottom contact-layout" aria-labelledby="inquiries-title">
     <div>
       <h2 id="inquiries-title">Inquiries</h2>
-      {settings.contactEmail ? <p class="body-copy">Reach the studio at <a class="text-link contact-email" href={"mailto:" + encodeURIComponent(settings.contactEmail)}>{settings.contactEmail}</a>.</p> : <p class="body-copy">Our public contact channel is being prepared. Please check back here for the studio’s contact details.</p>}
-      <p class="small muted">For current project status, see the <a href="/projects/">projects page</a>.</p>
+      {settings.contactEmail ? <p class="body-copy">For press, publishing, or studio correspondence, reach us directly at <a class="text-link contact-email" href={"mailto:" + encodeURIComponent(settings.contactEmail)}>{settings.contactEmail}</a>.</p> : <p class="body-copy">Our public contact channel is being prepared. Please check back here for the studio’s contact details.</p>}
     </div>
     {settings.contactEnabled ? (
       <form class="contact-form" name="studio-inquiry" method="POST" action="/contact/success/" data-netlify="true" netlify-honeypot="company-site">
@@ -31,12 +30,18 @@ import { settings } from "../data/site";
     ) : settings.contactEmail ? (
       <div class="inquiry-channels">
         <div>
-          <p class="eyebrow">Press & media</p>
-          <p class="small muted">Press inquiries, interview requests, and official media assets as projects are revealed.</p>
+          <p class="eyebrow">Player support</p>
+          <p class="small muted">Need technical assistance or troubleshooting for a Solivant Studios title on iOS or Steam?</p>
+          <div class="actions">
+            <a class="text-link" href="/support/">Player Support →</a>
+          </div>
         </div>
         <div>
-          <p class="eyebrow">Business & partnerships</p>
-          <p class="small muted">Publishing, platform, and technical collaboration inquiries with Solivant Studios.</p>
+          <p class="eyebrow">Initial release</p>
+          <p class="small muted">Read the overview and current development status for Byzantium.</p>
+          <div class="actions">
+            <a class="text-link" href="/projects/byzantium/">Explore Byzantium →</a>
+          </div>
         </div>
       </div>
     ) : (

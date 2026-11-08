@@ -48,6 +48,29 @@ const combCells = [
   { cx: 478, cy: 295, tier: "inner" },
   { cx: 400, cy: 250, tier: "core" },
 ] as const;
+
+const cube = (cx: number, cy: number, r = 54) => {
+  const dx = Math.round(r * 0.8660254);
+  const dy = Math.round(r * 0.5);
+  return {
+    outline: `${cx},${cy - r} ${cx + dx},${cy - dy} ${cx + dx},${cy + dy} ${cx},${cy + r} ${cx - dx},${cy + dy} ${cx - dx},${cy - dy}`,
+    top: `${cx},${cy - r} ${cx + dx},${cy - dy} ${cx},${cy} ${cx - dx},${cy - dy}`,
+    edges: `M${cx - dx},${cy - dy} L${cx},${cy} L${cx + dx},${cy - dy} M${cx},${cy} L${cx},${cy + r}`,
+  };
+};
+const cubeCells = [
+  { cx: 296, cy: 190, tier: "mid" },
+  { cx: 504, cy: 190, tier: "mid" },
+  { cx: 296, cy: 310, tier: "mid" },
+  { cx: 504, cy: 310, tier: "mid" },
+  { cx: 400, cy: 130, tier: "inner" },
+  { cx: 348, cy: 220, tier: "inner" },
+  { cx: 452, cy: 220, tier: "inner" },
+  { cx: 348, cy: 280, tier: "inner" },
+  { cx: 452, cy: 280, tier: "inner" },
+  { cx: 400, cy: 370, tier: "inner" },
+  { cx: 400, cy: 250, tier: "core" },
+] as const;
 ---
 {slug === "hexagonal" && (
   <div class="project-art" aria-hidden="true">
@@ -62,6 +85,34 @@ const combCells = [
           fill-opacity={cell.tier === "core" ? "0.12" : cell.tier === "inner" ? "0.05" : "0"}
         />
       ))}
+    </svg>
+  </div>
+)}
+{slug === "cubes" && (
+  <div class="project-art" aria-hidden="true">
+    <svg class="project-art__svg" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {cubeCells.map(cell => {
+        const g = cube(cell.cx, cell.cy, 58);
+        const strokeOpacity = cell.tier === "core" ? "0.72" : cell.tier === "inner" ? "0.36" : "0.18";
+        return (
+          <g>
+            <polygon points={g.top} fill="currentColor" fill-opacity={cell.tier === "core" ? "0.14" : "0.04"} />
+            <polygon points={g.outline} stroke="currentColor" stroke-opacity={strokeOpacity} stroke-width={cell.tier === "core" ? "1.6" : "1"} />
+            <path d={g.edges} stroke="currentColor" stroke-opacity={strokeOpacity} stroke-width={cell.tier === "core" ? "1.4" : "0.9"} />
+          </g>
+        );
+      })}
+    </svg>
+  </div>
+)}
+{slug === "horizon" && (
+  <div class="project-art" aria-hidden="true">
+    <svg class="project-art__svg" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="60" y1="280" x2="740" y2="280" stroke="currentColor" stroke-opacity="0.55" stroke-width="1.25" />
+      <path d="M 80 330 Q 400 180 720 330" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.25" />
+      <path d="M 140 365 Q 400 225 660 365" stroke="currentColor" stroke-opacity="0.24" stroke-width="1" />
+      <circle cx="400" cy="280" r="110" stroke="currentColor" stroke-opacity="0.22" stroke-width="1" />
+      <circle cx="400" cy="280" r="180" stroke="currentColor" stroke-opacity="0.12" stroke-width="1" />
     </svg>
   </div>
 )}
