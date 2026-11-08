@@ -274,7 +274,6 @@ h1 em, h2 em { font-weight: 400; }
 .project-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.75rem 1.75rem; }
 .project-grid--upcoming { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.25rem 1.5rem; }
 .project-card { min-width: 0; }
-.project-card__link { display: block; text-decoration: none; }
 .project-card__visual {
   position: relative;
   background-color: var(--project-bg);
@@ -287,7 +286,7 @@ h1 em, h2 em { font-weight: 400; }
   border: 1px solid rgba(255, 255, 255, 0.12);
   transition: border-color .25s;
 }
-.project-card__link:hover .project-card__visual, .project-card__visual:hover { border-color: rgba(255, 255, 255, 0.28); }
+.project-card__visual:hover { border-color: rgba(255, 255, 255, 0.28); }
 .project-card__visual img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
 .project-art {
   position: absolute;
@@ -342,20 +341,12 @@ h1 em, h2 em { font-weight: 400; }
 [data-tone="ochre"] .project-card__display { text-transform: uppercase; letter-spacing: -.02em; }
 [data-tone="sage"] .project-card__display { font-family: ui-monospace, "SFMono-Regular", Consolas, monospace; font-size: clamp(1.4rem, 2vw, 2.1rem); letter-spacing: -.05em; }
 [data-tone="silver"] .project-card__display { font-style: italic; }
-.project-card__link:hover img { transform: scale(1.02); }
 
-.studio-band {
-  background-color: var(--forest);
-  background-image: radial-gradient(ellipse 70% 60% at 15% 50%, rgba(216, 166, 80, 0.07), transparent 70%);
-  border-block: 1px solid var(--line);
-}
 .editorial-grid { display: grid; grid-template-columns: .7fr 1.3fr; gap: clamp(2rem, 4vw, 4rem); align-items: start; }
 .page-header { padding-block: clamp(3rem, 5.5vw, 5rem) clamp(2.25rem, 4vw, 3.25rem); }
 .page-header .lede { margin-top: 1.25rem; }
 .project-header { padding-top: 2rem; }
 .project-header .back-link { margin-bottom: 1.75rem; color: var(--muted); }
-.project-header__title { display: flex; align-items: end; justify-content: space-between; gap: 2rem; }
-.working-title { white-space: nowrap; padding: .45rem .8rem; border: 1px solid rgba(216, 166, 80, 0.35); background: var(--surface); color: var(--gold); font: .62rem/1.5 ui-monospace, monospace; text-transform: uppercase; letter-spacing: .14em; margin-bottom: .3rem; }
 
 .project-title-panel {
   display: flex;
@@ -436,18 +427,6 @@ h1 em, h2 em { font-weight: 400; }
   border: 1px solid var(--line);
 }
 .inquiry-channels .small { margin-top: .45rem; }
-.contact-notice { border: 1px solid var(--specular); background: var(--surface); padding: clamp(1.5rem, 2.5vw, 2.25rem); align-self: start; }
-.contact-notice h3 { font: 1.55rem/1.2 var(--serif); margin-block: .85rem; }
-.contact-notice p { color: var(--muted); margin-bottom: 1.5rem; }
-.contact-form { display: grid; gap: 1.35rem; }
-.contact-form label { display: grid; gap: .55rem; color: var(--text); font-size: .85rem; }
-.contact-form input, .contact-form select, .contact-form textarea { width: 100%; min-width: 0; padding: .75rem .85rem; border: 1px solid #5c5044; border-radius: 0; background: var(--surface); color: var(--text); }
-.contact-form textarea { resize: vertical; min-height: 9rem; }
-.contact-form select { min-height: 3.1rem; }
-.contact-form .small { margin-top: 0; max-width: none; }
-.contact-form button { justify-self: start; }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.form-honeypot { display: none; }
 .legal-layout {
   display: grid;
   grid-template-columns: .42fr 1fr;

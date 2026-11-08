@@ -13,7 +13,7 @@ const organizationSchema = {
   name: site.name,
   slogan: site.motto,
   url: settings.origin,
-  logo: new URL("/brand/icon.png", settings.origin).href,
+  logo: new URL("/brand/favicon-gold.png", settings.origin).href,
 };
 const structuredData = schema
   ? { "@context": "https://schema.org", "@graph": [organizationSchema, schema] }

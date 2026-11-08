@@ -23,41 +23,32 @@ const gameSchema = {
 ---
 <BaseLayout title={project.title} description={project.summary} image={socialImage} pageTone={project.tone} schema={gameSchema}>
   <div class="container project-header">
-    <a class="back-link" href="/projects/"><span aria-hidden="true">←</span> All projects</a>
+    <a class="back-link" href="/"><span aria-hidden="true">←</span> Home</a>
   </div>
   <div class="container">
-    {project.cover ? (
-      <>
-        <header class="project-header__title">
-          <div>
-            <p class="eyebrow">Initial Release</p>
-            <h1>{project.title}</h1>
-          </div>
-          <span class="working-title">{project.status}</span>
-        </header>
-        <figure class="project-cover">
-          <img src={project.cover.src} alt={project.cover.alt} width={project.cover.width} height={project.cover.height} fetchpriority="high" />
-          {project.cover.caption && <figcaption>{project.cover.caption}</figcaption>}
-        </figure>
-      </>
-    ) : (
-      <header class="project-title-panel" data-tone={project.tone}>
-        <ProjectArtwork slug={project.slug} tone={project.tone} />
-        {isByzantium && <div class="flagship-stage__horizon" aria-hidden="true"></div>}
-        <div class="project-title-panel__top">
-          <span class="project-title-panel__index">{isByzantium ? "Anno Domini 1000 · Constantinople" : "Initial release"}</span>
-          <span class="project-title-panel__status">{project.status}</span>
-        </div>
-        <h1 class="project-title-panel__name">{project.title}</h1>
-        <p>Solivant Studios <span>Preview forthcoming</span></p>
-      </header>
+    <header class="project-title-panel" data-tone={project.tone}>
+      <ProjectArtwork slug={project.slug} tone={project.tone} />
+      {isByzantium && <div class="flagship-stage__horizon" aria-hidden="true"></div>}
+      <div class="project-title-panel__top">
+        <span class="project-title-panel__index">{isByzantium ? "Anno Domini 1000 · Constantinople" : "Initial release"}</span>
+        <span class="project-title-panel__status">{project.status}</span>
+      </div>
+      <h1 class="project-title-panel__name">{project.title}</h1>
+      <p>Solivant Studios <span>Preview forthcoming</span></p>
+    </header>
+    {project.cover && (
+      <figure class="project-cover">
+        <img src={project.cover.src} alt={project.cover.alt} width={project.cover.width} height={project.cover.height} fetchpriority="high" />
+        {project.cover.caption && <figcaption>{project.cover.caption}</figcaption>}
+      </figure>
     )}
   </div>
   <section class="container section project-overview" aria-labelledby="about-project">
     <div>
       <p class="eyebrow">Circa 1000 AD · Eastern Roman Empire</p>
-      <h2 id="about-project">For Byzantium</h2>
-      {project.description.map(paragraph => <p class="body-copy">{paragraph}</p>)}
+      <h2 id="about-project">Overview</h2>
+      <p class="lede">{project.summary}</p>
+      {project.description?.map(paragraph => <p class="body-copy">{paragraph}</p>)}
       <div class="actions">
         {project.trailer && <a class="button button--gold" href={project.trailer.href} rel="noopener noreferrer">{project.trailer.label}</a>}
         {project.links?.map(link => <a class="button button--outline" href={link.href} rel="noopener noreferrer">{link.label}</a>)}

@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { safeExternalUrl, validateImage, defineProjects } from "../src/lib/content.mjs";
-const project = { slug: "test-game", title: "Test Game", summary: "A test project.", description: ["A description."], workingTitle: true, status: "In development", tone: "sage", platforms: [] };
+const project = { slug: "test-game", title: "Test Game", summary: "A test project.", description: ["A description."], workingTitle: false, status: "In development", tone: "ochre", platforms: [] };
 const image = { src: "/media/projects/test-game/cover.webp", alt: "A descriptive screenshot.", width: 1920, height: 1080 };
 test("projects work with no media, dates, or store links", () => assert.deepEqual(defineProjects([project]), [project]));
 test("project media, trailer and store data accept valid inputs", () => {

@@ -55,12 +55,7 @@ const contactAddress = settings.contactEmail || "contact@solivantstudios.com";
 
     <section aria-labelledby="privacy-contact">
       <h2 id="privacy-contact">4. Player Support &amp; Correspondence</h2>
-      {settings.contactEnabled ? (
-        <p>The contact form sends your name, email address, selected subject, and message to Netlify Forms for studio correspondence. Please share only what is needed for your inquiry, and do not submit sensitive or confidential information. Netlify processes submissions as the form service provider; see <a href="https://www.netlify.com/privacy/" rel="noopener noreferrer">Netlify’s privacy policy</a>.</p>
-      ) : (
-        <p>Online form submissions are not enabled on this version of the site. No web form collects your personal details.</p>
-      )}
-      <p>When you email Solivant Studios for player support, press, or business inquiries at <a href={"mailto:" + encodeURIComponent(contactAddress)}>{contactAddress}</a>, we use your email address and the contents of your message solely to respond to and resolve your inquiry.</p>
+      <p>This website does not use web forms to collect personal details. When you email Solivant Studios for player support, press, or business inquiries at <a href={"mailto:" + encodeURIComponent(contactAddress)}>{contactAddress}</a>, we use your email address and the contents of your message solely to respond to and resolve your inquiry.</p>
     </section>
 
     <section aria-labelledby="privacy-children">

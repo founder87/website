@@ -10,7 +10,7 @@ test("all project pages work and no runtime/CSP errors occur", async ({ page }) 
   for (const [slug, title] of [["byzantium", "Byzantium"]]) {
     await page.goto("/projects/" + slug + "/");
     await expect(page.getByRole("heading", { level: 1 })).toContainText(title);
-    await expect(page.getByRole("link", { name: "All projects" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Home", exact: false }).first()).toBeVisible();
   }
   expect(errors).toEqual([]);
 });
@@ -18,7 +18,7 @@ test("all project pages work and no runtime/CSP errors occur", async ({ page }) 
 test("pages do not overflow at narrow, tablet, and desktop widths", async ({ page }) => {
   for (const width of [320, 390, 768, 1440]) {
     await page.setViewportSize({ width, height: 900 });
-    for (const path of ["/", "/projects/", "/projects/byzantium/", "/studio/", "/contact/", "/privacy/", "/terms/", "/support/"]) {
+    for (const path of ["/", "/projects/byzantium/", "/studio/", "/contact/", "/privacy/", "/terms/", "/support/"]) {
       await page.goto(path);
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), path + " at " + width).toBe(true);
     }
@@ -38,8 +38,8 @@ test("mobile menu supports keyboard, escape, and navigation", async ({ page }) =
   await expect(nav).toBeHidden();
   await expect(toggle).toBeFocused();
   await toggle.click();
-  await nav.getByRole("link", { name: "Projects" }).click();
-  await expect(page).toHaveURL(/\/projects\/$/);
+  await nav.getByRole("link", { name: "Byzantium" }).click();
+  await expect(page).toHaveURL(/\/projects\/byzantium\/$/);
 });
 
 test("skip link reaches the main content", async ({ page }) => {
@@ -50,14 +50,11 @@ test("skip link reaches the main content", async ({ page }) => {
   await expect(page.locator("main")).toBeFocused();
 });
 
-test("unconfigured contact never pretends it can send a message", async ({ page }) => {
+test("contact page links directly to studio email, player support, and Byzantium", async ({ page }) => {
   await page.goto("/contact/");
   await expect(page.locator("form")).toHaveCount(0);
-  await expect(page.getByText("Not open just yet.")).toBeVisible();
-  await expect(page.getByRole("link", { name: "Support" })).toHaveAttribute("href", "/support/");
-  await expect(page.getByRole("link", { name: "Byzantium" }).first()).toHaveAttribute("href", "/projects/byzantium/");
-  await page.goto("/contact/success/");
-  await expect(page.getByText(/No message has been sent/)).toBeVisible();
+  await expect(page.getByRole("link", { name: /Player Support/ })).toHaveAttribute("href", "/support/");
+  await expect(page.getByRole("link", { name: /Explore Byzantium/ })).toHaveAttribute("href", "/projects/byzantium/");
 });
 
 test("navigation and project content survive JavaScript being disabled", async ({ browser }) => {

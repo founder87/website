@@ -7,8 +7,6 @@ export function readSettings(env = {}) {
   if (url.protocol !== "https:" || url.username || url.password || url.search || url.hash || url.pathname !== "/") {
     throw new Error("SITE_URL must be an HTTPS origin without a path, credentials, query, or fragment.");
   }
-  const provider = env.CONTACT_PROVIDER || "disabled";
-  if (!["disabled", "netlify"].includes(provider)) throw new Error("CONTACT_PROVIDER must be disabled or netlify.");
   const contactEmail = env.CONTACT_EMAIL || "";
   if (contactEmail && !/^[a-zA-Z0-9.!#$%&'*+\/=?^_{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+$/.test(contactEmail)) {
     throw new Error("CONTACT_EMAIL must be a plain email address (not a mailto URL).");
@@ -18,20 +16,14 @@ export function readSettings(env = {}) {
   if (gaMeasurementId && !/^(?:G|GTM)-[A-Z0-9]{4,16}$/.test(gaMeasurementId)) {
     throw new Error("GA_MEASUREMENT_ID must be a valid GA4 or GTM ID (e.g. G-XXXXXXXXXX or GTM-XXXXXXXX).");
   }
-  for (const name of ["SITE_INDEXABLE", "CONTACT_PRIVACY_REVIEWED"]) {
-    if (env[name] && !["true", "false"].includes(env[name])) throw new Error(name + " must be true or false.");
-  }
-  const isProductionNetlify = env.NETLIFY === "true" && env.CONTEXT === "production";
-  if (provider === "netlify" && isProductionNetlify && env.CONTACT_PRIVACY_REVIEWED !== "true") {
-    throw new Error("Review contact/privacy copy, then set CONTACT_PRIVACY_REVIEWED=true before enabling the production form.");
+  if (env.SITE_INDEXABLE && !["true", "false"].includes(env.SITE_INDEXABLE)) {
+    throw new Error("SITE_INDEXABLE must be true or false.");
   }
   const isPreview = Boolean(env.CONTEXT && env.CONTEXT !== "production");
   return Object.freeze({
     origin: url.origin,
     indexable: env.SITE_INDEXABLE === "true" && !isPreview,
     contactEmail,
-    contactEnabled: provider === "netlify" && isProductionNetlify,
-    contactProvider: provider,
     gaMeasurementId: !isPreview ? gaMeasurementId : "",
   });
 }

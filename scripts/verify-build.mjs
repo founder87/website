@@ -13,7 +13,7 @@ const htmlFiles = files.filter(file => extname(file) === ".html");
 const inlineScripts = new Set();
 const decode = text => text.replaceAll("&quot;", '"').replaceAll("&#39;", "'").replaceAll("&amp;", "&");
 const attributes = tag => Object.fromEntries([...tag.matchAll(/([\w:-]+)\s*=\s*"([^"]*)"/g)].map(match => [match[1].toLowerCase(), decode(match[2])]));
-const required = ["index.html", "projects/index.html", "projects/byzantium/index.html", "studio/index.html", "contact/index.html", "privacy/index.html", "terms/index.html", "support/index.html", "contact/success/index.html", "404.html", "robots.txt", "sitemap.xml", "_headers", ".well-known/security.txt", "brand/favicon-gold.png", "brand/icon-512.png", "brand/social.png", "brand/social-byzantium.png"];
+const required = ["index.html", "projects/byzantium/index.html", "studio/index.html", "contact/index.html", "privacy/index.html", "terms/index.html", "support/index.html", "404.html", "robots.txt", "sitemap.xml", "_headers", ".well-known/security.txt", "brand/favicon-gold.png", "brand/icon-512.png", "brand/social.png", "brand/social-byzantium.png"];
 for (const file of required) assert.ok(files.includes(resolve(root, file)), "Missing route: " + file);
 
 for (const file of files) {
@@ -87,19 +87,12 @@ if (home.includes('content="noindex, nofollow"')) {
   assert.match(headers, /X-Robots-Tag: noindex, nofollow/);
 } else {
   assert.match(robots, /Sitemap: https:\/\//);
-  assert.equal((sitemap.match(/<url>/g) || []).length, 8);
-  assert.ok(!/404|success/.test(sitemap));
+  assert.equal((sitemap.match(/<url>/g) || []).length, 7);
+  assert.ok(!/404/.test(sitemap));
 }
 const contact = await readFile(resolve(root, "contact/index.html"), "utf8");
-if (contact.includes("<form")) {
-  for (const expected of ['method="POST"', 'action="/contact/success/"', 'data-netlify="true"', 'netlify-honeypot="company-site"', 'maxlength="5000"', 'maxlength="254"', 'name="form-name"']) assert.ok(contact.includes(expected), "Form missing " + expected);
-  assert.ok(!contact.includes('type="file"'), "File uploads are not supported");
-} else {
-  assert.ok(!contact.includes('type="submit"'), "Disabled contact must not offer submission");
-  if (contact.includes("mailto:")) {
-    assert.ok(contact.includes('href="/support/"') && contact.includes('href="/projects/byzantium/"'), "Email contact page must link to support and Byzantium");
-  }
-}
+assert.ok(!contact.includes("<form") && !contact.includes('type="submit"'), "Contact page must not render a form");
+assert.ok(contact.includes('href="/support/"') && contact.includes('href="/projects/byzantium/"'), "Contact page must link to support and Byzantium");
 const bytes = (await Promise.all(files.filter(f => /\.(js|css)$/.test(f)).map(f => stat(f)))).reduce((sum, s) => sum + s.size, 0) + [...inlineScripts].reduce((sum, script) => sum + Buffer.byteLength(script), 0);
 assert.ok(bytes < 100_000, "Static site JS/CSS budget exceeded: " + bytes);
 console.log("Verified " + htmlFiles.length + " HTML pages: routes, local assets, SEO, CSP, headers, contact states, and " + Math.ceil(bytes / 1024) + " KB JS/CSS.");

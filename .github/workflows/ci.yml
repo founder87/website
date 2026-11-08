@@ -15,12 +15,11 @@ concurrency:
 
 jobs:
   validate:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     env:
       ASTRO_TELEMETRY_DISABLED: "1"
       SITE_INDEXABLE: "false"
-      CONTACT_PROVIDER: "disabled"
       CONTACT_EMAIL: ""
     steps:
       - name: Check out repository
@@ -70,7 +69,7 @@ jobs:
   deploy:
     needs: validate
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     permissions:
       pages: write
