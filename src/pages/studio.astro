@@ -3,45 +3,30 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import BrandMoment from "../components/BrandMoment.astro";
 import { projects } from "../data/projects";
 ---
-<BaseLayout title="The studio" description="Meet Solivant Studios, an independent game studio with four projects in development.">
+<BaseLayout title="Studio" description="Solivant Studios — Mundi sine fine. Engineering hyperoptimized game engines for physical realism and wider hardware access.">
   <header class="container page-header">
-    <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> The studio // Mundi sine fine</p>
-    <h1>We are<br /><em>Solivant.</em></h1>
-    <p class="lede">Focused on hyperoptimizing game engines to push devices to their limits—expanding access to ambitious games while delivering grounded physical realism.</p>
+    <p class="eyebrow">Solivant Studios</p>
+    <h1><em>Mundi sine fine</em></h1>
+    <p class="lede">We engineer hyperoptimized game engines that push hardware to its limits—expanding access to demanding games while delivering grounded physical realism.</p>
   </header>
-  <section class="container section-bottom" aria-labelledby="pillars-title">
-    <div class="section-heading">
-      <div><p class="eyebrow">01 / Technical & creative focus</p><h2 id="pillars-title">Studio principles.</h2></div>
-      <p>Performance engineering and physical realism at the core of every world we build.</p>
-    </div>
-    <div class="pillar-grid">
-      <div class="pillar-card">
-        <p class="eyebrow">Principle 01</p>
-        <h3>Engine hyperoptimization</h3>
-        <p>We build and tune low-level engine systems to push hardware to its limits—maximizing simulation scale and visual fidelity without wasted overhead.</p>
-      </div>
-      <div class="pillar-card">
-        <p class="eyebrow">Principle 02</p>
-        <h3>Wider access to games</h3>
-        <p>By treating performance as a foundational requirement rather than an afterthought, we make complex, large-scale games playable across a wider range of devices.</p>
-      </div>
-      <div class="pillar-card">
-        <p class="eyebrow">Principle 03</p>
-        <h3>Grounded realism</h3>
-        <p>We pair high-throughput engineering with physically plausible architecture, terrain, and simulation systems that give every action weight and consequence.</p>
-      </div>
+  <section class="container section-bottom editorial-grid" aria-labelledby="engineering-title">
+    <p class="eyebrow">Engineering & craft</p>
+    <div>
+      <h2 id="engineering-title">Performance and realism</h2>
+      <p class="body-copy">At Solivant Studios, engine optimization is foundational. By building low-level systems designed to extract the full capability of modern hardware, we can simulate dense, physically grounded worlds without restricting them to top-tier machines.</p>
+      <p class="body-copy">Our current focus is our initial release, <strong>Byzantium</strong>. Alongside it, BoomTown, The Grid, and Horizon are upcoming codenamed projects in early stages with limited public information.</p>
     </div>
   </section>
   <section class="section studio-band" aria-labelledby="studio-projects">
     <div class="container editorial-grid">
-      <div><p class="eyebrow">02 / Development slate</p><h2 id="studio-projects">Our next<br />chapter.</h2><p class="body-copy">Our primary focus is our initial release, Byzantium. Alongside it, BoomTown, The Grid, and Horizon are upcoming codenamed projects with limited public information until their formal reveals.</p></div>
+      <div><p class="eyebrow">Projects</p><h2 id="studio-projects">Development slate</h2></div>
       <div class="studio-project-list">
-        {projects.map((project, index) => <a href={"/projects/" + project.slug + "/"}><span class="eyebrow">{String(index + 1).padStart(2, "0")}</span><span>{project.title}<small>{project.workingTitle ? "Upcoming · Codename (limited information)" : "Initial release · In active development"}</small></span><span aria-hidden="true">↗</span></a>)}
+        {projects.map(project => <a href={"/projects/" + project.slug + "/"}><span class="eyebrow">{project.workingTitle ? "Codename" : "Release 01"}</span><span>{project.title}<small>{project.workingTitle ? "Upcoming · Limited information" : "Initial release · In development"}</small></span><span aria-hidden="true">→</span></a>)}
       </div>
     </div>
   </section>
   <section class="container section studio-signature" aria-labelledby="signature-title">
-    <div><p class="eyebrow">03 / Our signature</p><h2 id="signature-title">The Sun Moth.</h2><p class="body-copy"><em>Mundi sine fine.</em><br />The mark of Solivant Studios—a quiet light at the beginning of something new.</p></div>
+    <div><p class="eyebrow">Mark</p><h2 id="signature-title">The Sun Moth</h2><p class="body-copy"><em>Mundi sine fine.</em><br />The emblem of Solivant Studios.</p></div>
     <BrandMoment tone="mono" />
   </section>
 </BaseLayout>

@@ -2,27 +2,17 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { settings } from "../data/site";
 ---
-<BaseLayout title="Contact" description="Contact information and studio inquiries for Solivant Studios.">
+<BaseLayout title="Contact" description="Contact information and inquiries for Solivant Studios.">
   <header class="container page-header">
-    <p class="eyebrow">Contact the studio</p>
-    <h1>Let’s <em>talk.</em></h1>
-    <p class="lede">Questions about the studio or our projects?<br />You’re in the right place.</p>
+    <p class="eyebrow">Solivant Studios</p>
+    <h1>Contact</h1>
+    <p class="lede">Direct inquiries regarding our projects, press, and partnerships.</p>
   </header>
   <section class="container section-bottom contact-layout" aria-labelledby="inquiries-title">
     <div>
-      <h2 id="inquiries-title">Studio inquiries.</h2>
-      {settings.contactEmail ? <p class="body-copy">Email us at <a class="text-link contact-email" href={"mailto:" + encodeURIComponent(settings.contactEmail)}>{settings.contactEmail}</a>.</p> : <p class="body-copy">Our public contact channel is being prepared. Please check back here for the studio’s contact details.</p>}
-      <p class="small muted">For project information, visit the <a href="/projects/">project pages</a>. Platforms, dates, and media are listed there when announced.</p>
-      <div class="inquiry-channels">
-        <div>
-          <p class="eyebrow">Press & media</p>
-          <p class="small muted">Studio fact sheets, interview requests, and official press assets as projects are revealed.</p>
-        </div>
-        <div>
-          <p class="eyebrow">Business & partnerships</p>
-          <p class="small muted">Publishing, platform, and strategic collaboration inquiries with Solivant Studios.</p>
-        </div>
-      </div>
+      <h2 id="inquiries-title">Inquiries</h2>
+      {settings.contactEmail ? <p class="body-copy">Reach the studio at <a class="text-link contact-email" href={"mailto:" + encodeURIComponent(settings.contactEmail)}>{settings.contactEmail}</a>.</p> : <p class="body-copy">Our public contact channel is being prepared. Please check back here for the studio’s contact details.</p>}
+      <p class="small muted">For current project status, see the <a href="/projects/">projects page</a>.</p>
     </div>
     {settings.contactEnabled ? (
       <form class="contact-form" name="studio-inquiry" method="POST" action="/contact/success/" data-netlify="true" netlify-honeypot="company-site">
@@ -36,14 +26,25 @@ import { settings } from "../data/site";
         <label for="contact-subject">Subject<select id="contact-subject" name="subject" required><option value="">Choose a subject</option><option value="general">General inquiry</option><option value="press">Press and media</option><option value="business">Business inquiry</option><option value="project">Project question</option></select></label>
         <label for="contact-message">Message<textarea id="contact-message" name="message" rows="7" minlength="10" maxlength="5000" aria-describedby="form-help message-help" required></textarea></label>
         <p class="small muted" id="message-help">10–5,000 characters. Submitted through Netlify Forms. See <a href="/privacy/">site privacy</a>.</p>
-        <button class="button" type="submit">Send inquiry <span aria-hidden="true">↗</span></button>
+        <button class="button" type="submit">Send inquiry</button>
       </form>
+    ) : settings.contactEmail ? (
+      <div class="inquiry-channels">
+        <div>
+          <p class="eyebrow">Press & media</p>
+          <p class="small muted">Press inquiries, interview requests, and official media assets as projects are revealed.</p>
+        </div>
+        <div>
+          <p class="eyebrow">Business & partnerships</p>
+          <p class="small muted">Publishing, platform, and technical collaboration inquiries with Solivant Studios.</p>
+        </div>
+      </div>
     ) : (
       <div class="contact-notice">
         <span class="eyebrow">Contact status</span>
-        <h3>{settings.contactEmail ? "Email is the way in." : "Not open just yet."}</h3>
-        <p>{settings.contactEmail ? "Use the email address on this page to get in touch. Online form submissions are not enabled." : "Online inquiries aren’t enabled yet. No information is collected through a form on this page."}</p>
-        <a class="text-link" href="/projects/">Explore the projects <span aria-hidden="true">↗</span></a>
+        <h3>Not open just yet.</h3>
+        <p>Online inquiries aren’t enabled yet. No information is collected through a form on this page.</p>
+        <a class="text-link" href="/projects/">View projects</a>
       </div>
     )}
   </section>

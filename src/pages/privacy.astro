@@ -2,14 +2,14 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { settings } from "../data/site";
 ---
-<BaseLayout title="Site privacy" description="How this Solivant Studios website handles visits and contact inquiries.">
-  <header class="container page-header"><p class="eyebrow">About this website</p><h1>Site <em>privacy.</em></h1><p class="lede">A straightforward look at how this site works.</p></header>
+<BaseLayout title="Privacy" description="How the Solivant Studios website handles visits and contact inquiries.">
+  <header class="container page-header"><p class="eyebrow">Solivant Studios</p><h1>Privacy</h1><p class="lede">How this website handles visits and correspondence.</p></header>
   <div class="container prose section-bottom">
-    <section aria-labelledby="privacy-visiting"><h2 id="privacy-visiting">Visiting the site</h2><p>This website does not set its own cookies, use analytics or advertising scripts, or offer user accounts. It does not store your browsing activity in local storage.</p><p>A hosting provider may process technical request information, such as IP addresses, for delivery and security. Hosting-specific information should be reviewed when this site is launched.</p></section>
+    <section aria-labelledby="privacy-visiting"><h2 id="privacy-visiting">Visiting the site</h2><p>This website does not set its own cookies, use analytics or advertising scripts, or offer user accounts. It does not store your browsing activity in local storage.</p><p>A hosting provider may process technical request information, such as IP addresses, for delivery and security.</p></section>
     <section aria-labelledby="privacy-contact"><h2 id="privacy-contact">Contacting the studio</h2>
       {settings.contactEnabled ? <p>The contact form sends your name, email address, selected subject, and message to Netlify Forms for studio correspondence. Please share only what is needed for your inquiry, and do not submit sensitive or confidential information. Netlify processes submissions as the form service provider; see <a href="https://www.netlify.com/privacy/" rel="noopener noreferrer">Netlify’s privacy policy</a>.</p> : <p>Online form submissions are not enabled on this version of the site. There is no form collecting your details.</p>}
       {settings.contactEmail && <p>When you email the studio, the message is handled by the email services involved. For questions about a message you sent, contact <a href={"mailto:" + encodeURIComponent(settings.contactEmail)}>{settings.contactEmail}</a>.</p>}
     </section>
-    <section aria-labelledby="privacy-links"><h2 id="privacy-links">Following external links</h2><p>Store pages, trailers, and other external websites have their own privacy practices. Videos are linked, not automatically embedded, so those services do not load until you choose to visit them.</p></section>
+    <section aria-labelledby="privacy-links"><h2 id="privacy-links">External links</h2><p>Store pages, trailers, and other external websites have their own privacy practices. Videos are linked rather than automatically embedded, so external services do not load until you choose to visit them.</p></section>
   </div>
 </BaseLayout>

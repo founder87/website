@@ -2,7 +2,7 @@
 import type { Project } from "../data/projects";
 import ProjectArtwork from "./ProjectArtwork.astro";
 interface Props { project: Project; index: number; heading?: "h2" | "h3"; }
-const { project, index, heading: Heading = "h2" } = Astro.props;
+const { project, heading: Heading = "h2" } = Astro.props;
 ---
 <article class="project-card" data-tone={project.tone}>
   <a href={"/projects/" + project.slug + "/"} class="project-card__link">
@@ -13,24 +13,19 @@ const { project, index, heading: Heading = "h2" } = Astro.props;
         <div class="project-card__type" aria-hidden="true">
           <ProjectArtwork slug={project.slug} tone={project.tone} />
           <div class="project-card__hud-top">
-            <span class="project-card__edition">SOLIVANT // {String(index + 1).padStart(2, "0")}</span>
-            <span class="project-card__badge">{project.workingTitle ? "Codename" : "Initial release"}</span>
+            <span class="project-card__edition">{project.workingTitle ? "Codename" : "Initial release"}</span>
+            <span class="project-card__note">{project.status}</span>
           </div>
           <span class="project-card__display">{project.title}</span>
-          <div class="project-card__hud-bottom">
-            <span class="project-card__note"><span class="status-dot"></span>{project.status}</span>
-            <span class="project-card__enter">{project.workingTitle ? "View brief ↗" : "Enter world ↗"}</span>
-          </div>
         </div>
       )}
     </div>
     <div class="project-card__body">
       <div>
-        <p class="eyebrow">{project.status}{project.workingTitle ? " · Codename" : " · Initial release"}</p>
+        <p class="eyebrow">{project.workingTitle ? "Upcoming · Codename" : "Initial release · In development"}</p>
         <Heading>{project.title}</Heading>
         <p class="project-card__summary">{project.summary}</p>
       </div>
-      <span class="project-card__arrow" aria-hidden="true">↗</span>
     </div>
     <span class="sr-only">View project. {project.summary}</span>
   </a>

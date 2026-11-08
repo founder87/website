@@ -10,7 +10,6 @@ const hex = (cx: number, cy: number, r = 52) => {
   return `${cx + r},${cy} ${cx + dx},${cy + dy} ${cx - dx},${cy + dy} ${cx - r},${cy} ${cx - dx},${cy - dy} ${cx + dx},${cy - dy}`;
 };
 const combCells = [
-  // Outer ring
   { cx: 400, cy: 70, tier: "outer" },
   { cx: 400, cy: 430, tier: "outer" },
   { cx: 244, cy: 70, tier: "outer" },
@@ -31,7 +30,6 @@ const combCells = [
   { cx: 712, cy: 250, tier: "outer" },
   { cx: 88, cy: 340, tier: "outer" },
   { cx: 712, cy: 340, tier: "outer" },
-  // Mid comb ring
   { cx: 322, cy: 115, tier: "mid" },
   { cx: 478, cy: 115, tier: "mid" },
   { cx: 244, cy: 160, tier: "mid" },
@@ -42,83 +40,28 @@ const combCells = [
   { cx: 556, cy: 340, tier: "mid" },
   { cx: 322, cy: 385, tier: "mid" },
   { cx: 478, cy: 385, tier: "mid" },
-  // Inner 6-cell comb ring around center
   { cx: 400, cy: 160, tier: "inner" },
   { cx: 400, cy: 340, tier: "inner" },
   { cx: 322, cy: 205, tier: "inner" },
   { cx: 478, cy: 205, tier: "inner" },
   { cx: 322, cy: 295, tier: "inner" },
   { cx: 478, cy: 295, tier: "inner" },
-  // Center cell
   { cx: 400, cy: 250, tier: "core" },
 ] as const;
 ---
-<div class="project-art" aria-hidden="true">
-  {slug === "boomtown" && (
-    <svg class="project-art__svg" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="400" cy="310" r="190" stroke="currentColor" stroke-opacity="0.16" stroke-width="1" />
-      <circle cx="400" cy="310" r="130" stroke="currentColor" stroke-opacity="0.28" stroke-width="1.25" />
-      <circle cx="400" cy="310" r="72" fill="currentColor" fill-opacity="0.1" stroke="currentColor" stroke-opacity="0.5" stroke-width="1.5" />
-      <line x1="0" y1="310" x2="800" y2="310" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5" />
-      <line x1="400" y1="40" x2="400" y2="310" stroke="currentColor" stroke-opacity="0.3" stroke-width="1" stroke-dasharray="4 6" />
-      <line x1="400" y1="310" x2="60" y2="500" stroke="currentColor" stroke-opacity="0.25" stroke-width="1" />
-      <line x1="400" y1="310" x2="220" y2="500" stroke="currentColor" stroke-opacity="0.3" stroke-width="1" />
-      <line x1="400" y1="310" x2="400" y2="500" stroke="currentColor" stroke-opacity="0.35" stroke-width="1" />
-      <line x1="400" y1="310" x2="580" y2="500" stroke="currentColor" stroke-opacity="0.3" stroke-width="1" />
-      <line x1="400" y1="310" x2="740" y2="500" stroke="currentColor" stroke-opacity="0.25" stroke-width="1" />
-      <line x1="120" y1="365" x2="680" y2="365" stroke="currentColor" stroke-opacity="0.18" stroke-width="1" />
-      <line x1="60" y1="430" x2="740" y2="430" stroke="currentColor" stroke-opacity="0.14" stroke-width="1" />
-      <path d="M270 310V215H315V310 M340 310V155H385V310 M415 310V175H460V310 M485 310V230H530V310" stroke="currentColor" stroke-opacity="0.42" stroke-width="1.5" fill="currentColor" fill-opacity="0.06" />
-      <polygon points="400,95 414,125 400,155 386,125" fill="currentColor" fill-opacity="0.35" />
-    </svg>
-  )}
-  {slug === "the-grid" && (
+{slug === "the-grid" && (
+  <div class="project-art" aria-hidden="true">
     <svg class="project-art__svg" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
       {combCells.map(cell => (
         <polygon
           points={hex(cell.cx, cell.cy, 52)}
           stroke="currentColor"
-          stroke-opacity={cell.tier === "core" ? "0.9" : cell.tier === "inner" ? "0.55" : cell.tier === "mid" ? "0.3" : "0.14"}
-          stroke-width={cell.tier === "core" ? "2" : cell.tier === "inner" ? "1.5" : "1"}
+          stroke-opacity={cell.tier === "core" ? "0.75" : cell.tier === "inner" ? "0.42" : cell.tier === "mid" ? "0.22" : "0.1"}
+          stroke-width={cell.tier === "core" ? "1.75" : "1"}
           fill="currentColor"
-          fill-opacity={cell.tier === "core" ? "0.18" : cell.tier === "inner" ? "0.08" : cell.tier === "mid" ? "0.03" : "0"}
+          fill-opacity={cell.tier === "core" ? "0.12" : cell.tier === "inner" ? "0.05" : "0"}
         />
       ))}
-      <polygon points={hex(400, 250, 28)} stroke="currentColor" stroke-opacity="0.75" stroke-width="1.25" fill="currentColor" fill-opacity="0.14" />
-      <circle cx="400" cy="250" r="4.5" fill="currentColor" fill-opacity="0.9" />
-      <circle cx="400" cy="160" r="3" fill="currentColor" fill-opacity="0.55" />
-      <circle cx="400" cy="340" r="3" fill="currentColor" fill-opacity="0.55" />
-      <circle cx="322" cy="205" r="3" fill="currentColor" fill-opacity="0.55" />
-      <circle cx="478" cy="205" r="3" fill="currentColor" fill-opacity="0.55" />
-      <circle cx="322" cy="295" r="3" fill="currentColor" fill-opacity="0.55" />
-      <circle cx="478" cy="295" r="3" fill="currentColor" fill-opacity="0.55" />
     </svg>
-  )}
-  {slug === "horizon" && (
-    <svg class="project-art__svg" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M-80 420 Q400 180 880 420" stroke="currentColor" stroke-opacity="0.55" stroke-width="2" fill="currentColor" fill-opacity="0.06" />
-      <path d="M-80 455 Q400 235 880 455" stroke="currentColor" stroke-opacity="0.25" stroke-width="1" />
-      <ellipse cx="400" cy="235" rx="280" ry="78" stroke="currentColor" stroke-opacity="0.28" stroke-width="1.25" stroke-dasharray="6 6" />
-      <circle cx="400" cy="215" r="92" stroke="currentColor" stroke-opacity="0.55" stroke-width="1.5" fill="currentColor" fill-opacity="0.08" />
-      <circle cx="400" cy="215" r="142" stroke="currentColor" stroke-opacity="0.2" stroke-width="1" />
-      <circle cx="400" cy="123" r="4.5" fill="currentColor" fill-opacity="0.85" />
-      <circle cx="235" cy="150" r="2.5" fill="currentColor" fill-opacity="0.5" />
-      <circle cx="585" cy="135" r="3" fill="currentColor" fill-opacity="0.6" />
-      <circle cx="645" cy="210" r="2" fill="currentColor" fill-opacity="0.45" />
-      <line x1="120" y1="215" x2="680" y2="215" stroke="currentColor" stroke-opacity="0.2" stroke-width="1" />
-    </svg>
-  )}
-  {slug === "byzantium" && (
-    <svg class="project-art__svg" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="400" cy="215" r="145" stroke="currentColor" stroke-opacity="0.22" stroke-width="1.25" />
-      <circle cx="400" cy="215" r="105" stroke="currentColor" stroke-opacity="0.38" stroke-width="1.25" stroke-dasharray="4 6" />
-      <path d="M310 250 A90 90 0 0 1 490 250" stroke="currentColor" stroke-opacity="0.7" stroke-width="2" fill="currentColor" fill-opacity="0.08" />
-      <polygon points="400,65 650,190 590,435 210,435 150,190" stroke="currentColor" stroke-opacity="0.24" stroke-width="1.25" />
-      <polygon points="400,105 590,205 540,400 260,400 210,205" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5" fill="currentColor" fill-opacity="0.05" />
-      <path d="M220 385V235H265V255H295V250H505V255H535V235H580V385Z" stroke="currentColor" stroke-opacity="0.65" stroke-width="1.75" fill="currentColor" fill-opacity="0.09" />
-      <path d="M355 385V295 A45 45 0 0 1 445 295 V385" stroke="currentColor" stroke-opacity="0.85" stroke-width="1.75" fill="currentColor" fill-opacity="0.14" />
-      <line x1="110" y1="385" x2="690" y2="385" stroke="currentColor" stroke-opacity="0.55" stroke-width="1.5" />
-      <line x1="400" y1="65" x2="400" y2="435" stroke="currentColor" stroke-opacity="0.28" stroke-width="1" />
-    </svg>
-  )}
-</div>
+  </div>
+)}

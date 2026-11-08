@@ -11,8 +11,8 @@ const next = projects[(index + 1) % projects.length]!;
   <header class="container page-header project-header">
     <a class="back-link" href="/projects/"><span aria-hidden="true">←</span> All projects</a>
     <div class="project-header__title">
-      <div><p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> Project {String(index + 1).padStart(2, "0")} / {project.status}</p><h1>{project.title}<span class="title-period">.</span></h1></div>
-      {project.workingTitle ? <span class="working-title">Codename</span> : <span class="working-title">Initial release</span>}
+      <div><p class="eyebrow">{project.workingTitle ? "Upcoming · Codename" : "Initial release"}</p><h1>{project.title}</h1></div>
+      <span class="working-title">{project.workingTitle ? "Codename" : "In development"}</span>
     </div>
   </header>
   <div class="container">
@@ -25,37 +25,37 @@ const next = projects[(index + 1) % projects.length]!;
       <div class="project-title-panel" data-tone={project.tone} aria-label="Project artwork has not been revealed">
         <ProjectArtwork slug={project.slug} tone={project.tone} />
         <div class="project-title-panel__top" aria-hidden="true">
-          <span class="project-title-panel__index">SOLIVANT // PROJECT {String(index + 1).padStart(2, "0")}</span>
-          <span class="project-title-panel__status">{project.workingTitle ? "Upcoming · Codename" : "Initial release · In development"}</span>
+          <span class="project-title-panel__index">{project.workingTitle ? "Codename" : "Initial release"}</span>
+          <span class="project-title-panel__status">{project.status}</span>
         </div>
         <span class="project-title-panel__name" aria-hidden="true">{project.title}</span>
-        <p>Solivant Studios <span>{project.workingTitle ? "Upcoming project · Limited information" : "Key art & gameplay reveal pending"}</span></p>
+        <p>Solivant Studios <span>{project.workingTitle ? "Limited information" : "Preview forthcoming"}</span></p>
       </div>
     )}
   </div>
   <section class="container section project-overview" aria-labelledby="about-project">
-    <div><p class="eyebrow">Project dossier</p><h2 id="about-project">{project.slug === "byzantium" ? <>For <em>Byzantium.</em></> : project.workingTitle ? "Under wraps." : "Taking shape."}</h2>{project.description.map(paragraph => <p class="body-copy">{paragraph}</p>)}
+    <div><p class="eyebrow">{project.slug === "byzantium" ? "Circa 1000 AD" : "Overview"}</p><h2 id="about-project">{project.slug === "byzantium" ? "For Byzantium" : project.title}</h2>{project.description.map(paragraph => <p class="body-copy">{paragraph}</p>)}
       <div class="actions">
-        {project.trailer && <a class="button" href={project.trailer.href} rel="noopener noreferrer">{project.trailer.label} <span aria-hidden="true">↗</span></a>}
-        {project.links?.map(link => <a class="button button--outline" href={link.href} rel="noopener noreferrer">{link.label} <span aria-hidden="true">↗</span></a>)}
-        <a class="text-link" href="/contact/">Inquire about {project.title} <span aria-hidden="true">↗</span></a>
+        {project.trailer && <a class="button" href={project.trailer.href} rel="noopener noreferrer">{project.trailer.label}</a>}
+        {project.links?.map(link => <a class="button button--outline" href={link.href} rel="noopener noreferrer">{link.label}</a>)}
+        <a class="text-link" href="/contact/">Inquire about {project.title}</a>
       </div>
     </div>
     <dl class="project-facts">
       <div><dt>Studio</dt><dd>Solivant Studios</dd></div>
-      <div><dt>Development status</dt><dd>{project.status}</dd></div>
-      <div><dt>Title classification</dt><dd>{project.workingTitle ? "Codename (upcoming)" : "Official title (initial release)"}</dd></div>
-      <div><dt>Target platforms</dt><dd>{project.platforms.length ? project.platforms.join(", ") : "To be announced"}</dd></div>
-      <div><dt>Release window</dt><dd>{project.release || "To be announced"}</dd></div>
+      <div><dt>Status</dt><dd>{project.status}</dd></div>
+      <div><dt>Designation</dt><dd>{project.workingTitle ? "Codename" : "Initial release"}</dd></div>
+      <div><dt>Platforms</dt><dd>{project.platforms.length ? project.platforms.join(", ") : "To be announced"}</dd></div>
+      <div><dt>Release</dt><dd>{project.release || "To be announced"}</dd></div>
     </dl>
   </section>
   {project.gallery?.length && (
     <section class="container section-bottom" aria-labelledby="gallery-title">
-      <div class="section-heading"><div><p class="eyebrow">A closer look</p><h2 id="gallery-title">From the game.</h2></div></div>
+      <div class="section-heading"><div><p class="eyebrow">Media</p><h2 id="gallery-title">Gallery</h2></div></div>
       <div class="gallery">{project.gallery.map(image => <figure><a href={image.src} aria-label={"View full-size image: " + image.alt}><img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" decoding="async" /></a>{image.caption && <figcaption>{image.caption}</figcaption>}</figure>)}</div>
     </section>
   )}
   <section class="next-project section--bordered">
-    <a class="container next-project__link" href={"/projects/" + next.slug + "/"}><div><p class="eyebrow">Next project</p><h2>{next.title}</h2></div><span aria-hidden="true">↗</span></a>
+    <a class="container next-project__link" href={"/projects/" + next.slug + "/"}><div><p class="eyebrow">Next project</p><h2>{next.title}</h2></div><span aria-hidden="true">→</span></a>
   </section>
 </BaseLayout>
