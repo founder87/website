@@ -13,14 +13,13 @@ const htmlFiles = files.filter(file => extname(file) === ".html");
 const inlineScripts = new Set();
 const decode = text => text.replaceAll("&quot;", '"').replaceAll("&#39;", "'").replaceAll("&amp;", "&");
 const attributes = tag => Object.fromEntries([...tag.matchAll(/([\w:-]+)\s*=\s*"([^"]*)"/g)].map(match => [match[1].toLowerCase(), decode(match[2])]));
-const required = ["index.html", "projects/byzantium/index.html", "studio/index.html", "contact/index.html", "privacy/index.html", "terms/index.html", "support/index.html", "404.html", "robots.txt", "sitemap.xml", "_headers", ".well-known/security.txt", "brand/favicon-gold.png", "brand/icon-512.png", "brand/social.png", "brand/social-byzantium.png"];
+const required = ["index.html", "projects/byzantium/index.html", "contact/index.html", "privacy/index.html", "terms/index.html", "support/index.html", "404.html", "robots.txt", "sitemap.xml", ".well-known/security.txt", "favicon.ico", "brand/logo-gold.webp", "brand/favicon-gold.png", "brand/icon-512.png", "brand/social.png", "brand/social-byzantium.png"];
 for (const file of required) assert.ok(files.includes(resolve(root, file)), "Missing route: " + file);
 
 for (const file of files) {
   const path = relative(root, file);
   assert.ok(!/(^|\/)(?:\.env|\.git|node_modules|src|archive)(?:[./]|$)/.test(path), "Private/source file in build: " + path);
   assert.ok(!path.endsWith(".map"), "Source map in public output: " + path);
-  assert.ok(!path.includes("solivant-logo-animation"), "Legacy game intro leaked into production");
 }
 for (const file of htmlFiles) {
   const html = await readFile(file, "utf8");
@@ -76,18 +75,15 @@ for (const file of htmlFiles) {
     }
   }
 }
-const headers = await readFile(resolve(root, "_headers"), "utf8");
-for (const header of ["Content-Security-Policy: frame-ancestors 'none'", "X-Frame-Options: DENY", "X-Content-Type-Options: nosniff", "Referrer-Policy:", "Permissions-Policy:", "Strict-Transport-Security:", "Cache-Control: public, max-age=31536000, immutable"]) assert.ok(headers.includes(header), "Missing response header: " + header);
 const home = await readFile(resolve(root, "index.html"), "utf8");
 const robots = await readFile(resolve(root, "robots.txt"), "utf8");
 const sitemap = await readFile(resolve(root, "sitemap.xml"), "utf8");
 if (home.includes('content="noindex, nofollow"')) {
   assert.match(robots, /Disallow: \//);
   assert.ok(!sitemap.includes("<url>"));
-  assert.match(headers, /X-Robots-Tag: noindex, nofollow/);
 } else {
   assert.match(robots, /Sitemap: https:\/\//);
-  assert.equal((sitemap.match(/<url>/g) || []).length, 7);
+  assert.equal((sitemap.match(/<url>/g) || []).length, 6);
   assert.ok(!/404/.test(sitemap));
 }
 const contact = await readFile(resolve(root, "contact/index.html"), "utf8");
@@ -95,4 +91,4 @@ assert.ok(!contact.includes("<form") && !contact.includes('type="submit"'), "Con
 assert.ok(contact.includes('href="/support/"') && contact.includes('href="/projects/byzantium/"'), "Contact page must link to support and Byzantium");
 const bytes = (await Promise.all(files.filter(f => /\.(js|css)$/.test(f)).map(f => stat(f)))).reduce((sum, s) => sum + s.size, 0) + [...inlineScripts].reduce((sum, script) => sum + Buffer.byteLength(script), 0);
 assert.ok(bytes < 100_000, "Static site JS/CSS budget exceeded: " + bytes);
-console.log("Verified " + htmlFiles.length + " HTML pages: routes, local assets, SEO, CSP, headers, contact states, and " + Math.ceil(bytes / 1024) + " KB JS/CSS.");
+console.log("Verified " + htmlFiles.length + " HTML pages: routes, local assets, SEO, CSP, contact states, and " + Math.ceil(bytes / 1024) + " KB JS/CSS.");

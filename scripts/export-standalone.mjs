@@ -87,12 +87,9 @@ for (const path of (await walk(root)).filter(path => path.endsWith(".html"))) {
     const script = await readFile(localPath(match[1]), "utf8");
     html = html.replace(match[0], '<script type="module">' + script + "</script>");
   }
-  for (const match of [...html.matchAll(/\b(src|data-poster|data-motion)="(\/[^\"]+)"/g)]) {
+  for (const match of [...html.matchAll(/\b(src)="(\/[^\"]+)"/g)]) {
     html = html.replace(match[0], match[1] + '="' + await embed(match[2]) + '"');
   }
-  // A URL fragment restarts the existing GIF without appending a query to its
-  // base64 payload. This change is confined to the offline export.
-  html = html.replaceAll("?play=", "#play=");
   html = html.replace("</body>", "<script>" + bridge + "</script></body>");
   const scripts = [...html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g)].map(match => match[1]);
   const styles = [...html.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/g)].map(match => match[1]);
@@ -101,7 +98,6 @@ for (const path of (await walk(root)).filter(path => path.endsWith(".html"))) {
   const title = html.match(/<title>(.*?)<\/title>/)?.[1] || "Solivant Studios";
   assert.ok(!/<(?:script|img)[^>]+src="\//.test(html), "Unembedded resource on " + route);
   assert.ok(!/<link[^>]+href="\//.test(html), "Unembedded link resource on " + route);
-  assert.ok(!/<form\b/.test(html), "Export a build with CONTACT_PROVIDER=disabled for offline review");
   pages[route] = { html, title };
 }
 
@@ -160,7 +156,7 @@ for (const route of Object.keys(pages)) {
   const rendered = previewFrame.srcdoc;
   assert.ok(rendered.includes("<h1"), "Missing page content: " + route);
   assert.ok(!rendered.includes("__SOLIVANT_EMBED_"), "Unresolved embedded asset: " + route);
-  assert.ok(!/\b(?:src|data-motion|data-poster)="(?!data:)[^"]+"/.test(rendered), "Resource needs a server: " + route);
+  assert.ok(!/\bsrc="(?!data:)[^"]+"/.test(rendered), "Resource needs a server: " + route);
   const policy = rendered.match(/http-equiv="content-security-policy" content="([^"]+)"/)?.[1];
   for (const [, script] of rendered.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g)) {
     new Script(script);

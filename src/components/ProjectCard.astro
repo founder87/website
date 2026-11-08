@@ -1,38 +1,18 @@
 ---
 import type { Project } from "../data/projects";
 import ProjectArtwork from "./ProjectArtwork.astro";
-interface Props { project: Project; index: number; heading?: "h2" | "h3"; }
+interface Props { project: Project; heading?: "h2" | "h3"; }
 const { project, heading: Heading = "h2" } = Astro.props;
 ---
 <article class="project-card" data-tone={project.tone}>
-  {project.workingTitle ? (
-    <div class="project-card__visual">
-      <div class="project-card__type">
-        <ProjectArtwork slug={project.slug} tone={project.tone} />
-        <div class="project-card__hud-top">
-          <span class="project-card__edition">Codename</span>
-          <span class="project-card__note">{project.status}</span>
-        </div>
-        <Heading class="project-card__display">{project.title}</Heading>
+  <div class="project-card__visual">
+    <div class="project-card__type">
+      <ProjectArtwork slug={project.slug} tone={project.tone} />
+      <div class="project-card__hud-top">
+        <span class="project-card__edition">Codename</span>
+        <span class="project-card__note">{project.status}</span>
       </div>
+      <Heading class="project-card__display">{project.title}</Heading>
     </div>
-  ) : (
-    <a href={"/projects/" + project.slug + "/"} class="project-card__link">
-      <div class="project-card__visual">
-        {project.cover ? (
-          <img src={project.cover.src} alt={project.cover.alt} width={project.cover.width} height={project.cover.height} loading="lazy" decoding="async" />
-        ) : (
-          <div class="project-card__type">
-            <ProjectArtwork slug={project.slug} tone={project.tone} />
-            <div class="project-card__hud-top">
-              <span class="project-card__edition">Initial release</span>
-              <span class="project-card__note">{project.status}</span>
-            </div>
-            <Heading class="project-card__display">{project.title}</Heading>
-          </div>
-        )}
-      </div>
-      <span class="sr-only">Explore {project.title}. {project.summary}</span>
-    </a>
-  )}
+  </div>
 </article>

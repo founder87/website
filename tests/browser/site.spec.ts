@@ -18,7 +18,7 @@ test("all project pages work and no runtime/CSP errors occur", async ({ page }) 
 test("pages do not overflow at narrow, tablet, and desktop widths", async ({ page }) => {
   for (const width of [320, 390, 768, 1440]) {
     await page.setViewportSize({ width, height: 900 });
-    for (const path of ["/", "/projects/byzantium/", "/studio/", "/contact/", "/privacy/", "/terms/", "/support/"]) {
+    for (const path of ["/", "/projects/byzantium/", "/contact/", "/privacy/", "/terms/", "/support/"]) {
       await page.goto(path);
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), path + " at " + width).toBe(true);
     }

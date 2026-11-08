@@ -1,7 +1,7 @@
 // Mechanical web exports of the approved Sun Moth art, not a redrawn logo.
 // Run from website/ after changing the approved art in concept-art/.
 import sharp from "sharp";
-import { mkdir } from "node:fs/promises";
+import { mkdir, writeFile } from "node:fs/promises";
 
 const source = new URL("../../concept-art/sun-moth-verdant-and-mono/", import.meta.url);
 const output = new URL("../public/brand/", import.meta.url);
@@ -17,14 +17,27 @@ for (let i = 0; i < lockupData.length; i += 4) {
   lockupData[i + 3] = Math.min(255, Math.round(((a - 32) / (230 - 32)) * 255));
 }
 const remattedLockup = await sharp(lockupData, { raw: lockupInfo }).png().toBuffer();
-await sharp(remattedLockup).resize(688).webp({ quality: 95, alphaQuality: 100 }).toFile(path("lockup-verdant.webp"));
+await sharp(remattedLockup).resize(688).webp({ quality: 95, alphaQuality: 100 }).toFile(path("logo-gold.webp"));
 // This crop stops above the lettering and masks the top of the "l" ascender while retaining the complete moth silhouette.
 const clearAscender = await sharp({ create: { width: 460, height: 25, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 1 } } }).png().toBuffer();
 const mark = await sharp(remattedLockup).extract({ left: 25, top: 0, width: 1085, height: 405 }).flatten({ background: "#000000" }).composite([{ input: clearAscender, left: 0, top: 380 }]).png().toBuffer();
-await sharp(mark).resize(256, 256, { fit: "contain", background: "#000000" }).png().toFile(path("icon.png"));
 await sharp(mark).resize(256, 256, { fit: "contain", background: "#000000" }).png().toFile(path("favicon-gold.png"));
 await sharp(mark).resize(512, 512, { fit: "contain", background: "#000000" }).png().toFile(path("icon-512.png"));
 await sharp(mark).resize(180, 180, { fit: "contain", background: "#000000" }).png().toFile(path("apple-touch-icon.png"));
+const png32 = await sharp(mark).resize(32, 32, { fit: "contain", background: "#000000" }).png().toBuffer();
+const icoHeader = Buffer.alloc(22);
+icoHeader.writeUInt16LE(0, 0);
+icoHeader.writeUInt16LE(1, 2);
+icoHeader.writeUInt16LE(1, 4);
+icoHeader.writeUInt8(32, 6);
+icoHeader.writeUInt8(32, 7);
+icoHeader.writeUInt8(0, 8);
+icoHeader.writeUInt8(0, 9);
+icoHeader.writeUInt16LE(1, 10);
+icoHeader.writeUInt16LE(32, 12);
+icoHeader.writeUInt32LE(png32.length, 14);
+icoHeader.writeUInt32LE(22, 18);
+await writeFile(new URL("../public/favicon.ico", import.meta.url), Buffer.concat([icoHeader, png32]));
 await sharp(remattedLockup).resize(1200, 630, { fit: "contain", background: "#0a0908" }).flatten({ background: "#0a0908" }).png().toFile(path("social.png"));
 
 const byzantiumCardSvg = Buffer.from(`

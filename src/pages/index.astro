@@ -26,7 +26,7 @@ const upcoming = projects.slice(1);
       <div class="flagship-spotlight__copy">
         <p class="eyebrow">Initial Release · Circa 1000 AD</p>
         <h2 id="flagship-title">For Byzantium</h2>
-        <p class="body-copy">Around the year 1000, Constantinople is the greatest city in the Christian world, but the Roman Empire is a shadow of its former self. Engulfed in internal struggle and looming threats from outside, the emperor himself has called upon you to serve. For Byzantium.</p>
+        <p class="body-copy">{flagship.summary}</p>
         <div class="actions">
           <a class="button button--gold" href="/projects/byzantium/" data-track="spotlight_byzantium">Explore Byzantium</a>
         </div>
@@ -41,7 +41,7 @@ const upcoming = projects.slice(1);
         </div>
       </div>
       <div class="project-grid project-grid--upcoming">
-        {upcoming.map((project, index) => <ProjectCard project={project} index={index + 1} heading="h3" />)}
+        {upcoming.map(project => <ProjectCard project={project} heading="h3" />)}
       </div>
     </div>
   </section>

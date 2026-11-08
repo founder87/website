@@ -3,7 +3,7 @@ interface Props { class?: string; compact?: boolean; priority?: boolean; }
 const { class: className = "", compact = false, priority = false } = Astro.props;
 ---
 <img class:list={["studio-logo", className, { "studio-logo--compact": compact }]}
-  src="/brand/lockup-verdant.webp" width="688" height="445"
+  src="/brand/logo-gold.webp" width="688" height="445"
   alt="Solivant Studios" decoding="async"
   fetchpriority={priority ? "high" : undefined}
   loading={priority ? undefined : "lazy"} />

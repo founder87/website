@@ -31,16 +31,4 @@ export default defineConfig({
     },
     // Allowlist public settings; never serialize the environment into the client.
     vite: { define: { __SITE_SETTINGS__: JSON.stringify(settings) } },
-    integrations: [{
-      name: "solivant-host-headers",
-      hooks: {
-        "astro:build:done": async ({ dir }) => {
-          const { writeFile } = await import("node:fs/promises");
-          const { securityHeaders } = await import("./src/config/security.mjs");
-          const headers = { ...securityHeaders, ...(!settings.indexable ? { "X-Robots-Tag": "noindex, nofollow" } : {}) };
-          const lines = ["/*", ...Object.entries(headers).map(([name, value]) => "  " + name + ": " + value), "", "/_astro/*", "  Cache-Control: public, max-age=31536000, immutable", ""];
-          await writeFile(new URL("_headers", dir), lines.join("\n"));
-        },
-      },
-    }],
 });

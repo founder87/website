@@ -25,7 +25,7 @@ export const projects: Project[] = defineProjects([
   {
     slug: "byzantium", title: "Byzantium", workingTitle: false,
     status: "In development", tone: "ochre",
-    summary: "Around the year 1000, Constantinople is the greatest city in the Christian world, but the Roman Empire is a shadow of its former self. The emperor himself has called upon you to serve. For Byzantium.",
+    summary: "Around the year 1000, Constantinople is the greatest city in the Christian world, but the Roman Empire is a shadow of its former self. Engulfed in internal struggle and looming threats from outside, the emperor himself has called upon you to serve. For Byzantium.",
     description: [
       "Raise timber and stone fortifications, engineer siege weapons, and command disciplined battlefield formations across the Byzantine frontier.",
       "Built on hyperoptimized custom engine technology to push hardware to its limits, Byzantium delivers large-scale physical realism while remaining accessible across a wide range of devices.",

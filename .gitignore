@@ -14,7 +14,3 @@ test-results/
 .DS_Store
 .idea/
 .vscode/
-
-# Supplied game build used only as a local logo-animation reference.
-# The production homepage is src/pages/index.astro.
-/index.html

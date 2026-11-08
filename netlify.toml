@@ -1,9 +1,0 @@
-[build]
-  command = "npm run verify"
-  publish = "dist"
-
-[build.environment]
-  NODE_VERSION = "22"
-
-# Headers are generated into dist/_headers by astro.config.mjs.
-# Forms are disabled until configured. This does not provision hosting.
