@@ -6,7 +6,7 @@ test("all project pages work and no runtime/CSP errors occur", async ({ page }) 
   page.on("console", message => { if (message.type() === "error") errors.push(message.text()); });
   await page.goto("/");
   await expect(page.locator(".project-card")).toHaveCount(4);
-  for (const [slug, title] of [["byzantium", "Byzantium"], ["boomtown", "BoomTown"], ["the-grid", "The Grid"], ["horizon", "Horizon"]]) {
+  for (const [slug, title] of [["byzantium", "Byzantium"], ["cubes", "Cubes"], ["hexagonal", "Hexagonal"], ["horizon", "Horizon"]]) {
     await page.goto("/projects/" + slug + "/");
     await expect(page.getByRole("heading", { level: 1 })).toContainText(title);
     await expect(page.getByRole("link", { name: "All projects" })).toBeVisible();
@@ -17,7 +17,7 @@ test("all project pages work and no runtime/CSP errors occur", async ({ page }) 
 test("pages do not overflow at narrow, tablet, and desktop widths", async ({ page }) => {
   for (const width of [320, 390, 768, 1440]) {
     await page.setViewportSize({ width, height: 900 });
-    for (const path of ["/", "/projects/", "/projects/boomtown/", "/studio/", "/contact/", "/privacy/", "/terms/", "/support/"]) {
+    for (const path of ["/", "/projects/", "/projects/cubes/", "/studio/", "/contact/", "/privacy/", "/terms/", "/support/"]) {
       await page.goto(path);
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), path + " at " + width).toBe(true);
     }

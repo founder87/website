@@ -34,21 +34,21 @@ export const projects: Project[] = defineProjects([
     platforms: [],
   },
   {
-    slug: "boomtown", title: "BoomTown", workingTitle: true,
+    slug: "cubes", title: "Cubes", workingTitle: true,
     status: "Upcoming", tone: "clay",
     summary: "Upcoming project (codename). Limited information is available while studio production focuses on Byzantium.",
     description: [
-      "BoomTown is the internal codename for an upcoming project at Solivant Studios.",
+      "Cubes is the internal codename for an upcoming project at Solivant Studios.",
       "Limited information is being shared at this stage while the studio’s primary development focus remains on our initial release, Byzantium.",
     ],
     platforms: [],
   },
   {
-    slug: "the-grid", title: "The Grid", workingTitle: true,
+    slug: "hexagonal", title: "Hexagonal", workingTitle: true,
     status: "Upcoming", tone: "sage",
     summary: "Upcoming project (codename). Limited information is available while studio production focuses on Byzantium.",
     description: [
-      "The Grid is the internal codename for an upcoming project at Solivant Studios.",
+      "Hexagonal is the internal codename for an upcoming project at Solivant Studios.",
       "Details remain under wraps while primary development focuses on our initial release, Byzantium. Further information will be shared when the project is ready for reveal.",
     ],
     platforms: [],
