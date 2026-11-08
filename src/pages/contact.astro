@@ -13,6 +13,16 @@ import { settings } from "../data/site";
       <h2 id="inquiries-title">Studio inquiries.</h2>
       {settings.contactEmail ? <p class="body-copy">Email us at <a class="text-link contact-email" href={"mailto:" + encodeURIComponent(settings.contactEmail)}>{settings.contactEmail}</a>.</p> : <p class="body-copy">Our public contact channel is being prepared. Please check back here for the studio’s contact details.</p>}
       <p class="small muted">For project information, visit the <a href="/projects/">project pages</a>. Platforms, dates, and media are listed there when announced.</p>
+      <div class="inquiry-channels">
+        <div>
+          <p class="eyebrow">Press & media</p>
+          <p class="small muted">Studio fact sheets, interview requests, and official press assets as projects are revealed.</p>
+        </div>
+        <div>
+          <p class="eyebrow">Business & partnerships</p>
+          <p class="small muted">Publishing, platform, and strategic collaboration inquiries with Solivant Studios.</p>
+        </div>
+      </div>
     </div>
     {settings.contactEnabled ? (
       <form class="contact-form" name="studio-inquiry" method="POST" action="/contact/success/" data-netlify="true" netlify-honeypot="company-site">

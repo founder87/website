@@ -1,0 +1,76 @@
+---
+interface Props {
+  slug: string;
+  tone: "ochre" | "sage" | "silver" | "clay";
+}
+const { slug } = Astro.props;
+---
+<div class="project-art" aria-hidden="true">
+  {slug === "boomtown" && (
+    <svg class="project-art__svg" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="400" cy="310" r="190" stroke="currentColor" stroke-opacity="0.16" stroke-width="1" />
+      <circle cx="400" cy="310" r="130" stroke="currentColor" stroke-opacity="0.28" stroke-width="1.25" />
+      <circle cx="400" cy="310" r="72" fill="currentColor" fill-opacity="0.1" stroke="currentColor" stroke-opacity="0.5" stroke-width="1.5" />
+      <line x1="0" y1="310" x2="800" y2="310" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5" />
+      <line x1="400" y1="40" x2="400" y2="310" stroke="currentColor" stroke-opacity="0.3" stroke-width="1" stroke-dasharray="4 6" />
+      <line x1="400" y1="310" x2="60" y2="500" stroke="currentColor" stroke-opacity="0.25" stroke-width="1" />
+      <line x1="400" y1="310" x2="220" y2="500" stroke="currentColor" stroke-opacity="0.3" stroke-width="1" />
+      <line x1="400" y1="310" x2="400" y2="500" stroke="currentColor" stroke-opacity="0.35" stroke-width="1" />
+      <line x1="400" y1="310" x2="580" y2="500" stroke="currentColor" stroke-opacity="0.3" stroke-width="1" />
+      <line x1="400" y1="310" x2="740" y2="500" stroke="currentColor" stroke-opacity="0.25" stroke-width="1" />
+      <line x1="120" y1="365" x2="680" y2="365" stroke="currentColor" stroke-opacity="0.18" stroke-width="1" />
+      <line x1="60" y1="430" x2="740" y2="430" stroke="currentColor" stroke-opacity="0.14" stroke-width="1" />
+      <path d="M270 310V215H315V310 M340 310V155H385V310 M415 310V175H460V310 M485 310V230H530V310" stroke="currentColor" stroke-opacity="0.42" stroke-width="1.5" fill="currentColor" fill-opacity="0.06" />
+      <polygon points="400,95 414,125 400,155 386,125" fill="currentColor" fill-opacity="0.35" />
+    </svg>
+  )}
+  {slug === "the-grid" && (
+    <svg class="project-art__svg" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="currentColor" stroke-opacity="0.16" stroke-width="1">
+        <line x1="160" y1="0" x2="160" y2="500" />
+        <line x1="280" y1="0" x2="280" y2="500" />
+        <line x1="400" y1="0" x2="400" y2="500" />
+        <line x1="520" y1="0" x2="520" y2="500" />
+        <line x1="640" y1="0" x2="640" y2="500" />
+        <line x1="0" y1="110" x2="800" y2="110" />
+        <line x1="0" y1="205" x2="800" y2="205" />
+        <line x1="0" y1="295" x2="800" y2="295" />
+        <line x1="0" y1="390" x2="800" y2="390" />
+      </g>
+      <polygon points="400,85 610,250 400,415 190,250" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5" fill="currentColor" fill-opacity="0.05" />
+      <polygon points="400,145 535,250 400,355 265,250" stroke="currentColor" stroke-opacity="0.6" stroke-width="1.5" fill="currentColor" fill-opacity="0.08" />
+      <rect x="360" y="210" width="80" height="80" stroke="currentColor" stroke-opacity="0.7" stroke-width="1.5" />
+      <circle cx="400" cy="250" r="6" fill="currentColor" fill-opacity="0.85" />
+      <circle cx="280" cy="205" r="4.5" fill="currentColor" fill-opacity="0.6" />
+      <circle cx="520" cy="205" r="4.5" fill="currentColor" fill-opacity="0.6" />
+      <circle cx="280" cy="295" r="4.5" fill="currentColor" fill-opacity="0.6" />
+      <circle cx="520" cy="295" r="4.5" fill="currentColor" fill-opacity="0.6" />
+      <circle cx="400" cy="85" r="5" fill="currentColor" fill-opacity="0.7" />
+      <circle cx="400" cy="415" r="5" fill="currentColor" fill-opacity="0.7" />
+    </svg>
+  )}
+  {slug === "horizon" && (
+    <svg class="project-art__svg" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M-80 420 Q400 180 880 420" stroke="currentColor" stroke-opacity="0.55" stroke-width="2" fill="currentColor" fill-opacity="0.06" />
+      <path d="M-80 455 Q400 235 880 455" stroke="currentColor" stroke-opacity="0.25" stroke-width="1" />
+      <ellipse cx="400" cy="235" rx="280" ry="78" stroke="currentColor" stroke-opacity="0.28" stroke-width="1.25" stroke-dasharray="6 6" />
+      <circle cx="400" cy="215" r="92" stroke="currentColor" stroke-opacity="0.55" stroke-width="1.5" fill="currentColor" fill-opacity="0.08" />
+      <circle cx="400" cy="215" r="142" stroke="currentColor" stroke-opacity="0.2" stroke-width="1" />
+      <circle cx="400" cy="123" r="4.5" fill="currentColor" fill-opacity="0.85" />
+      <circle cx="235" cy="150" r="2.5" fill="currentColor" fill-opacity="0.5" />
+      <circle cx="585" cy="135" r="3" fill="currentColor" fill-opacity="0.6" />
+      <circle cx="645" cy="210" r="2" fill="currentColor" fill-opacity="0.45" />
+      <line x1="120" y1="215" x2="680" y2="215" stroke="currentColor" stroke-opacity="0.2" stroke-width="1" />
+    </svg>
+  )}
+  {slug === "bastion" && (
+    <svg class="project-art__svg" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="400,65 650,190 590,435 210,435 150,190" stroke="currentColor" stroke-opacity="0.24" stroke-width="1.25" />
+      <polygon points="400,105 590,205 540,400 260,400 210,205" stroke="currentColor" stroke-opacity="0.42" stroke-width="1.5" fill="currentColor" fill-opacity="0.05" />
+      <polygon points="400,150 525,220 490,365 310,365 275,220" stroke="currentColor" stroke-opacity="0.65" stroke-width="1.75" fill="currentColor" fill-opacity="0.09" />
+      <path d="M335 365V245L400 205L465 245V365" stroke="currentColor" stroke-opacity="0.8" stroke-width="1.75" fill="currentColor" fill-opacity="0.12" />
+      <line x1="400" y1="65" x2="400" y2="435" stroke="currentColor" stroke-opacity="0.28" stroke-width="1" />
+      <line x1="150" y1="190" x2="650" y2="190" stroke="currentColor" stroke-opacity="0.18" stroke-width="1" />
+    </svg>
+  )}
+</div>
