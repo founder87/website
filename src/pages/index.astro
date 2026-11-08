@@ -10,18 +10,18 @@ const flagship = projects[0]!;
     <div class="hero__copy">
       <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> Solivant Studios // Initial release: Byzantium</p>
       <h1 id="home-title">New worlds.<br /><em>Taking shape.</em></h1>
-      <p class="lede">We are an independent game studio building original worlds from the ground up—led by our flagship debut in development, <strong>Byzantium</strong>, alongside BoomTown, The Grid, and Horizon.</p>
+      <p class="lede">We are an independent studio engineering hyperoptimized game engines that push hardware to its limits—combining grounded physical realism with wider access across devices. Led by our initial release, <strong>Byzantium</strong>.</p>
       <div class="actions">
         <a href="/projects/byzantium/" class="button">Explore Byzantium <span aria-hidden="true">↗</span></a>
-        <a href="#projects" class="button button--outline">All studio projects <span aria-hidden="true">↓</span></a>
+        <a href="#projects" class="button button--outline">Upcoming slate <span aria-hidden="true">↓</span></a>
       </div>
     </div>
     <div class="hero__slate" aria-label="Development slate">
       {projects.map((project, index) => (
         <a class="hero__slate-item" href={"/projects/" + project.slug + "/"} data-tone={project.tone}>
-          <span class="eyebrow">0{index + 1}{index === 0 ? " · Initial release" : ""}</span>
+          <span class="eyebrow">0{index + 1}{index === 0 ? " · Initial release" : " · Codename"}</span>
           <strong>{project.title}</strong>
-          <small>{project.workingTitle ? "Working title" : "In development"}</small>
+          <small>{project.workingTitle ? "Upcoming · Limited info" : "In active development"}</small>
         </a>
       ))}
     </div>
@@ -64,8 +64,8 @@ const flagship = projects[0]!;
   <section id="projects" class="section section--bordered" aria-labelledby="projects-title">
     <div class="container">
       <div class="section-heading">
-        <div><p class="eyebrow">02 / Full development slate</p><h2 id="projects-title">From the studio.</h2></div>
-        <p>Four distinct worlds in active development.<br />Select a project to view its dossier and current status.</p>
+        <div><p class="eyebrow">02 / Initial release & upcoming codenames</p><h2 id="projects-title">From the studio.</h2></div>
+        <p>Byzantium leads our production slate.<br />BoomTown, The Grid, and Horizon are upcoming codenamed projects.</p>
       </div>
       <div class="project-grid">
         {projects.map((project, index) => <ProjectCard project={project} index={index} heading="h3" />)}
@@ -77,8 +77,8 @@ const flagship = projects[0]!;
       <div class="editorial-grid">
         <p class="eyebrow">03 / Solivant Studios</p>
         <div>
-          <h2 id="studio-title">A place for<br /><em>new possibilities.</em></h2>
-          <p class="lede">We’re an independent game studio developing Byzantium, BoomTown, The Grid, and Horizon. Every title begins with a distinct atmosphere and the room to grow into something lasting.</p>
+          <h2 id="studio-title">Engineered for<br /><em>scale & realism.</em></h2>
+          <p class="lede">At Solivant Studios, we focus on hyperoptimizing game engines to push devices to their limits—unlocking grounded physical realism and large-scale simulation while increasing access across hardware.</p>
           <div class="actions">
             <a class="button button--outline" href="/studio/">Inside the studio <span aria-hidden="true">↗</span></a>
             <a class="text-link" href="/contact/">Studio inquiries <span aria-hidden="true">↗</span></a>
@@ -87,19 +87,19 @@ const flagship = projects[0]!;
       </div>
       <div class="pillar-grid">
         <div class="pillar-card">
-          <p class="eyebrow">01 / Worlds</p>
-          <h3>Built from the ground up</h3>
-          <p>Each project in the Solivant collection establishes its own visual language, atmosphere, and identity.</p>
+          <p class="eyebrow">01 / Engine performance</p>
+          <h3>Hyperoptimized to the metal</h3>
+          <p>We engineer low-level systems that extract maximum throughput from modern hardware, pushing devices to their true limits without wasted overhead.</p>
         </div>
         <div class="pillar-card">
-          <p class="eyebrow">02 / Craft</p>
-          <h3>Systems with depth</h3>
-          <p>We focus on responsive design, clear mechanics, and worlds that reward curiosity and long-term play.</p>
+          <p class="eyebrow">02 / Accessibility</p>
+          <h3>Wider access to ambitious games</h3>
+          <p>Extreme optimization means demanding simulations and rich worlds run smoothly across a broader spectrum of player hardware.</p>
         </div>
         <div class="pillar-card">
-          <p class="eyebrow">03 / Signal</p>
-          <h3>Shared when ready</h3>
-          <p>We announce features, platforms, and release windows only when they are confirmed and ready to show.</p>
+          <p class="eyebrow">03 / Simulation</p>
+          <h3>Grounded physical realism</h3>
+          <p>From structural masonry and siege ballistics to dense unit formations, our worlds are built on physically plausible systems with weight and consequence.</p>
         </div>
       </div>
     </div>

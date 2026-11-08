@@ -14,19 +14,19 @@ const { project, index, heading: Heading = "h2" } = Astro.props;
           <ProjectArtwork slug={project.slug} tone={project.tone} />
           <div class="project-card__hud-top">
             <span class="project-card__edition">SOLIVANT // {String(index + 1).padStart(2, "0")}</span>
-            <span class="project-card__badge">{project.workingTitle ? "Working title" : "Official title"}</span>
+            <span class="project-card__badge">{project.workingTitle ? "Codename" : "Initial release"}</span>
           </div>
           <span class="project-card__display">{project.title}</span>
           <div class="project-card__hud-bottom">
             <span class="project-card__note"><span class="status-dot"></span>{project.status}</span>
-            <span class="project-card__enter">Enter world ↗</span>
+            <span class="project-card__enter">{project.workingTitle ? "View brief ↗" : "Enter world ↗"}</span>
           </div>
         </div>
       )}
     </div>
     <div class="project-card__body">
       <div>
-        <p class="eyebrow">{project.status}{project.workingTitle && " · Working title"}</p>
+        <p class="eyebrow">{project.status}{project.workingTitle ? " · Codename" : " · Initial release"}</p>
         <Heading>{project.title}</Heading>
         <p class="project-card__summary">{project.summary}</p>
       </div>

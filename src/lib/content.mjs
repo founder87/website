@@ -25,7 +25,7 @@ export function defineProjects(projects) {
     slugs.add(project.slug);
     if (!project.title?.trim() || !project.summary?.trim() || !project.description?.length || project.description.some(p => !p.trim())) throw new Error("Projects need a title, summary, and description.");
     if (!["ochre", "sage", "silver", "clay"].includes(project.tone)) throw new Error("Unknown project tone.");
-    if (!["In development", "Coming soon", "Available now"].includes(project.status)) throw new Error("Unknown project status.");
+    if (!["In development", "Upcoming", "Coming soon", "Available now"].includes(project.status)) throw new Error("Unknown project status.");
     if (typeof project.workingTitle !== "boolean" || !Array.isArray(project.platforms) || project.platforms.some(p => typeof p !== "string" || !p.trim())) throw new Error("Projects need title status and a platform list.");
     if (project.cover) validateImage(project.cover);
     for (const image of project.gallery || []) validateImage(image);

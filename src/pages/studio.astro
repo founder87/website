@@ -7,36 +7,36 @@ import { projects } from "../data/projects";
   <header class="container page-header">
     <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> The studio</p>
     <h1>We are<br /><em>Solivant.</em></h1>
-    <p class="lede">An independent game studio building distinct worlds from the ground up.<br />Four projects in development, each shared at its own pace.</p>
+    <p class="lede">An independent game studio focused on hyperoptimizing game engines to push devices to their limits—expanding access to ambitious games while delivering grounded physical realism.</p>
   </header>
   <section class="container section-bottom" aria-labelledby="pillars-title">
     <div class="section-heading">
-      <div><p class="eyebrow">01 / How we build</p><h2 id="pillars-title">Studio principles.</h2></div>
-      <p>Focused creative direction across four original projects.</p>
+      <div><p class="eyebrow">01 / Technical & creative focus</p><h2 id="pillars-title">Studio principles.</h2></div>
+      <p>Performance engineering and physical realism at the core of every world we build.</p>
     </div>
     <div class="pillar-grid">
       <div class="pillar-card">
         <p class="eyebrow">Principle 01</p>
-        <h3>Original worlds</h3>
-        <p>Every project starts with a distinct setting, tone, and sense of place designed to stand on its own.</p>
+        <h3>Engine hyperoptimization</h3>
+        <p>We build and tune low-level engine systems to push hardware to its limits—maximizing simulation scale and visual fidelity without wasted overhead.</p>
       </div>
       <div class="pillar-card">
         <p class="eyebrow">Principle 02</p>
-        <h3>Systems with depth</h3>
-        <p>We build mechanics and worlds that reward curiosity, mastery, and meaningful player choices.</p>
+        <h3>Wider access to games</h3>
+        <p>By treating performance as a foundational requirement rather than an afterthought, we make complex, large-scale games playable across a wider range of devices.</p>
       </div>
       <div class="pillar-card">
         <p class="eyebrow">Principle 03</p>
-        <h3>Deliberate craft</h3>
-        <p>We share our work when it is ready to speak for itself—focusing on lasting quality over early noise.</p>
+        <h3>Grounded realism</h3>
+        <p>We pair high-throughput engineering with physically plausible architecture, terrain, and simulation systems that give every action weight and consequence.</p>
       </div>
     </div>
   </section>
   <section class="section studio-band" aria-labelledby="studio-projects">
     <div class="container editorial-grid">
-      <div><p class="eyebrow">02 / Currently in development</p><h2 id="studio-projects">Our next<br />chapter.</h2><p class="body-copy">Every project in the Solivant slate begins with a clear identity and the space to grow before it is shown. We publish confirmed details, artwork, and milestones here as each game takes shape.</p></div>
+      <div><p class="eyebrow">02 / Development slate</p><h2 id="studio-projects">Our next<br />chapter.</h2><p class="body-copy">Our primary focus is our initial release, Byzantium. Alongside it, BoomTown, The Grid, and Horizon are upcoming codenamed projects with limited public information until their formal reveals.</p></div>
       <div class="studio-project-list">
-        {projects.map((project, index) => <a href={"/projects/" + project.slug + "/"}><span class="eyebrow">{String(index + 1).padStart(2, "0")}</span><span>{project.title}{project.workingTitle && <small>Working title</small>}</span><span aria-hidden="true">↗</span></a>)}
+        {projects.map((project, index) => <a href={"/projects/" + project.slug + "/"}><span class="eyebrow">{String(index + 1).padStart(2, "0")}</span><span>{project.title}<small>{project.workingTitle ? "Upcoming · Codename (limited information)" : "Initial release · In active development"}</small></span><span aria-hidden="true">↗</span></a>)}
       </div>
     </div>
   </section>

@@ -7,7 +7,7 @@ export type Project = {
   slug: string;
   title: string;
   workingTitle: boolean;
-  status: "In development" | "Coming soon" | "Available now";
+  status: "In development" | "Upcoming" | "Coming soon" | "Available now";
   tone: "ochre" | "sage" | "silver" | "clay";
   summary: string;
   description: string[];
@@ -28,38 +28,38 @@ export const projects: Project[] = defineProjects([
     summary: "Fortress architecture, siegecraft, and formation warfare in the Byzantine world. The initial release from Solivant Studios.",
     description: [
       "Byzantium is the flagship initial release in development at Solivant Studios—bringing together grounded fortress construction, siege warfare, and disciplined battlefield formations in the Byzantine world.",
-      "Raise timber and masonry defenses from palisades and watchtowers to fortified citadels, engineer siege engines, and hold the line in close-order clashes where terrain, structure, and formation cohesion decide the day.",
+      "Powered by hyperoptimized custom engine architecture, Byzantium pushes hardware to its limits to deliver large-scale physical realism, structural destruction, and high-density formation combat while remaining accessible across a wide range of devices.",
       "Official gameplay captures, technical deep dives, target platforms, and release window details will be published here as we prepare Byzantium for its formal reveal.",
     ],
     platforms: [],
   },
   {
-    slug: "boomtown", title: "BoomTown", workingTitle: false,
-    status: "In development", tone: "ochre",
-    summary: "BoomTown is an original game in development at Solivant Studios.",
+    slug: "boomtown", title: "BoomTown", workingTitle: true,
+    status: "Upcoming", tone: "ochre",
+    summary: "Upcoming project (codename). Limited information is available while studio production focuses on Byzantium.",
     description: [
-      "BoomTown is a confirmed title in the Solivant Studios development slate, following our initial focus on Byzantium.",
-      "Official artwork, gameplay details, platform support, and release timing will be published on this page as they are announced.",
+      "BoomTown is the internal codename for an upcoming project at Solivant Studios.",
+      "Limited information is being shared at this stage while the studio’s primary development focus remains on our initial release, Byzantium.",
     ],
     platforms: [],
   },
   {
-    slug: "the-grid", title: "The Grid", workingTitle: false,
-    status: "In development", tone: "sage",
-    summary: "The Grid is an original game in development at Solivant Studios.",
+    slug: "the-grid", title: "The Grid", workingTitle: true,
+    status: "Upcoming", tone: "sage",
+    summary: "Upcoming project (codename) built around a hexagonal honeycomb grid. Limited information is available at this stage.",
     description: [
-      "The Grid is a confirmed title in active development at Solivant Studios.",
-      "Visuals, system details, platforms, and release milestones will be shared here when the project is ready for a closer look.",
+      "The Grid is the internal codename for an upcoming Solivant Studios project structured around an interlocking hexagonal comb.",
+      "Details remain under wraps while primary development focuses on our initial release, Byzantium. Further information will be shared when the project is ready for reveal.",
     ],
     platforms: [],
   },
   {
     slug: "horizon", title: "Horizon", workingTitle: true,
-    status: "In development", tone: "silver",
-    summary: "Horizon is the working title of a project in development at Solivant Studios.",
+    status: "Upcoming", tone: "silver",
+    summary: "Upcoming project (codename). Limited information is available while studio production focuses on Byzantium.",
     description: [
-      "Horizon is the working title for the fourth project in the Solivant collection.",
-      "The final title, artwork, and gameplay overview will be shared here once formally announced.",
+      "Horizon is the internal codename for an upcoming project in the Solivant Studios slate.",
+      "Limited information is available at this time. Official title, premise, and media will be shared once formally announced.",
     ],
     platforms: [],
   },

@@ -4,6 +4,54 @@ interface Props {
   tone: "ochre" | "sage" | "silver" | "clay";
 }
 const { slug } = Astro.props;
+const hex = (cx: number, cy: number, r = 52) => {
+  const dx = Math.round(r * 0.5);
+  const dy = Math.round(r * 0.8660254);
+  return `${cx + r},${cy} ${cx + dx},${cy + dy} ${cx - dx},${cy + dy} ${cx - r},${cy} ${cx - dx},${cy - dy} ${cx + dx},${cy - dy}`;
+};
+const combCells = [
+  // Outer ring
+  { cx: 400, cy: 70, tier: "outer" },
+  { cx: 400, cy: 430, tier: "outer" },
+  { cx: 244, cy: 70, tier: "outer" },
+  { cx: 556, cy: 70, tier: "outer" },
+  { cx: 244, cy: 430, tier: "outer" },
+  { cx: 556, cy: 430, tier: "outer" },
+  { cx: 166, cy: 115, tier: "outer" },
+  { cx: 634, cy: 115, tier: "outer" },
+  { cx: 166, cy: 205, tier: "outer" },
+  { cx: 634, cy: 205, tier: "outer" },
+  { cx: 166, cy: 295, tier: "outer" },
+  { cx: 634, cy: 295, tier: "outer" },
+  { cx: 166, cy: 385, tier: "outer" },
+  { cx: 634, cy: 385, tier: "outer" },
+  { cx: 88, cy: 160, tier: "outer" },
+  { cx: 712, cy: 160, tier: "outer" },
+  { cx: 88, cy: 250, tier: "outer" },
+  { cx: 712, cy: 250, tier: "outer" },
+  { cx: 88, cy: 340, tier: "outer" },
+  { cx: 712, cy: 340, tier: "outer" },
+  // Mid comb ring
+  { cx: 322, cy: 115, tier: "mid" },
+  { cx: 478, cy: 115, tier: "mid" },
+  { cx: 244, cy: 160, tier: "mid" },
+  { cx: 556, cy: 160, tier: "mid" },
+  { cx: 244, cy: 250, tier: "mid" },
+  { cx: 556, cy: 250, tier: "mid" },
+  { cx: 244, cy: 340, tier: "mid" },
+  { cx: 556, cy: 340, tier: "mid" },
+  { cx: 322, cy: 385, tier: "mid" },
+  { cx: 478, cy: 385, tier: "mid" },
+  // Inner 6-cell comb ring around center
+  { cx: 400, cy: 160, tier: "inner" },
+  { cx: 400, cy: 340, tier: "inner" },
+  { cx: 322, cy: 205, tier: "inner" },
+  { cx: 478, cy: 205, tier: "inner" },
+  { cx: 322, cy: 295, tier: "inner" },
+  { cx: 478, cy: 295, tier: "inner" },
+  // Center cell
+  { cx: 400, cy: 250, tier: "core" },
+] as const;
 ---
 <div class="project-art" aria-hidden="true">
   {slug === "boomtown" && (
@@ -26,27 +74,24 @@ const { slug } = Astro.props;
   )}
   {slug === "the-grid" && (
     <svg class="project-art__svg" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <g stroke="currentColor" stroke-opacity="0.16" stroke-width="1">
-        <line x1="160" y1="0" x2="160" y2="500" />
-        <line x1="280" y1="0" x2="280" y2="500" />
-        <line x1="400" y1="0" x2="400" y2="500" />
-        <line x1="520" y1="0" x2="520" y2="500" />
-        <line x1="640" y1="0" x2="640" y2="500" />
-        <line x1="0" y1="110" x2="800" y2="110" />
-        <line x1="0" y1="205" x2="800" y2="205" />
-        <line x1="0" y1="295" x2="800" y2="295" />
-        <line x1="0" y1="390" x2="800" y2="390" />
-      </g>
-      <polygon points="400,85 610,250 400,415 190,250" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5" fill="currentColor" fill-opacity="0.05" />
-      <polygon points="400,145 535,250 400,355 265,250" stroke="currentColor" stroke-opacity="0.6" stroke-width="1.5" fill="currentColor" fill-opacity="0.08" />
-      <rect x="360" y="210" width="80" height="80" stroke="currentColor" stroke-opacity="0.7" stroke-width="1.5" />
-      <circle cx="400" cy="250" r="6" fill="currentColor" fill-opacity="0.85" />
-      <circle cx="280" cy="205" r="4.5" fill="currentColor" fill-opacity="0.6" />
-      <circle cx="520" cy="205" r="4.5" fill="currentColor" fill-opacity="0.6" />
-      <circle cx="280" cy="295" r="4.5" fill="currentColor" fill-opacity="0.6" />
-      <circle cx="520" cy="295" r="4.5" fill="currentColor" fill-opacity="0.6" />
-      <circle cx="400" cy="85" r="5" fill="currentColor" fill-opacity="0.7" />
-      <circle cx="400" cy="415" r="5" fill="currentColor" fill-opacity="0.7" />
+      {combCells.map(cell => (
+        <polygon
+          points={hex(cell.cx, cell.cy, 52)}
+          stroke="currentColor"
+          stroke-opacity={cell.tier === "core" ? "0.9" : cell.tier === "inner" ? "0.55" : cell.tier === "mid" ? "0.3" : "0.14"}
+          stroke-width={cell.tier === "core" ? "2" : cell.tier === "inner" ? "1.5" : "1"}
+          fill="currentColor"
+          fill-opacity={cell.tier === "core" ? "0.18" : cell.tier === "inner" ? "0.08" : cell.tier === "mid" ? "0.03" : "0"}
+        />
+      ))}
+      <polygon points={hex(400, 250, 28)} stroke="currentColor" stroke-opacity="0.75" stroke-width="1.25" fill="currentColor" fill-opacity="0.14" />
+      <circle cx="400" cy="250" r="4.5" fill="currentColor" fill-opacity="0.9" />
+      <circle cx="400" cy="160" r="3" fill="currentColor" fill-opacity="0.55" />
+      <circle cx="400" cy="340" r="3" fill="currentColor" fill-opacity="0.55" />
+      <circle cx="322" cy="205" r="3" fill="currentColor" fill-opacity="0.55" />
+      <circle cx="478" cy="205" r="3" fill="currentColor" fill-opacity="0.55" />
+      <circle cx="322" cy="295" r="3" fill="currentColor" fill-opacity="0.55" />
+      <circle cx="478" cy="295" r="3" fill="currentColor" fill-opacity="0.55" />
     </svg>
   )}
   {slug === "horizon" && (
