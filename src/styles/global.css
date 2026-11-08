@@ -452,12 +452,13 @@ h1 em, h2 em { font-weight: 400; }
 }
 .project-card__display {
   display: block;
-  font: 400 clamp(2.1rem, 3.8vw, 3.8rem)/1.05 var(--serif);
+  font: 400 clamp(1.85rem, 2.75vw, 3rem)/1.05 var(--serif);
   letter-spacing: -.04em;
+  white-space: nowrap;
   margin-top: auto;
 }
 [data-tone="ochre"] .project-card__display { text-transform: uppercase; letter-spacing: -.02em; }
-[data-tone="sage"] .project-card__display { font-family: ui-monospace, "SFMono-Regular", Consolas, monospace; font-size: clamp(1.9rem, 3.4vw, 3.35rem); letter-spacing: -.06em; }
+[data-tone="sage"] .project-card__display { font-family: ui-monospace, "SFMono-Regular", Consolas, monospace; font-size: clamp(1.75rem, 2.5vw, 2.75rem); letter-spacing: -.06em; }
 [data-tone="silver"] .project-card__display { font-style: italic; }
 .project-card__body { padding-top: 1.25rem; }
 .project-card__body h2, .project-card__body h3 { font: 400 clamp(1.45rem, 2.2vw, 1.9rem)/1.25 var(--serif); letter-spacing: -.025em; margin-top: .35rem; }
@@ -513,8 +514,9 @@ h1 em, h2 em { font-weight: 400; }
 .project-title-panel__name {
   position: relative;
   z-index: 1;
-  font: 400 clamp(3rem, 9vw, 8.5rem)/1.02 var(--serif);
+  font: 400 clamp(2.4rem, 7.5vw, 7.5rem)/1.02 var(--serif);
   letter-spacing: -.04em;
+  white-space: nowrap;
   margin-block: 2.5rem;
 }
 .project-title-panel[data-tone="ochre"] .project-title-panel__name {
@@ -633,8 +635,8 @@ h1 em, h2 em { font-weight: 400; }
   .project-grid, .gallery, .form-row { grid-template-columns: 1fr; }
   .project-card__visual { aspect-ratio: 16/10; }
   .project-card__type { padding: 1.5rem; }
-  .project-card__display { font-size: clamp(2.4rem, 9.5vw, 4rem); }
-  [data-tone="sage"] .project-card__display { font-size: clamp(2.2rem, 9vw, 3.75rem); }
+  .project-card__display { font-size: clamp(1.85rem, 8.5vw, 3.5rem); }
+  [data-tone="sage"] .project-card__display { font-size: clamp(1.8rem, 8vw, 3.25rem); }
   .project-card__edition, .project-card__note { font-size: .58rem; }
   .project-card__body .eyebrow { font-size: .62rem; }
   .studio-project-list a { grid-template-columns: 1fr 1.5rem; }
@@ -644,7 +646,7 @@ h1 em, h2 em { font-weight: 400; }
   .footer-bottom p { width: 100%; }
   .project-title-panel__top, .project-title-panel p { flex-direction: column; gap: .25rem; }
   .project-title-panel p span { text-align: left; }
-  .project-title-panel__name { font-size: clamp(2.4rem, 10vw, 4.5rem); }
+  .project-title-panel__name { font-size: clamp(1.85rem, 8.5vw, 4.25rem); }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

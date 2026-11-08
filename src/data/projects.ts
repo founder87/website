@@ -24,7 +24,7 @@ export type Project = {
 export const projects: Project[] = defineProjects([
   {
     slug: "byzantium", title: "Byzantium", workingTitle: false,
-    status: "In development", tone: "clay",
+    status: "In development", tone: "ochre",
     summary: "Around the year 1000, Constantinople is the greatest city in the Christian world, but the Roman Empire is a shadow of its former self. The emperor himself has called upon you to serve. For Byzantium.",
     description: [
       "Around the year 1000, Constantinople is the greatest city in the Christian world, but the Roman Empire is a shadow of its former self. Engulfed in internal struggle and looming threats from outside, the emperor himself has called upon you to serve. For Byzantium.",
@@ -35,7 +35,7 @@ export const projects: Project[] = defineProjects([
   },
   {
     slug: "boomtown", title: "BoomTown", workingTitle: true,
-    status: "Upcoming", tone: "ochre",
+    status: "Upcoming", tone: "clay",
     summary: "Upcoming project (codename). Limited information is available while studio production focuses on Byzantium.",
     description: [
       "BoomTown is the internal codename for an upcoming project at Solivant Studios.",
@@ -46,9 +46,9 @@ export const projects: Project[] = defineProjects([
   {
     slug: "the-grid", title: "The Grid", workingTitle: true,
     status: "Upcoming", tone: "sage",
-    summary: "Upcoming project (codename) built around a hexagonal honeycomb grid. Limited information is available at this stage.",
+    summary: "Upcoming project (codename). Limited information is available while studio production focuses on Byzantium.",
     description: [
-      "The Grid is the internal codename for an upcoming Solivant Studios project structured around an interlocking hexagonal comb.",
+      "The Grid is the internal codename for an upcoming project at Solivant Studios.",
       "Details remain under wraps while primary development focuses on our initial release, Byzantium. Further information will be shared when the project is ready for reveal.",
     ],
     platforms: [],
