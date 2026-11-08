@@ -1,8 +1,7 @@
 # Solivant Studios website
 
-Static-first Astro foundation for **BoomTown**, **The Grid**, **Horizon** and
-**Bastion**, in that order. Horizon and Bastion are working titles. No hosting,
-DNS changes, deployment, database, or live inbox have been provisioned.
+Static-first Astro foundation for **Byzantium** (initial release), **BoomTown**,
+**The Grid**, and **Horizon**, in that order. Horizon is a working title.
 
 ## Run locally
 

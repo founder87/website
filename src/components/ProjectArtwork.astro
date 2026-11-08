@@ -63,14 +63,17 @@ const { slug } = Astro.props;
       <line x1="120" y1="215" x2="680" y2="215" stroke="currentColor" stroke-opacity="0.2" stroke-width="1" />
     </svg>
   )}
-  {slug === "bastion" && (
+  {slug === "byzantium" && (
     <svg class="project-art__svg" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="400" cy="215" r="145" stroke="currentColor" stroke-opacity="0.22" stroke-width="1.25" />
+      <circle cx="400" cy="215" r="105" stroke="currentColor" stroke-opacity="0.38" stroke-width="1.25" stroke-dasharray="4 6" />
+      <path d="M310 250 A90 90 0 0 1 490 250" stroke="currentColor" stroke-opacity="0.7" stroke-width="2" fill="currentColor" fill-opacity="0.08" />
       <polygon points="400,65 650,190 590,435 210,435 150,190" stroke="currentColor" stroke-opacity="0.24" stroke-width="1.25" />
-      <polygon points="400,105 590,205 540,400 260,400 210,205" stroke="currentColor" stroke-opacity="0.42" stroke-width="1.5" fill="currentColor" fill-opacity="0.05" />
-      <polygon points="400,150 525,220 490,365 310,365 275,220" stroke="currentColor" stroke-opacity="0.65" stroke-width="1.75" fill="currentColor" fill-opacity="0.09" />
-      <path d="M335 365V245L400 205L465 245V365" stroke="currentColor" stroke-opacity="0.8" stroke-width="1.75" fill="currentColor" fill-opacity="0.12" />
+      <polygon points="400,105 590,205 540,400 260,400 210,205" stroke="currentColor" stroke-opacity="0.45" stroke-width="1.5" fill="currentColor" fill-opacity="0.05" />
+      <path d="M220 385V235H265V255H295V250H505V255H535V235H580V385Z" stroke="currentColor" stroke-opacity="0.65" stroke-width="1.75" fill="currentColor" fill-opacity="0.09" />
+      <path d="M355 385V295 A45 45 0 0 1 445 295 V385" stroke="currentColor" stroke-opacity="0.85" stroke-width="1.75" fill="currentColor" fill-opacity="0.14" />
+      <line x1="110" y1="385" x2="690" y2="385" stroke="currentColor" stroke-opacity="0.55" stroke-width="1.5" />
       <line x1="400" y1="65" x2="400" y2="435" stroke="currentColor" stroke-opacity="0.28" stroke-width="1" />
-      <line x1="150" y1="190" x2="650" y2="190" stroke="currentColor" stroke-opacity="0.18" stroke-width="1" />
     </svg>
   )}
 </div>

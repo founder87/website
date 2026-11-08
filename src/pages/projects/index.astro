@@ -3,14 +3,14 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
 import { projects } from "../../data/projects";
 ---
-<BaseLayout title="Projects" description="Explore the four projects in development at Solivant Studios: BoomTown, The Grid, Horizon, and Bastion.">
+<BaseLayout title="Projects" description="Explore the four projects in development at Solivant Studios, led by our initial release Byzantium alongside BoomTown, The Grid, and Horizon.">
   <header class="container page-header">
     <p class="eyebrow">The Solivant collection / 01—04</p>
     <h1>In the <em>making.</em></h1>
-    <p class="lede">Explore our projects. More artwork, gameplay, and development details will be shared as they’re ready.</p>
+    <p class="lede">Led by our flagship initial release, Byzantium. Explore all four worlds currently in development at Solivant Studios.</p>
   </header>
   <section class="container section-bottom" aria-label="All projects">
     <div class="project-grid">{projects.map((project, index) => <ProjectCard project={project} index={index} />)}</div>
-    <p class="project-index-note">Horizon and Bastion are working titles. Platforms and release dates have not been announced.</p>
+    <p class="project-index-note">Byzantium is our initial release in active development. Horizon is a working title. Target platforms and release dates will be shared as they are announced.</p>
   </section>
 </BaseLayout>

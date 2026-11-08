@@ -6,7 +6,7 @@ test("all project pages work and no runtime/CSP errors occur", async ({ page }) 
   page.on("console", message => { if (message.type() === "error") errors.push(message.text()); });
   await page.goto("/");
   await expect(page.locator(".project-card")).toHaveCount(4);
-  for (const [slug, title] of [["boomtown", "BoomTown"], ["the-grid", "The Grid"], ["horizon", "Horizon"], ["bastion", "Bastion"]]) {
+  for (const [slug, title] of [["byzantium", "Byzantium"], ["boomtown", "BoomTown"], ["the-grid", "The Grid"], ["horizon", "Horizon"]]) {
     await page.goto("/projects/" + slug + "/");
     await expect(page.getByRole("heading", { level: 1 })).toContainText(title);
     await expect(page.getByRole("link", { name: "All projects" })).toBeVisible();

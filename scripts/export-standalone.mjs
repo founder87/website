@@ -167,9 +167,9 @@ for (const route of Object.keys(pages)) {
   }
   for (const [, css] of rendered.matchAll(/<style>([\s\S]*?)<\/style>/g)) assert.ok(policy.includes(sha(css)), "CSP style hash mismatch: " + route);
 }
-listeners.message({ source: previewFrame.contentWindow, data: { type: "solivant-preview:navigate", path: "/projects/bastion/" } });
-assert.equal(location.hash, "#/projects/bastion/");
-assert.ok(document.title.startsWith("Bastion"));
+listeners.message({ source: previewFrame.contentWindow, data: { type: "solivant-preview:navigate", path: "/projects/byzantium/" } });
+assert.equal(location.hash, "#/projects/byzantium/");
+assert.ok(document.title.startsWith("Byzantium"));
 location.hash = "/missing/";
 listeners.hashchange();
 assert.ok(document.title.startsWith("Page not found"));
