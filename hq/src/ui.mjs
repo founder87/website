@@ -289,6 +289,16 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; letter-spacing: .02em;
 }
 .chat-form input:focus { border-color: var(--gold); outline: none; }
 
+.setup-key-box {
+  margin-top: .75rem;
+  padding: .75rem .85rem;
+  background: #0b0a08;
+  border: 1px solid var(--line);
+  font: 500 .85rem/1.5 var(--mono);
+  letter-spacing: .08em;
+  word-break: break-all;
+  color: var(--gold-bright);
+}
 @media (max-width: 68rem) {
   .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .grid-3, .grid-2 { grid-template-columns: 1fr; }
@@ -317,6 +327,70 @@ export const HQ_JS = `(() => {
     const data = await res.json().catch(() => ({}));
     if (!res.ok) throw new Error(data.error || ("Request failed (" + res.status + ")"));
     return data;
+  }
+
+  // --- First-Time Browser Setup (Local 127.0.0.1 Only) ---
+  const setupStep1 = document.getElementById("setup-step1-form");
+  const setupStep2 = document.getElementById("setup-step2-form");
+  let pendingSetupToken = "";
+
+  if (setupStep1 && setupStep2) {
+    setupStep1.addEventListener("submit", async event => {
+      event.preventDefault();
+      showAuthError("");
+      const email = setupStep1.elements.email.value.trim();
+      const password = setupStep1.elements.password.value;
+      const confirm = setupStep1.elements.confirm.value;
+      if (password.length < 12) {
+        showAuthError("Please choose a password with at least 12 characters.");
+        return;
+      }
+      if (password !== confirm) {
+        showAuthError("Passwords do not match.");
+        return;
+      }
+      const btn = setupStep1.querySelector("button[type=submit]");
+      btn.disabled = true;
+      try {
+        const res = await api("/api/local-setup/init", { body: { email, password } });
+        pendingSetupToken = res.setupToken;
+        document.getElementById("apple-passwords-link").href = res.otpauthUri;
+        document.getElementById("setup-key-display").textContent = res.formattedSecret;
+        setupStep1.hidden = true;
+        setupStep2.hidden = false;
+        setupStep2.elements.code.focus();
+      } catch (err) {
+        showAuthError(err.message);
+      } finally {
+        btn.disabled = false;
+      }
+    });
+
+    const copyKeyBtn = document.getElementById("copy-setup-key");
+    if (copyKeyBtn) {
+      copyKeyBtn.addEventListener("click", async () => {
+        const raw = (document.getElementById("setup-key-display").textContent || "").replace(/\s+/g, "");
+        await navigator.clipboard.writeText(raw).catch(() => {});
+        copyKeyBtn.textContent = "Copied!";
+        setTimeout(() => { copyKeyBtn.textContent = "Copy Key for Authenticator App"; }, 2000);
+      });
+    }
+
+    setupStep2.addEventListener("submit", async event => {
+      event.preventDefault();
+      showAuthError("");
+      const btn = setupStep2.querySelector("button[type=submit]");
+      btn.disabled = true;
+      try {
+        const code = setupStep2.elements.code.value.trim();
+        await api("/api/local-setup/complete", { body: { setupToken: pendingSetupToken, code } });
+        window.location.reload();
+      } catch (err) {
+        showAuthError(err.message);
+      } finally {
+        btn.disabled = false;
+      }
+    });
   }
 
   // --- Login + 2FA Flow ---
@@ -693,6 +767,65 @@ function escapeHtml(value) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;");
+}
+
+export function renderLocalOnboardingPage() {
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <title>Set Up Studio HQ | Solivant Studios</title>
+    <link rel="stylesheet" href="/assets/hq.css" />
+  </head>
+  <body>
+    <main class="auth-shell">
+      <section class="auth-card" aria-labelledby="setup-title">
+        <p class="eyebrow">Solivant Studios · First-Time Setup</p>
+        <h1 id="setup-title">Create Your Login</h1>
+        <p class="muted">Set your Studio HQ email, password, and two-factor verification right here in your browser.</p>
+        <div id="auth-error" class="alert" role="alert" hidden></div>
+
+        <form id="setup-step1-form" autocomplete="off">
+          <div class="field">
+            <label for="setup-email">Your Studio Email</label>
+            <input id="setup-email" name="email" type="email" required value="contact@solivantstudios.com" />
+          </div>
+          <div class="field">
+            <label for="setup-password">Choose a Password (12+ characters)</label>
+            <input id="setup-password" name="password" type="password" minlength="12" required placeholder="At least 12 characters" />
+          </div>
+          <div class="field">
+            <label for="setup-confirm">Confirm Password</label>
+            <input id="setup-confirm" name="confirm" type="password" minlength="12" required placeholder="Re-enter password" />
+          </div>
+          <div class="auth-actions">
+            <button class="btn" type="submit">Next: Set Up 2FA →</button>
+          </div>
+        </form>
+
+        <form id="setup-step2-form" hidden autocomplete="off">
+          <div class="field">
+            <label>Step 1 · Add 2FA to Your Mac or Phone</label>
+            <a id="apple-passwords-link" class="btn" href="#">Open in Apple Passwords (1-Click)</a>
+            <p class="small muted">Or copy this key into Google Authenticator / 1Password:</p>
+            <div id="setup-key-display" class="setup-key-box"></div>
+            <button id="copy-setup-key" class="btn btn--outline" type="button">Copy Key for Authenticator App</button>
+          </div>
+          <div class="field">
+            <label for="setup-code">Step 2 · Enter the 6-Digit Code Shown</label>
+            <input id="setup-code" name="code" class="otp-input" type="text" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" required placeholder="000000" />
+          </div>
+          <div class="auth-actions">
+            <button class="btn" type="submit">Finish &amp; Open Studio HQ →</button>
+          </div>
+        </form>
+      </section>
+    </main>
+    <script src="/assets/hq.js" defer></script>
+  </body>
+</html>`;
 }
 
 export function renderLoginPage({ configured = true } = {}) {
