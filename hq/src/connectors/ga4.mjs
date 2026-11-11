@@ -56,6 +56,12 @@ async function gaPost(propertyId, endpoint, accessToken, body) {
   return res.json();
 }
 
+function formatGaDate(yyyymmdd) {
+  const s = String(yyyymmdd || "");
+  if (s.length !== 8) return s;
+  return `${s.slice(0, 4)}-${s.slice(4, 6)}-${s.slice(6, 8)}`;
+}
+
 export async function fetchGa4Metrics(env) {
   const propertyId = String(env.GA4_PROPERTY_ID || "").trim();
   const clientEmail = String(env.GOOGLE_CLIENT_EMAIL || "").trim();
@@ -65,7 +71,7 @@ export async function fetchGa4Metrics(env) {
     return {
       connected: false,
       provider: "Google Analytics 4",
-      setupHint: "Set GA4_PROPERTY_ID, GOOGLE_CLIENT_EMAIL, and GOOGLE_PRIVATE_KEY secrets to stream live website analytics.",
+      setupHint: "Connect GA4_PROPERTY_ID, GOOGLE_CLIENT_EMAIL, and GOOGLE_PRIVATE_KEY in Connections.",
     };
   }
 
@@ -76,7 +82,7 @@ export async function fetchGa4Metrics(env) {
       "https://www.googleapis.com/auth/analytics.readonly",
     );
 
-    const [realtime, summary30d, summary7d, topPages, topSources, keyEvents] = await Promise.all([
+    const [realtime, summary30d, summary7d, daily30d, topPages, topSources, keyEvents] = await Promise.all([
       gaPost(propertyId, "runRealtimeReport", token, {
         metrics: [{ name: "activeUsers" }],
       }).catch(() => ({ rows: [] })),
@@ -88,6 +94,12 @@ export async function fetchGa4Metrics(env) {
         dateRanges: [{ startDate: "7daysAgo", endDate: "today" }],
         metrics: [{ name: "activeUsers" }, { name: "sessions" }, { name: "screenPageViews" }],
       }),
+      gaPost(propertyId, "runReport", token, {
+        dateRanges: [{ startDate: "29daysAgo", endDate: "today" }],
+        dimensions: [{ name: "date" }],
+        metrics: [{ name: "sessions" }, { name: "screenPageViews" }, { name: "activeUsers" }],
+        orderBys: [{ dimension: { dimensionName: "date" } }],
+      }).catch(() => ({ rows: [] })),
       gaPost(propertyId, "runReport", token, {
         dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
         dimensions: [{ name: "pagePath" }],
@@ -144,6 +156,12 @@ export async function fetchGa4Metrics(env) {
         sessions: num(row30, 1),
         pageViews: num(row30, 2),
       },
+      dailySeries: (daily30d.rows || []).map(r => ({
+        date: formatGaDate(r.dimensionValues?.[0]?.value),
+        sessions: num(r, 0),
+        pageViews: num(r, 1),
+        visitors: num(r, 2),
+      })),
       topPages: (topPages.rows || []).map(r => ({
         path: r.dimensionValues?.[0]?.value || "/",
         views: num(r, 0),

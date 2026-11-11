@@ -1,4 +1,4 @@
-// Steamworks Partner Financial API (IPartnerFinancialsService) connector.
+// Steamworks Partner Financial API (IPartnerFinancialsService) connector with daily time-series.
 
 function isoDateDaysAgo(daysAgo) {
   const d = new Date(Date.now() - daysAgo * 86_400_000);
@@ -11,7 +11,7 @@ export async function fetchSteamMetrics(env) {
     return {
       connected: false,
       provider: "Steamworks",
-      setupHint: "Set STEAM_FINANCIAL_API_KEY once your Steamworks Financial Web API Group key is active.",
+      setupHint: "Connect STEAM_FINANCIAL_API_KEY once your Steamworks Financial Web API key is active.",
     };
   }
 
@@ -37,9 +37,13 @@ export async function fetchSteamMetrics(env) {
     let units7d = 0;
     let netUsd7d = 0;
     const byCountry = new Map();
+    const byDate = new Map();
 
     for (const date of recentDates) {
       let highwatermarkId = "0";
+      const isoDay = date.replace(/\//g, "-");
+      const dayBucket = byDate.get(isoDay) || { date: isoDay, netUsd: 0, grossUsd: 0, netUnits: 0 };
+
       for (let page = 0; page < 5; page++) {
         const salesUrl = new URL("https://partner.steam-api.com/IPartnerFinancialsService/GetDetailedSales/v001/");
         salesUrl.searchParams.set("key", apiKey);
@@ -61,6 +65,10 @@ export async function fetchSteamMetrics(env) {
           returns30d += returnedUnits;
           grossUsd30d += grossUsd;
           netUsd30d += netUsd;
+          dayBucket.netUnits += netUnits;
+          dayBucket.grossUsd = Math.round((dayBucket.grossUsd + grossUsd) * 100) / 100;
+          dayBucket.netUsd = Math.round((dayBucket.netUsd + netUsd) * 100) / 100;
+
           if (date >= cutoff7) {
             units7d += netUnits;
             netUsd7d += netUsd;
@@ -71,12 +79,15 @@ export async function fetchSteamMetrics(env) {
         if (!results.length || maxId === highwatermarkId) break;
         highwatermarkId = maxId;
       }
+      byDate.set(isoDay, dayBucket);
     }
 
     const topCountries = [...byCountry.entries()]
       .sort((a, b) => b[1] - a[1])
-      .slice(0, 5)
+      .slice(0, 6)
       .map(([country, netUsd]) => ({ country, netUsd: Math.round(netUsd * 100) / 100 }));
+
+    const dailySeries = [...byDate.values()].sort((a, b) => a.date.localeCompare(b.date));
 
     return {
       connected: true,
@@ -91,6 +102,7 @@ export async function fetchSteamMetrics(env) {
         grossUsd: Math.round(grossUsd30d * 100) / 100,
         netUsd: Math.round(netUsd30d * 100) / 100,
       },
+      dailySeries,
       topCountries,
     };
   } catch (error) {

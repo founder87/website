@@ -14,7 +14,13 @@ import { fetchGa4Metrics } from "./connectors/ga4.mjs";
 import { fetchSteamMetrics } from "./connectors/steam.mjs";
 import { fetchAppleMetrics } from "./connectors/apple.mjs";
 import { fetchInboxMessageDetail, fetchInboxSummary, sendApprovedReply } from "./connectors/gmail.mjs";
-import { askStudioAnalyst, draftInboxReply, generateExecutiveBrief } from "./connectors/gemini.mjs";
+import {
+  askStudioAnalyst,
+  draftInboxReply,
+  generateExecutiveBrief,
+  hasGeminiConfig,
+  prepInboxBatch,
+} from "./connectors/gemini.mjs";
 import { HQ_CSS, HQ_JS, renderDashboardPage, renderLoginPage } from "./ui.mjs";
 
 const SESSION_TTL_SEC = 12 * 3600;
@@ -132,7 +138,7 @@ async function getAuthenticatedSession(request, url, env) {
 async function getLiveSnapshot(env, forceFresh = false) {
   const now = Date.now();
   if (!forceFresh && snapshotCache.data && snapshotCache.expiresAtMs > now) {
-    return snapshotCache.data;
+    return { ...snapshotCache.data, geminiConnected: hasGeminiConfig(env) };
   }
   const [ga4, steam, apple, inbox] = await Promise.all([
     fetchGa4Metrics(env),
@@ -142,6 +148,7 @@ async function getLiveSnapshot(env, forceFresh = false) {
   ]);
   const snapshot = {
     generatedAt: new Date(now).toISOString(),
+    geminiConnected: hasGeminiConfig(env),
     ga4,
     steam,
     apple,
@@ -192,7 +199,8 @@ export default {
         });
       }
       const csrfToken = await deriveCsrfToken(session.sid, env.HQ_SESSION_SECRET);
-      return new Response(renderDashboardPage({ adminEmail: session.sub, csrfToken }), {
+      const isLocal = url.hostname === "127.0.0.1" || url.hostname === "localhost";
+      return new Response(renderDashboardPage({ adminEmail: session.sub, csrfToken, isLocal }), {
         status: 200,
         headers: securityHeaders("text/html; charset=utf-8"),
       });
@@ -334,15 +342,22 @@ export default {
         }
 
         if (request.method === "POST" && pathname === "/api/gemini/brief") {
+          const body = await readJsonBody(request);
           const fresh = url.searchParams.get("fresh") === "1";
-          const snapshot = await getLiveSnapshot(env, fresh);
+          const snapshot =
+            body.snapshotOverride && typeof body.snapshotOverride === "object"
+              ? body.snapshotOverride
+              : await getLiveSnapshot(env, fresh);
           const brief = await generateExecutiveBrief(env, snapshot);
           return jsonResponse(brief);
         }
 
         if (request.method === "POST" && pathname === "/api/gemini/chat") {
           const body = await readJsonBody(request);
-          const snapshot = await getLiveSnapshot(env, false);
+          const snapshot =
+            body.snapshotOverride && typeof body.snapshotOverride === "object"
+              ? body.snapshotOverride
+              : await getLiveSnapshot(env, false);
           const reply = await askStudioAnalyst(env, {
             history: body.history,
             question: body.question,
@@ -359,9 +374,32 @@ export default {
 
         if (request.method === "POST" && pathname === "/api/gemini/draft-reply") {
           const body = await readJsonBody(request);
-          const message = await fetchInboxMessageDetail(env, body.messageId);
-          const draft = await draftInboxReply(env, { message, guidance: body.guidance });
+          const message =
+            body.inlineMessage && typeof body.inlineMessage === "object"
+              ? {
+                  from: String(body.inlineMessage.from || ""),
+                  subject: String(body.inlineMessage.subject || ""),
+                  date: String(body.inlineMessage.date || ""),
+                  body: String(body.inlineMessage.body || ""),
+                  snippet: String(body.inlineMessage.snippet || ""),
+                }
+              : await fetchInboxMessageDetail(env, body.messageId);
+          const draft = await draftInboxReply(env, {
+            message,
+            guidance: body.guidance,
+            tone: body.tone,
+            refineAction: body.refineAction,
+            currentDraft: body.currentDraft,
+          });
           return jsonResponse(draft);
+        }
+
+        if (request.method === "POST" && pathname === "/api/gemini/prep-inbox") {
+          const body = await readJsonBody(request);
+          const result = await prepInboxBatch(env, {
+            messages: Array.isArray(body.messages) ? body.messages : [],
+          });
+          return jsonResponse(result);
         }
 
         if (request.method === "POST" && pathname === "/api/inbox/send") {

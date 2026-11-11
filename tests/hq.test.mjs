@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import vm from "node:vm";
 import {
   deriveCsrfToken,
   generateTotpCode,
@@ -14,6 +15,7 @@ import {
 } from "../hq/src/crypto.mjs";
 import { parseAppleSummaryTsv } from "../hq/src/connectors/apple.mjs";
 import { buildReplyMime } from "../hq/src/connectors/gmail.mjs";
+import { HQ_JS, renderDashboardPage, renderLocalOnboardingPage, renderLoginPage } from "../hq/src/ui.mjs";
 import worker from "../hq/src/worker.mjs";
 
 test("PBKDF2 password hashing and constant-time verification", async () => {
@@ -57,15 +59,17 @@ test("RS256 (Google) and ES256 (Apple .p8) JWT signers produce valid 3-part JWS 
 
 test("Apple TSV parser and Gmail reply MIME builder sanitize and aggregate cleanly", () => {
   const sampleTsv = [
-    "Provider\tProduct Type Identifier\tUnits\tDeveloper Proceeds\tCurrency of Proceeds",
-    "APPLE\t1F\t10\t6.99\tUSD",
-    "APPLE\t7F\t50\t0.00\tUSD",
-    "APPLE\tIA1\t4\t2.10\tUSD",
+    "Provider\tProduct Type Identifier\tUnits\tDeveloper Proceeds\tCurrency of Proceeds\tDevice",
+    "APPLE\t1F\t10\t6.99\tUSD\tiPad",
+    "APPLE\t7F\t50\t0.00\tUSD\tiPhone",
+    "APPLE\tIA1\t4\t2.10\tUSD\tDesktop",
   ].join("\n");
   const parsed = parseAppleSummaryTsv(sampleTsv);
   assert.equal(parsed.downloads, 14);
   assert.equal(parsed.paidUnits, 14);
   assert.equal(parsed.proceedsByCurrency.USD, 78.3);
+  assert.equal(parsed.byPlatform.iPad, 10);
+  assert.equal(parsed.byPlatform.Desktop, 4);
 
   const rawMime = buildReplyMime({
     fromAddress: "contact@solivantstudios.com",
@@ -155,6 +159,7 @@ test("HQ Worker enforces Email + Password + 2FA, replay defense, CSRF, and same-
   );
   assert.equal(overviewRes.status, 200);
   const overview = await overviewRes.json();
+  assert.equal(overview.geminiConnected, false);
   assert.equal(overview.ga4.connected, false);
   assert.equal(overview.steam.connected, false);
   assert.equal(overview.apple.connected, false);
@@ -186,4 +191,28 @@ test("HQ Worker enforces Email + Password + 2FA, replay defense, CSRF, and same-
   assert.equal(briefRes.status, 200);
   const briefJson = await briefRes.json();
   assert.equal(briefJson.connected, false);
+
+  // 9. Batch inbox prep endpoint validates CSRF and handles empty array gracefully
+  const prepRes = await worker.fetch(
+    new Request(`${origin}/api/gemini/prep-inbox`, {
+      method: "POST",
+      headers: { origin, cookie: cookiePair, "x-csrf-token": csrf, "content-type": "application/json" },
+      body: JSON.stringify({ messages: [] }),
+    }),
+    env,
+  );
+  assert.equal(prepRes.status, 200);
+  assert.deepEqual(await prepRes.json(), { connected: false, items: [] });
+
+  // 10. All HQ HTML views are strictly CSP-clean (no inline style= attributes or inline <script> blocks)
+  for (const html of [
+    renderLocalOnboardingPage(),
+    renderLoginPage({ configured: true }),
+    renderDashboardPage({ adminEmail, csrfToken: csrf, isLocal: true }),
+    renderDashboardPage({ adminEmail, csrfToken: csrf, isLocal: false }),
+  ]) {
+    assert.ok(!/\sstyle\s*=/i.test(html), "HQ HTML must not contain inline style= attributes");
+    assert.ok(!/<script(?![^>]*\bsrc=)/i.test(html), "HQ HTML must not contain inline <script> blocks");
+  }
+  assert.doesNotThrow(() => new vm.Script(HQ_JS), "HQ_JS client bundle must parse cleanly with zero syntax errors");
 });

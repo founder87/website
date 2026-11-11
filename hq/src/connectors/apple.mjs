@@ -1,4 +1,4 @@
-// Apple App Store Connect Sales & Trends API connector (iOS, iPadOS, macOS).
+// Apple App Store Connect Sales & Trends API connector (iOS, iPadOS, macOS) with daily series.
 import { signJwtES256 } from "../crypto.mjs";
 
 function formatReportDate(daysAgo) {
@@ -14,16 +14,18 @@ async function gunzipText(response) {
 
 export function parseAppleSummaryTsv(tsvText) {
   const lines = String(tsvText || "").trim().split(/\r?\n/);
-  if (lines.length < 2) return { downloads: 0, paidUnits: 0, proceedsByCurrency: {} };
+  if (lines.length < 2) return { downloads: 0, paidUnits: 0, proceedsByCurrency: {}, byPlatform: {} };
   const headers = lines[0].split("\t").map(h => h.trim());
   const idxProductType = headers.indexOf("Product Type Identifier");
   const idxUnits = headers.indexOf("Units");
   const idxProceeds = headers.indexOf("Developer Proceeds");
   const idxProceedsCurrency = headers.indexOf("Currency of Proceeds");
+  const idxDevice = headers.indexOf("Device");
 
   let downloads = 0;
   let paidUnits = 0;
   const proceedsByCurrency = {};
+  const byPlatform = {};
 
   for (let i = 1; i < lines.length; i++) {
     const cols = lines[i].split("\t");
@@ -32,18 +34,19 @@ export function parseAppleSummaryTsv(tsvText) {
     const units = Number(cols[idxUnits] || 0);
     const unitProceeds = Number(cols[idxProceeds] || 0);
     const currency = (cols[idxProceedsCurrency] || "USD").trim() || "USD";
+    const device = idxDevice >= 0 ? (cols[idxDevice] || "iOS").trim() || "iOS" : "iOS";
 
-    // Product Type 7 / 7F / 7T are free updates; 1 / 1F / 1T / F1 are first-time iOS/macOS downloads; IA* are IAPs.
     const isUpdate = productType.startsWith("7");
     if (!isUpdate) {
       downloads += units;
+      byPlatform[device] = (byPlatform[device] || 0) + units;
     }
     if (unitProceeds > 0) {
       paidUnits += units;
       proceedsByCurrency[currency] = Math.round(((proceedsByCurrency[currency] || 0) + units * unitProceeds) * 100) / 100;
     }
   }
-  return { downloads, paidUnits, proceedsByCurrency };
+  return { downloads, paidUnits, proceedsByCurrency, byPlatform };
 }
 
 export async function fetchAppleMetrics(env) {
@@ -56,7 +59,7 @@ export async function fetchAppleMetrics(env) {
     return {
       connected: false,
       provider: "Apple App Store Connect",
-      setupHint: "Set APPLE_ISSUER_ID, APPLE_KEY_ID, APPLE_PRIVATE_KEY (.p8), and APPLE_VENDOR_NUMBER once iOS/macOS builds are live.",
+      setupHint: "Connect APPLE_ISSUER_ID, APPLE_KEY_ID, APPLE_PRIVATE_KEY (.p8), and APPLE_VENDOR_NUMBER in Connections.",
     };
   }
 
@@ -73,8 +76,7 @@ export async function fetchAppleMetrics(env) {
       keyId,
     );
 
-    // Apple daily sales reports become available ~24h after day close; sample the most recent 7 available days.
-    const days = [2, 3, 4, 5, 6, 7, 8];
+    const days = [14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2];
     const dailyReports = await Promise.all(
       days.map(async daysAgo => {
         const reportDate = formatReportDate(daysAgo);
@@ -91,8 +93,7 @@ export async function fetchAppleMetrics(env) {
             accept: "application/a-gzip",
           },
         });
-        // 404 simply means zero sales rows recorded on that date.
-        if (res.status === 404) return { reportDate, downloads: 0, paidUnits: 0, proceedsByCurrency: {} };
+        if (res.status === 404) return { reportDate, downloads: 0, paidUnits: 0, proceedsByCurrency: {}, byPlatform: {} };
         if (!res.ok) throw new Error(`App Store Connect salesReports returned HTTP ${res.status}.`);
         const tsv = await gunzipText(res);
         return { reportDate, ...parseAppleSummaryTsv(tsv) };
@@ -102,11 +103,17 @@ export async function fetchAppleMetrics(env) {
     let downloads7d = 0;
     let paidUnits7d = 0;
     const proceeds7d = {};
-    for (const r of dailyReports) {
+    const platforms = {};
+    const recent7 = dailyReports.slice(-7);
+
+    for (const r of recent7) {
       downloads7d += r.downloads;
       paidUnits7d += r.paidUnits;
       for (const [cur, val] of Object.entries(r.proceedsByCurrency)) {
         proceeds7d[cur] = Math.round(((proceeds7d[cur] || 0) + val) * 100) / 100;
+      }
+      for (const [dev, count] of Object.entries(r.byPlatform || {})) {
+        platforms[dev] = (platforms[dev] || 0) + count;
       }
     }
 
@@ -120,6 +127,13 @@ export async function fetchAppleMetrics(env) {
         proceedsUsd: proceeds7d.USD || 0,
         proceedsByCurrency: proceeds7d,
       },
+      dailySeries: dailyReports.map(r => ({
+        date: r.reportDate,
+        downloads: r.downloads,
+        paidUnits: r.paidUnits,
+        proceedsUsd: r.proceedsByCurrency.USD || 0,
+      })),
+      byPlatform: Object.entries(platforms).map(([device, units]) => ({ device, units })),
     };
   } catch (error) {
     return {
