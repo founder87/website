@@ -26,11 +26,12 @@ async function loadDotDevVars() {
   return { ...vars, ...process.env };
 }
 
-const env = await loadDotDevVars();
 const port = Number(process.env.HQ_PORT || 8788);
 
 const server = createServer(async (req, res) => {
   try {
+    // Reload hq/.dev.vars dynamically so running `npm run hq:setup` unlocks login immediately on browser refresh.
+    const env = await loadDotDevVars();
     const url = new URL(req.url || "/", `http://${req.headers.host || `127.0.0.1:${port}`}`);
     const chunks = [];
     for await (const chunk of req) chunks.push(chunk);
