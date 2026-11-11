@@ -37,7 +37,7 @@ export const site = {
     steam: "",     // e.g. "https://store.steampowered.com/developer/solivantstudios"
     instagram: "", // e.g. "https://www.instagram.com/solivantstudios"
     bluesky: "",   // e.g. "https://bsky.app/profile/solivantstudios.com"
-    reddit: "",    // e.g. "https://www.reddit.com/r/..."
+    reddit: "https://www.reddit.com/user/SolivantStudios/",
     tiktok: "",    // e.g. "https://www.tiktok.com/@solivantstudios"
     linkedin: "",  // e.g. "https://www.linkedin.com/company/solivant-studios"
   }) as SocialLink[],
