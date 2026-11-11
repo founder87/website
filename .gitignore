@@ -9,6 +9,8 @@ test-results/
 .env
 .env.*
 !.env.example
+hq/.dev.vars
+hq/.wrangler/
 
 # Editor and operating-system files
 .DS_Store

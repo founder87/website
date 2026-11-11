@@ -15,7 +15,9 @@
     "test:browser": "playwright test",
     "verify": "npm run test && npm run check && npm run build",
     "audit:dependencies": "npm audit --audit-level=moderate",
-    "brand:export": "node scripts/export-brand.mjs"
+    "brand:export": "node scripts/export-brand.mjs",
+    "hq:setup": "node hq/scripts/setup-credentials.mjs",
+    "hq:dev": "node hq/scripts/dev-server.mjs"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",

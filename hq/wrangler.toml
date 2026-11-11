@@ -1,0 +1,28 @@
+name = "solivant-hq"
+main = "src/worker.mjs"
+compatibility_date = "2026-11-01"
+workers_dev = false
+
+# Attach custom domain hq.solivantstudios.com in Cloudflare Dashboard -> Workers -> Custom Domains,
+# or uncomment routes below when solivantstudios.com zone is active in Cloudflare:
+# routes = [
+#   { pattern = "hq.solivantstudios.com", custom_domain = true }
+# ]
+
+[vars]
+HQ_INBOX_ADDRESS = "contact@solivantstudios.com"
+GEMINI_MODEL = "gemini-2.5-flash"
+
+# Never put secret values in this file. Upload secrets encrypted via `wrangler secret put`:
+# Required for login + 2FA:
+#   HQ_ADMIN_EMAIL
+#   HQ_PASSWORD_HASH
+#   HQ_TOTP_SECRET
+#   HQ_SESSION_SECRET
+#
+# Plug-in connectors (all optional; cards light up automatically as secrets are added):
+#   GEMINI_API_KEY
+#   GA4_PROPERTY_ID, GOOGLE_CLIENT_EMAIL, GOOGLE_PRIVATE_KEY
+#   GMAIL_CLIENT_ID, GMAIL_CLIENT_SECRET, GMAIL_REFRESH_TOKEN
+#   STEAM_FINANCIAL_API_KEY
+#   APPLE_ISSUER_ID, APPLE_KEY_ID, APPLE_PRIVATE_KEY, APPLE_VENDOR_NUMBER

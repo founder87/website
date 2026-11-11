@@ -35,6 +35,7 @@ npm run preview:standalone  # self-contained offline review file at ../solivant-
 - `src/data/site.ts`: Studio metadata, primary navigation (`Byzantium`, `Contact`), and plug-in `socials` slots (`x`, `youtube`, `discord`, `steam`, `instagram`, `bluesky`, `reddit`, `tiktok`, `linkedin`, `github`). Paste any HTTPS profile URL into `socials` to publish it across the footer, Contact page, Open Graph tags, and `Organization` JSON-LD `sameAs` schema.
 - `src/pages/privacy.astro`, `src/pages/terms.astro`, `src/pages/support.astro`: Apple App Store (iOS/macOS) and Steam compliant legal and player support pages.
 - `scripts/export-brand.mjs`: Mechanical exports of the Sun Moth branding to `public/` (`favicon.ico`, `brand/logo-gold.webp`, `brand/favicon-gold.png`, `brand/icon-512.png`, `brand/apple-touch-icon.png`, `brand/social.png`, `brand/social-byzantium.png`).
+- `hq/`: Private, 2FA-protected founder command center (`hq.solivantstudios.com` Cloudflare Worker) unifying Email + TOTP 2FA login, Gemini Studio Intelligence, GA4 analytics, Steamworks sales, Apple App Store Connect proceeds, and the `contact@solivantstudios.com` inbox. See `hq/README.md`.
 
 ## Configuration
 
