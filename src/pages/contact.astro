@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { settings } from "../data/site";
+import SocialLinks from "../components/SocialLinks.astro";
+import { site, settings } from "../data/site";
 const contactAddress = settings.contactEmail || "contact@solivantstudios.com";
 ---
 <BaseLayout title="Contact" description="Contact information and inquiries for Solivant Studios.">
@@ -15,6 +16,13 @@ const contactAddress = settings.contactEmail || "contact@solivantstudios.com";
       <p class="body-copy">For press, publishing, or studio correspondence, reach us directly at <a class="text-link contact-email" href={"mailto:" + encodeURIComponent(contactAddress)}>{contactAddress}</a>.</p>
     </div>
     <div class="inquiry-channels">
+      {site.socials.length > 0 && (
+        <div>
+          <p class="eyebrow">Official channels</p>
+          <p class="small muted">Follow development updates and announcements from Solivant Studios.</p>
+          <SocialLinks variant="list" />
+        </div>
+      )}
       <div>
         <p class="eyebrow">Player support</p>
         <p class="small muted">Need technical assistance or troubleshooting for a Solivant Studios title on iOS or Steam?</p>

@@ -47,7 +47,7 @@ const gameSchema = {
     <div>
       <p class="eyebrow">Circa 1000 AD · Eastern Roman Empire</p>
       <h2 id="about-project">Overview</h2>
-      <p class="lede">{project.summary}</p>
+      <p class="lede">{project.lede ?? project.summary}</p>
       {project.description?.map(paragraph => <p class="body-copy">{paragraph}</p>)}
       <div class="actions">
         {project.trailer && <a class="button button--gold" href={project.trailer.href} rel="noopener noreferrer">{project.trailer.label}</a>}

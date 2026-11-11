@@ -31,8 +31,8 @@ npm run preview:standalone  # self-contained offline review file at ../solivant-
 ## Architecture & Brand
 
 - Palette: Obsidian (`#090807`), Smoked Basalt (`#12100e`), Burnished Imperial Gold (`#d8a650`), and Warm Ivory (`#f3efe6`).
-- `src/data/projects.ts`: Project metadata and optional media/store links.
-- `src/data/site.ts`: Studio metadata and primary navigation (`Byzantium`, `Contact`).
+- `src/data/projects.ts`: Project metadata and optional media, trailer, and storefront/community links.
+- `src/data/site.ts`: Studio metadata, primary navigation (`Byzantium`, `Contact`), and plug-in `socials` slots (`x`, `youtube`, `discord`, `steam`, `instagram`, `bluesky`, `reddit`, `tiktok`, `linkedin`, `github`). Paste any HTTPS profile URL into `socials` to publish it across the footer, Contact page, Open Graph tags, and `Organization` JSON-LD `sameAs` schema.
 - `src/pages/privacy.astro`, `src/pages/terms.astro`, `src/pages/support.astro`: Apple App Store (iOS/macOS) and Steam compliant legal and player support pages.
 - `scripts/export-brand.mjs`: Mechanical exports of the Sun Moth branding to `public/` (`favicon.ico`, `brand/logo-gold.webp`, `brand/favicon-gold.png`, `brand/icon-512.png`, `brand/apple-touch-icon.png`, `brand/social.png`, `brand/social-byzantium.png`).
 

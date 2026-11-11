@@ -12,7 +12,7 @@ const destination = new URL("../../solivant-studios-preview.html", import.meta.u
 const assets = {};
 const assetKeys = new Map();
 const pages = {};
-const mimeTypes = { ".png": "image/png", ".webp": "image/webp", ".gif": "image/gif", ".avif": "image/avif", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".svg": "image/svg+xml" };
+const mimeTypes = { ".png": "image/png", ".webp": "image/webp", ".gif": "image/gif", ".avif": "image/avif", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".svg": "image/svg+xml", ".woff2": "font/woff2" };
 const attributes = tag => Object.fromEntries([...tag.matchAll(/([\w:-]+)="([^"]*)"/g)].map(match => [match[1], match[2]]));
 const sha = text => "'sha256-" + createHash("sha256").update(text).digest("base64") + "'";
 async function walk(directory) {
@@ -76,8 +76,15 @@ for (const path of (await walk(root)).filter(path => path.endsWith(".html"))) {
     if (["canonical", "manifest", "preload", "modulepreload"].includes(attrs.rel)) {
       html = html.replace(tag, "");
     } else if (attrs.rel === "stylesheet") {
-      const css = await readFile(localPath(attrs.href), "utf8");
-      assert.ok(!/url\(|@import|<\/style/i.test(css), "Standalone CSS must not request other files");
+      let css = await readFile(localPath(attrs.href), "utf8");
+      for (const urlMatch of [...css.matchAll(/url\((["']?)(\/[^)"']+)\1\)/g)]) {
+        const assetUrl = urlMatch[2];
+        const mime = mimeTypes[extname(assetUrl)];
+        assert.ok(mime, "Unsupported CSS asset in standalone build: " + assetUrl);
+        const dataUri = "data:" + mime + ";base64," + (await readFile(localPath(assetUrl))).toString("base64");
+        css = css.replace(urlMatch[0], 'url("' + dataUri + '")');
+      }
+      assert.ok(!/@import|<\/style|url\((?!["']?data:)/i.test(css), "Standalone CSS must not request external files");
       html = html.replace(tag, "<style>" + css + "</style>");
     } else if (["icon", "apple-touch-icon"].includes(attrs.rel)) {
       html = html.replace(tag, tag.replace(attrs.href, await embed(attrs.href)));

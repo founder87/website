@@ -38,7 +38,29 @@ icoHeader.writeUInt16LE(32, 12);
 icoHeader.writeUInt32LE(png32.length, 14);
 icoHeader.writeUInt32LE(22, 18);
 await writeFile(new URL("../public/favicon.ico", import.meta.url), Buffer.concat([icoHeader, png32]));
-await sharp(remattedLockup).resize(1200, 630, { fit: "contain", background: "#0a0908" }).flatten({ background: "#0a0908" }).png().toFile(path("social.png"));
+const socialBackdropSvg = Buffer.from(`
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="studioGlow" cx="50%" cy="46%" r="52%">
+      <stop offset="0%" stop-color="#d8a650" stop-opacity="0.16"/>
+      <stop offset="55%" stop-color="#5c3616" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#090807" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#090807"/>
+  <rect width="1200" height="630" fill="url(#studioGlow)"/>
+  <rect x="44" y="44" width="1112" height="542" fill="none" stroke="#d8a650" stroke-opacity="0.24" stroke-width="1.5"/>
+</svg>
+`);
+const socialLockup = await sharp(remattedLockup)
+  .resize(820, 440, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } })
+  .png()
+  .toBuffer();
+await sharp(socialBackdropSvg)
+  .composite([{ input: socialLockup, gravity: "center" }])
+  .flatten({ background: "#090807" })
+  .png()
+  .toFile(path("social.png"));
 
 const byzantiumCardSvg = Buffer.from(`
 <svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">

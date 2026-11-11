@@ -3,17 +3,20 @@ import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import { site, settings } from "../data/site";
 import "../styles/global.css";
-interface Props { title?: string; description?: string; image?: string; noindex?: boolean; pageTone?: "ochre" | "sage" | "silver" | "clay"; schema?: Record<string, unknown>; }
+interface Props { title?: string; description?: string; image?: string; noindex?: boolean; pageTone?: "ochre" | "slate" | "clay" | "emerald"; schema?: Record<string, unknown>; }
 const { title = site.name, description = site.description, image = "/brand/social.png", noindex = false, pageTone, schema } = Astro.props;
 const pageTitle = title === site.name ? title : title + " | " + site.name;
 const canonical = new URL(Astro.url.pathname, settings.origin);
 const socialImage = new URL(image, settings.origin);
+const xUrl = site.socials.find(item => item.platform === "x")?.href || "";
+const xHandle = xUrl.match(/^https:\/\/(?:www\.)?(?:x|twitter)\.com\/([A-Za-z0-9_]{1,15})\/?$/i)?.[1];
 const organizationSchema = {
   "@type": "Organization",
   name: site.name,
   slogan: site.motto,
   url: settings.origin,
   logo: new URL("/brand/favicon-gold.png", settings.origin).href,
+  ...(site.socials.length > 0 ? { sameAs: site.socials.map(item => item.href) } : {}),
 };
 const structuredData = schema
   ? { "@context": "https://schema.org", "@graph": [organizationSchema, schema] }
@@ -29,6 +32,7 @@ const structuredData = schema
     <meta name="description" content={description} />
     <meta name="robots" content={noindex || !settings.indexable ? "noindex, nofollow" : "index, follow"} />
     <link rel="canonical" href={canonical} />
+    <link rel="preload" href="/fonts/cinzel-latin-400.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="icon" type="image/png" sizes="256x256" href="/brand/favicon-gold.png" />
     <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
@@ -40,6 +44,7 @@ const structuredData = schema
     <meta property="og:image" content={socialImage} />
     <meta property="og:image:alt" content={image === "/brand/social.png" ? "Solivant Studios Sun Moth logo in burnished gold and ivory on obsidian." : image === "/brand/social-byzantium.png" ? "Byzantium, an initial release in development by Solivant Studios." : title} />
     <meta name="twitter:card" content="summary_large_image" />
+    {xHandle && <meta name="twitter:site" content={"@" + xHandle} />}
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImage} />

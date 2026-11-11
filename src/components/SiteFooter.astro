@@ -1,4 +1,5 @@
 ---
+import SocialLinks from "./SocialLinks.astro";
 import StudioLogo from "./StudioLogo.astro";
 import { site } from "../data/site";
 const year = new Date().getFullYear();
@@ -8,9 +9,12 @@ const year = new Date().getFullYear();
     <div class="footer-top">
       <a href="/" class="footer-wordmark" aria-label="Solivant Studios home"><StudioLogo compact /></a>
       <p><em>{site.motto}</em></p>
-      <nav aria-label="Footer navigation">
-        {site.navigation.map(link => <a href={link.href}>{link.label}</a>)}
-      </nav>
+      <div class="footer-links">
+        <nav aria-label="Footer navigation">
+          {site.navigation.map(link => <a href={link.href}>{link.label}</a>)}
+        </nav>
+        <SocialLinks variant="icons" />
+      </div>
     </div>
     <div class="footer-bottom">
       <p>© {year} Solivant Studios</p>

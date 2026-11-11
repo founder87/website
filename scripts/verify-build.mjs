@@ -13,7 +13,7 @@ const htmlFiles = files.filter(file => extname(file) === ".html");
 const inlineScripts = new Set();
 const decode = text => text.replaceAll("&quot;", '"').replaceAll("&#39;", "'").replaceAll("&amp;", "&");
 const attributes = tag => Object.fromEntries([...tag.matchAll(/([\w:-]+)\s*=\s*"([^"]*)"/g)].map(match => [match[1].toLowerCase(), decode(match[2])]));
-const required = ["index.html", "projects/byzantium/index.html", "contact/index.html", "privacy/index.html", "terms/index.html", "support/index.html", "404.html", "robots.txt", "sitemap.xml", ".well-known/security.txt", "favicon.ico", "brand/logo-gold.webp", "brand/favicon-gold.png", "brand/icon-512.png", "brand/social.png", "brand/social-byzantium.png"];
+const required = ["index.html", "projects/byzantium/index.html", "contact/index.html", "privacy/index.html", "terms/index.html", "support/index.html", "404.html", "robots.txt", "sitemap.xml", ".well-known/security.txt", "favicon.ico", "fonts/cinzel-latin-400.woff2", "brand/logo-gold.webp", "brand/favicon-gold.png", "brand/icon-512.png", "brand/social.png", "brand/social-byzantium.png"];
 for (const file of required) assert.ok(files.includes(resolve(root, file)), "Missing route: " + file);
 
 for (const file of files) {
